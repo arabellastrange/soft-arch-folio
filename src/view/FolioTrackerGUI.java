@@ -1,7 +1,11 @@
 package view;
 
+import model.IFolioTracker;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 public class FolioTrackerGUI extends JFrame {
 

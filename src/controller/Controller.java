@@ -1,7 +1,11 @@
 package controller;
 
-/**
- * Created by xqb16141 on 09/11/17.
- */
+import model.IFolioTracker;
+import view.View;
+
 public class Controller {
+
+    private IFolioTracker folioTracker;
+    private View view;
+
 }

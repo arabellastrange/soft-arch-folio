@@ -1,7 +1,17 @@
 package view;
 
-/**
- * Created by xqb16141 on 09/11/17.
- */
-public class View {
+import model.IFolioTracker;
+
+import javax.swing.*;
+import java.util.Observable;
+import java.util.Observer;
+
+public class View extends JPanel implements Observer {
+
+    private IFolioTracker folioTracker;
+
+    @Override
+    public void update(Observable o, Object arg) {
+       //repaint
+    }
 }
