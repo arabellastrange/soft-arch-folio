@@ -1,6 +1,6 @@
 package model;
 
-public class Stock {
+class Stock implements IStock {
 
     private String ticker;
     private String name; //no way of getting the name from provided classes
@@ -13,23 +13,50 @@ public class Stock {
         this.ticker = ticker;
         this.sharePrice = sharePrice;
         this.amount = amount;
-        totalCost = sharePrice*amount;
+        totalCost = sharePrice * amount;
         totalValueSold = 0;
     }
 
-    private void buy(double amount){
+    @Override
+    public String getTicker() {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public double getShares() {
+        return 0;
+    }
+
+    @Override
+    public double getPricePerShare() {
+        return 0;
+    }
+
+    @Override
+    public double getHoldingValue() {
+        return 0;
+    }
+
+    @Override
+    public void buy(double amount) {
         this.amount += amount;
-        totalCost += amount*sharePrice; //Ensure sharePrice is price when bought
+        totalCost += amount * sharePrice; //Ensure sharePrice is price when bought
     }
 
-    private void sell(double amount){
+    @Override
+    public void sell(double amount) {
         this.amount -= amount;
-        totalValueSold += amount*sharePrice; //Ensure sharePrice is price when sold
+        totalValueSold += amount * sharePrice; //Ensure sharePrice is price when sold
     }
 
-    //Returns net gain as a percentage
-    private double netGainPercentage(){
-        return ((sharePrice*amount+totalValueSold)/totalCost)*100;
+    @Override
+    public double netGainPercentage() {
+        return ((sharePrice * amount + totalValueSold) / totalCost) * 100;
     }
 
 }
