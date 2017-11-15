@@ -40,10 +40,10 @@ public class GUI {
         //Set up the JFrame
         frMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frMain.setSize(500,500);
+        frMain.setLayout(new BorderLayout());
         frMain.setLocationRelativeTo(null);
         frMain.setJMenuBar(mb);
         frMain.add(panTab, BorderLayout.CENTER);
-
         frMain.setVisible(true);
     }
 
