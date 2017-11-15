@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface IFolioTracker {
 
@@ -8,7 +9,7 @@ public interface IFolioTracker {
 
     public IFolio getFolioByName(String name);
 
-    public String getFolioNames();
+    public List<String> getFolioNames();
 
     public void deleteFolio(String name);
 
