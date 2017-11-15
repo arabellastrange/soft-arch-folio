@@ -9,7 +9,7 @@ class FolioTracker extends Observable implements IFolioTracker {
 
     @Override
     public void createFolio(String name) {
-
+        folios.add(new Folio(name));
     }
 
     @Override
