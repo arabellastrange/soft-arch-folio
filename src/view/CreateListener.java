@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,10 +25,13 @@ public class CreateListener implements ActionListener {
         //
         JTextField tsym = new JTextField("Ticker Symbol: ");
         JTextField nshares = new JTextField("Number of Shares: ");
+        JTextField sName = new JTextField("Share Name: ");
 
         JPanel panInput = new JPanel();
         panInput.add(tsym, BorderLayout.WEST);
+        panInput.add(sName, BorderLayout.CENTER);
         panInput.add(nshares, BorderLayout.EAST);
+
 
         String[] columnNames = {"Ticker Symbol", "Stock Name", "Number of Shares", "Price Per Share", "Value of Holding"};
         //Dummy row data
@@ -38,7 +42,10 @@ public class CreateListener implements ActionListener {
         rowData[0][3] = "";
         rowData[0][4] = "";
         JTable tableStocks = new JTable(rowData, columnNames); //needs to be filled with stocks
+        JTableHeader tableHeader = tableStocks.getTableHeader();
         JPanel panTable = new JPanel();
+        panTable.setLayout(new BoxLayout(panTable, BoxLayout.PAGE_AXIS));
+        panTable.add(tableHeader);
         panTable.add(tableStocks);
 
         JScrollPane jspTable = new JScrollPane(panTable);
