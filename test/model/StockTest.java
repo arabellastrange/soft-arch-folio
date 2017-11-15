@@ -9,7 +9,7 @@ class StockTest {
 
     @BeforeEach
     void setUp() {
-        dummyStock = new Stock("MSFT", 123);
+        //dummyStock = new Stock("MSFT", 123);
     }
 
 }
