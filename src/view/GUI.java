@@ -37,17 +37,13 @@ public class GUI {
         JMenuBar mb = new JMenuBar();
         mb.add(mFolio);
 
-        //Panel for menu bar
-        JPanel panBar = new JPanel();
-        panBar.add(mb, BorderLayout.WEST);
-
-
         //Set up the JFrame
         frMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frMain.setSize(500,500);
         frMain.setLocationRelativeTo(null);
-        frMain.add(panBar, BorderLayout.PAGE_START);
-        frMain.add(panTab, BorderLayout.PAGE_END);
+        frMain.setJMenuBar(mb);
+        frMain.add(panTab, BorderLayout.CENTER);
+
         frMain.setVisible(true);
     }
 
