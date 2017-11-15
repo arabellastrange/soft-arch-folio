@@ -24,6 +24,7 @@ public class GUI {
         JMenuItem miSave = new JMenuItem("Save...");
         miSave.addActionListener(new SaveListener(frMain));
         JMenuItem miExit = new JMenuItem("Exit");
+        miExit.addActionListener(new ExitListener(frMain));
 
         //menu for the menu items
         JMenu mFolio = new JMenu("Folio");
