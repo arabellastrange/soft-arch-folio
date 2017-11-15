@@ -1,5 +1,9 @@
 package model;
 
+import model.web.NoSuchTickerException;
+import model.web.StrathQuoteServer;
+import model.web.WebsiteDataException;
+
 class Stock implements IStock {
 
     private String ticker;
@@ -9,12 +13,30 @@ class Stock implements IStock {
     private double totalCost;
     private double totalValueSold;
 
-    private Stock(String ticker, double sharePrice, double amount) {
+    private Stock(String ticker, double amount) {
         this.ticker = ticker;
-        this.sharePrice = sharePrice;
         this.amount = amount;
         totalCost = sharePrice * amount;
         totalValueSold = 0;
+        update();
+    }
+
+    public boolean update() {
+        String s;
+        try {
+            s = StrathQuoteServer.getLastValue(ticker);
+            sharePrice = Double.parseDouble(s.trim());
+        } catch (WebsiteDataException e) {
+            e.printStackTrace();
+            return false;
+        } catch (NoSuchTickerException e) {
+            e.printStackTrace();
+            return false;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override

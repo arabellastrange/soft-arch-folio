@@ -12,4 +12,6 @@ public interface IFolioTracker {
 
     public void deleteFolio(String name);
 
+    public void refresh();
+
 }

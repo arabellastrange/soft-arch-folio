@@ -27,4 +27,9 @@ public class FolioTracker extends Observable implements IFolioTracker {
 
     }
 
+    @Override
+    public void refresh() {
+
+    }
+
 }
