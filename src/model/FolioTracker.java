@@ -3,7 +3,7 @@ package model;
 import java.util.Collection;
 import java.util.Observable;
 
-public class FolioTracker extends Observable implements IFolioTracker {
+class FolioTracker extends Observable implements IFolioTracker {
 
     private Collection<Folio> folios;
 
@@ -30,6 +30,11 @@ public class FolioTracker extends Observable implements IFolioTracker {
     @Override
     public void refresh() {
 
+    }
+
+    @Override
+    public boolean saveToDisk() {
+        return false;
     }
 
 }

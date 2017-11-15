@@ -14,4 +14,6 @@ public interface IFolioTracker {
 
     public void refresh();
 
+    public boolean saveToDisk();
+
 }

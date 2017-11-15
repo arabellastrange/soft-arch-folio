@@ -2,7 +2,7 @@ package model;
 
 import java.util.Set;
 
-public class Folio implements IFolio {
+class Folio implements IFolio {
 
     private String name;
     private Set<Stock> stocks;

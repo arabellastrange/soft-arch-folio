@@ -13,7 +13,7 @@ class Stock implements IStock {
     private double totalCost;
     private double totalValueSold;
 
-    private Stock(String ticker, double amount) {
+    Stock(String ticker, double amount) {
         this.ticker = ticker;
         this.amount = amount;
         totalCost = sharePrice * amount;
@@ -21,7 +21,7 @@ class Stock implements IStock {
         update();
     }
 
-    public boolean update() {
+    boolean update() {
         String s;
         try {
             s = StrathQuoteServer.getLastValue(ticker);
