@@ -38,6 +38,7 @@ public class CreateListener implements ActionListener {
         rowData[0][3] = "";
         rowData[0][4] = "";
         JTable tableStocks = new JTable(rowData, columnNames); //needs to be filled with stocks
+        tableStocks.addMouseListener(new RightClickRow(tableStocks));
         JPanel panTable = new JPanel();
         panTable.add(tableStocks);
 
