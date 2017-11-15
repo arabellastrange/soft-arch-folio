@@ -50,9 +50,10 @@ public class CreateListener implements ActionListener {
         panButton.add(bDelete, BorderLayout.EAST);
 
         JPanel panAll = new JPanel();
-        panAll.add(panInput, BorderLayout.NORTH);
-        panAll.add(panTable, BorderLayout.CENTER);
-        panAll.add(panButton, BorderLayout.SOUTH);
+        panAll.add(panInput);
+        panAll.add(panTable);
+        panAll.add(panButton);
+        panAll.setLayout(new BoxLayout(panAll, BoxLayout.PAGE_AXIS));
 
         jtpStocks.add(panAll);
 
