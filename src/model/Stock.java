@@ -7,26 +7,26 @@ import model.web.WebsiteDataException;
 class Stock implements IStock {
 
     private String ticker;
-    private String name; //no way of getting the name from provided classes
+    private String name;
     private double sharePrice;
-    private double amount;
+    private double shares;
     private double totalCost;
     private double totalValueSold;
 
-    Stock(String ticker, String name, double amount) {
+    Stock(String ticker, String name, double shares) {
         this.ticker = ticker;
         this.name = name;
-        this.amount = amount;
-        totalCost = sharePrice * amount;
+        this.shares = shares;
+        totalCost = sharePrice * shares;
         totalValueSold = 0;
-        update();
+        refresh();
     }
 
-    boolean update() {
-        String s;
+    boolean refresh() {
+        String priceString;
         try {
-            s = StrathQuoteServer.getLastValue(ticker);
-            sharePrice = Double.parseDouble(s.trim());
+            priceString = StrathQuoteServer.getLastValue(ticker);
+            sharePrice = Double.parseDouble(priceString.trim());
         } catch (WebsiteDataException | NoSuchTickerException | NumberFormatException e) {
             e.printStackTrace();
             return false;
@@ -46,7 +46,7 @@ class Stock implements IStock {
 
     @Override
     public double getShares() {
-        return amount;
+        return shares;
     }
 
     @Override
@@ -56,24 +56,24 @@ class Stock implements IStock {
 
     @Override
     public double getHoldingValue() {
-        return amount*sharePrice;
+        return shares * sharePrice;
     }
 
     @Override
     public void buy(double amount) {
-        this.amount += amount;
+        this.shares += amount;
         totalCost += amount * sharePrice;
     }
 
     @Override
     public void sell(double amount) {
-        this.amount -= amount;
+        this.shares -= amount;
         totalValueSold += amount * sharePrice;
     }
 
     @Override
     public double netGainPercentage() {
-        return ((sharePrice * amount + totalValueSold) / totalCost) * 100;
+        return ((sharePrice * shares + totalValueSold) / totalCost) * 100;
     }
 
 }
