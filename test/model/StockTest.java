@@ -8,8 +8,8 @@ class StockTest {
     private Stock dummyStock;
 
     @BeforeEach
-    void setUp() {
-        dummyStock = new Stock("MSFT", 123);
+    private void setUp() {
+        dummyStock = new Stock("MSFT", "Microsoft", 23);
     }
 
 }
