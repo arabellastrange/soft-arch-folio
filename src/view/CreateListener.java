@@ -9,10 +9,13 @@ import java.awt.event.ActionListener;
 public class CreateListener implements ActionListener {
 
     private JTabbedPane jtpStocks;
+    private ImageIcon icon;
 
     CreateListener(JTabbedPane jtpStocks)
     {
         this.jtpStocks = jtpStocks;
+        icon = new ImageIcon("img/close", "close");
+        System.out.println(icon.getIconHeight() + icon.getDescription());
     }
 
     @Override
@@ -26,6 +29,9 @@ public class CreateListener implements ActionListener {
         JLabel lsym = new JLabel("Ticker Symbol: ");
         JTextField tsym = new JTextField();
         tsym.setColumns(10);
+        JLabel lname =  new JLabel("Share Name: ");
+        JTextField tname = new JTextField();
+        tname.setColumns(10);
         JLabel lshares = new JLabel("Number of Shares: ");
         JTextField nshares = new JTextField();
         nshares.setColumns(10);
@@ -36,6 +42,8 @@ public class CreateListener implements ActionListener {
         panInput.add(addButton, FlowLayout.LEFT);
         panInput.add(nshares, FlowLayout.LEFT);
         panInput.add(lshares, FlowLayout.LEFT);
+        panInput.add(tname, FlowLayout.LEFT);
+        panInput.add(lname, FlowLayout.LEFT);
         panInput.add(tsym, FlowLayout.LEFT);
         panInput.add(lsym, FlowLayout.LEFT);
 
@@ -47,9 +55,17 @@ public class CreateListener implements ActionListener {
         rowData[0][2] = "";
         rowData[0][3] = "";
         rowData[0][4] = "";
-        JTable tableStocks = new JTable(rowData, columnNames); //needs to be filled with stocks
+
+        JTable tableStocks = new JTable(rowData, columnNames){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        //needs to be filled with stocks
         tableStocks.addMouseListener(new RightClickRow(tableStocks));
         JTableHeader tableHeader = tableStocks.getTableHeader();
+        tableHeader.setReorderingAllowed(false);
         JPanel panTable = new JPanel();
         panTable.setLayout(new BoxLayout(panTable, BoxLayout.PAGE_AXIS));
         panTable.add(tableHeader);
@@ -69,7 +85,7 @@ public class CreateListener implements ActionListener {
         panAll.add(panButton);
         panAll.setLayout(new BoxLayout(panAll, BoxLayout.PAGE_AXIS));
 
-        jtpStocks.add(panAll);
+        jtpStocks.addTab("Folio Name", icon, panAll);
 
     }
 }
