@@ -23,15 +23,21 @@ public class CreateListener implements ActionListener {
     public void create()
     {
         //
-        JTextField tsym = new JTextField("Ticker Symbol: ");
-        JTextField nshares = new JTextField("Number of Shares: ");
-        JTextField sName = new JTextField("Share Name: ");
+        JLabel lsym = new JLabel("Ticker Symbol: ");
+        JTextField tsym = new JTextField();
+        tsym.setColumns(10);
+        JLabel lshares = new JLabel("Number of Shares: ");
+        JTextField nshares = new JTextField();
+        nshares.setColumns(10);
+        JButton addButton = new JButton("Add");
 
         JPanel panInput = new JPanel();
-        panInput.add(tsym, BorderLayout.WEST);
-        panInput.add(sName, BorderLayout.CENTER);
-        panInput.add(nshares, BorderLayout.EAST);
 
+        panInput.add(addButton, FlowLayout.LEFT);
+        panInput.add(nshares, FlowLayout.LEFT);
+        panInput.add(lshares, FlowLayout.LEFT);
+        panInput.add(tsym, FlowLayout.LEFT);
+        panInput.add(lsym, FlowLayout.LEFT);
 
         String[] columnNames = {"Ticker Symbol", "Stock Name", "Number of Shares", "Price Per Share", "Value of Holding"};
         //Dummy row data
