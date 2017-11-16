@@ -4,13 +4,20 @@ import java.util.Set;
 
 public interface IFolio {
 
-    public void createStock(String ticker, String name, double amount);
+    /**
+     * @param ticker
+     * @param name
+     * @param amount
+     * @throws model.web.NoSuchTickerException if ticker doesnt exist
+     * @throws NumberFormatException if amount <= 0
+     * @throws javax.naming.InvalidNameException name == "" || name == null
+     * @effects
+     */
+    public void createStock(String ticker, String name, int amount);
 
-    public void deleteStock(String ticker);
+    public void deleteStock(IStock stock);
 
-    public Set<String> getTickers();
-
-    public IStock getStockByTicker(String ticker);
+    public Set<IStock> getStocks();
 
     public double getValue();
 

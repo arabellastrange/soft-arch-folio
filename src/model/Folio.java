@@ -1,6 +1,5 @@
 package model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 class Folio implements IFolio {
@@ -23,33 +22,17 @@ class Folio implements IFolio {
     }
 
     @Override
-    public void createStock(String ticker, String name, double amount) {
+    public void createStock(String ticker, String name, int amount) {
         stocks.add(new Stock(ticker, name, amount));
     }
 
     @Override
-    public void deleteStock(String ticker) {
-        for (Stock stock : stocks) {
-            if (stock.getName().equals(ticker))
-                stocks.remove(stock);
-        }
+    public void deleteStock(IStock stock) {
+        stocks.remove(stock);
     }
 
     @Override
-    public Set<String> getTickers() {
-        Set<String> tickers = new HashSet<>();
-        for (Stock stock : stocks)
-            tickers.add(stock.getName());
-        return tickers;
-    }
-
-    @Override
-    public IStock getStockByTicker(String ticker) {
-        //Does Stock in for loop need to be IStock?
-        for (Stock stock : stocks) {
-            if (stock.getName().equals(ticker))
-                return stock;
-        }
+    public Set<IStock> getStocks() {
         return null;
     }
 

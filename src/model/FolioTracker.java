@@ -17,24 +17,13 @@ class FolioTracker extends Observable implements IFolioTracker {
     }
 
     @Override
-    public IFolio getFolioByName(String name) {
+    public Set<IFolio> getFolios() {
         return null;
     }
 
     @Override
-    public List<String> getFolioNames() {
-        return folios
-                .stream()
-                .map(folio -> folio.getName())
-                .collect(Collectors.toList());
-    }
+    public void deleteFolio(IFolio folio) {
 
-    @Override
-    public void deleteFolio(String name) {
-        folios = folios
-                .stream()
-                .filter(folio -> !folio.getName().equals(name))
-                .collect(Collectors.toSet());
     }
 
     @Override

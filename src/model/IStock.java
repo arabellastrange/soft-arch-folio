@@ -12,10 +12,28 @@ public interface IStock {
 
     public double getHoldingValue();
 
-    public void buy(double shares);
+    /**
+     * @require shares > 0
+     * @modifies this
+     * @param shares
+     * @effects this.shares' = this.shares + shares
+     *          totalcost' = totalcost + shares * pricePerShare
+     */
+    public void buy(int shares);
 
+    /**
+     * @require shares > 0 && shares <= this.shares
+     * @modifies this
+     * @param shares
+     * @effects this.shares' = this.shares - shares
+     *          totalValueSold' = totalValuesSold + shares * pricePerShare
+     */
     public void sell(double shares);
 
+
+    /**
+     * @return gain/loss percentage
+     */
     public double netGainPercentage();
 
 }

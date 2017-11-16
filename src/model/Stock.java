@@ -60,7 +60,7 @@ class Stock implements IStock {
     }
 
     @Override
-    public void buy(double amount) {
+    public void buy(int amount) {
         this.shares += amount;
         totalCost += amount * sharePrice;
     }
