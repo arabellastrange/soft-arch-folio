@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,10 +10,13 @@ import java.awt.event.ActionListener;
 public class CreateListener implements ActionListener {
 
     private JTabbedPane jtpStocks;
+    private ImageIcon icon;
 
     CreateListener(JTabbedPane jtpStocks)
     {
         this.jtpStocks = jtpStocks;
+        icon = new ImageIcon("img/close.png", "close");
+        //System.out.println(icon.getIconHeight() + icon.getDescription());
     }
 
     @Override
@@ -23,26 +27,64 @@ public class CreateListener implements ActionListener {
     public void create()
     {
         //
-        JTextField tsym = new JTextField("Ticker Symbol: ");
-        JTextField nshares = new JTextField("Number of Shares: ");
-        JTextField sName = new JTextField("Share Name: ");
+        JLabel lsym = new JLabel("Ticker Symbol: ");
+        JTextField tsym = new JTextField();
+        tsym.setColumns(10);JLabel lname =  new JLabel("Share Name: ");
+        JTextField tname = new JTextField();
+        tname.setColumns(10);
+        JLabel lshares = new JLabel("Number of Shares: ");
+        JTextField nshares = new JTextField();
+        nshares.setColumns(10);
+        JButton addButton = new JButton("Add");
+
 
         JPanel panInput = new JPanel();
-        panInput.add(tsym, BorderLayout.WEST);
-        panInput.add(sName, BorderLayout.CENTER);
-        panInput.add(nshares, BorderLayout.EAST);
 
+        panInput.add(addButton, FlowLayout.LEFT);
+        panInput.add(nshares, FlowLayout.LEFT);
+        panInput.add(lshares, FlowLayout.LEFT);
+        panInput.add(tname, FlowLayout.LEFT);
+        panInput.add(lname, FlowLayout.LEFT);
+        panInput.add(tsym, FlowLayout.LEFT);
+        panInput.add(lsym, FlowLayout.LEFT);
 
-        String[] columnNames = {"Ticker Symbol", "Stock Name", "Number of Shares", "Price Per Share", "Value of Holding"};
-        //Dummy row data
+        /*String[] columnNames = {"Ticker Symbol", "Stock Name", "Number of Shares", "Price Per Share", "Value of Holding"};
         String[][] rowData = new String[1][5];
         rowData[0][0] = "";
         rowData[0][1] = "";
         rowData[0][2] = "";
         rowData[0][3] = "";
-        rowData[0][4] = "";
-        JTable tableStocks = new JTable(rowData, columnNames); //needs to be filled with stocks
+        rowData[0][4] = "";*/
+
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Ticker Symbol");
+        model.addColumn( "Stock Name");
+        model.addColumn("Number of Shares");
+        model.addColumn("Price Per Share");
+        model.addColumn("Value of Holding");
+        model.addRow(new Object[]{"","","","",""});
+
+        JTable tableStocks = new JTable(model){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        //needs to be filled with stocks
+        tableStocks.addMouseListener(new RightClickRow(tableStocks));
         JTableHeader tableHeader = tableStocks.getTableHeader();
+        tableHeader.setReorderingAllowed(false);
+
+        addButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object[] newRow = new Object[]{tsym.getText(), tname.getText(), nshares.getText(), "default", "default"};
+                model.addRow(newRow);
+            }
+        });
+
         JPanel panTable = new JPanel();
         panTable.setLayout(new BoxLayout(panTable, BoxLayout.PAGE_AXIS));
         panTable.add(tableHeader);
@@ -62,7 +104,7 @@ public class CreateListener implements ActionListener {
         panAll.add(panButton);
         panAll.setLayout(new BoxLayout(panAll, BoxLayout.PAGE_AXIS));
 
-        jtpStocks.add(panAll);
+        jtpStocks.addTab("Folio Name", icon, panAll);
 
     }
 }

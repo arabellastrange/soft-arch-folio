@@ -1,35 +1,79 @@
 package model;
 
-public class Stock {
+import model.web.NoSuchTickerException;
+import model.web.StrathQuoteServer;
+import model.web.WebsiteDataException;
+
+class Stock implements IStock {
 
     private String ticker;
-    private String name; //no way of getting the name from provided classes
+    private String name;
     private double sharePrice;
-    private double amount;
+    private double shares;
     private double totalCost;
     private double totalValueSold;
 
-    private Stock(String ticker, double sharePrice, double amount) {
+    Stock(String ticker, String name, double shares) {
         this.ticker = ticker;
-        this.sharePrice = sharePrice;
-        this.amount = amount;
-        totalCost = sharePrice*amount;
+        this.name = name;
+        this.shares = shares;
+        totalCost = sharePrice * shares;
         totalValueSold = 0;
+        refresh();
     }
 
-    private void buy(double amount){
-        this.amount += amount;
-        totalCost += amount*sharePrice; //Ensure sharePrice is price when bought
+    boolean refresh() {
+        String priceString;
+        try {
+            priceString = StrathQuoteServer.getLastValue(ticker);
+            sharePrice = Double.parseDouble(priceString.trim());
+        } catch (WebsiteDataException | NoSuchTickerException | NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
-    private void sell(double amount){
-        this.amount -= amount;
-        totalValueSold += amount*sharePrice; //Ensure sharePrice is price when sold
+    @Override
+    public String getTicker() {
+        return ticker;
     }
 
-    //Returns net gain as a percentage
-    private double netGainPercentage(){
-        return ((sharePrice*amount+totalValueSold)/totalCost)*100;
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public double getShares() {
+        return shares;
+    }
+
+    @Override
+    public double getPricePerShare() {
+        return sharePrice;
+    }
+
+    @Override
+    public double getHoldingValue() {
+        return shares * sharePrice;
+    }
+
+    @Override
+    public void buy(double amount) {
+        this.shares += amount;
+        totalCost += amount * sharePrice;
+    }
+
+    @Override
+    public void sell(double amount) {
+        this.shares -= amount;
+        totalValueSold += amount * sharePrice;
+    }
+
+    @Override
+    public double netGainPercentage() {
+        return ((sharePrice * shares + totalValueSold) / totalCost) * 100;
     }
 
 }
