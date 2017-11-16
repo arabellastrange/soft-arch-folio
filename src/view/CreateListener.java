@@ -112,6 +112,7 @@ public class CreateListener implements ActionListener {
 
         JButton bClose = new JButton("Close");
         JButton bDelete = new JButton("Delete");
+        bDelete.addActionListener(new DeleteListener());
         JPanel panButton = new JPanel();
         panButton.add(bClose, BorderLayout.WEST);
         panButton.add(bDelete, BorderLayout.EAST);
