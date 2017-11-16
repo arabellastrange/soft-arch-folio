@@ -35,7 +35,8 @@ public class CreateListener implements ActionListener {
     {
         JLabel lsym = new JLabel("Ticker Symbol: ");
         JTextField tsym = new JTextField();
-        tsym.setColumns(10);JLabel lname =  new JLabel("Share Name: ");
+        tsym.setColumns(10);
+        JLabel lname =  new JLabel("Share Name: ");
         JTextField tname = new JTextField();
         tname.setColumns(10);
         NumberFormat format = NumberFormat.getInstance();
@@ -43,7 +44,7 @@ public class CreateListener implements ActionListener {
         formatter.setValueClass(Integer.class);
         formatter.setMinimum(0);
         formatter.setMaximum(Integer.MAX_VALUE);
-        formatter.setAllowsInvalid(false);
+        formatter.setAllowsInvalid(true);
 
         JLabel lshares = new JLabel("Number of Shares: ");
         JFormattedTextField nshares = new JFormattedTextField(formatter);
@@ -148,7 +149,7 @@ public class CreateListener implements ActionListener {
     public int getPrevShares(String ticker){
         for(int i = 0; i < model.getRowCount(); i ++){
             if(model.getValueAt(i,0).toString().equals(ticker)){
-                return Integer.valueOf(model.getValueAt(i, 2).toString());
+                return Integer.valueOf(model.getValueAt(i, 2).toString().replaceAll(",", ""));
             }
         }
         return -1;
