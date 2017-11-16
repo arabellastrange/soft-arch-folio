@@ -1,7 +1,7 @@
 package model.web;
 
 public class NoSuchTickerException extends Exception {
-    NoSuchTickerException() {
+    public NoSuchTickerException() {
     }
 
     NoSuchTickerException(String s) {

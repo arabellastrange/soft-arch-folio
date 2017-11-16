@@ -9,6 +9,7 @@ class FolioTracker extends Observable implements IFolioTracker {
 
     FolioTracker() {
         folios = new HashSet<>();
+
     }
 
     @Override
@@ -17,24 +18,20 @@ class FolioTracker extends Observable implements IFolioTracker {
     }
 
     @Override
-    public IFolio getFolioByName(String name) {
-        return null;
+    public Set<IFolio> getFolios() {
+
+        Set<IFolio> copyFolios = new HashSet<>();
+
+        for (Folio f : folios) {
+            copyFolios.add(new Folio(f));
+        }
+
+        return copyFolios;
     }
 
     @Override
-    public List<String> getFolioNames() {
-        return folios
-                .stream()
-                .map(folio -> folio.getName())
-                .collect(Collectors.toList());
-    }
+    public void deleteFolio(IFolio folio) {
 
-    @Override
-    public void deleteFolio(String name) {
-        folios = folios
-                .stream()
-                .filter(folio -> !folio.getName().equals(name))
-                .collect(Collectors.toSet());
     }
 
     @Override

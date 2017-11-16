@@ -4,7 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.StrathQuoteServer;
 import model.web.WebsiteDataException;
 
-class Stock implements IStock {
+class Stock implements IStock{
 
     private String ticker;
     private String name;
@@ -13,7 +13,16 @@ class Stock implements IStock {
     private double totalCost;
     private double totalValueSold;
 
-    Stock(String ticker, String name, double shares) {
+    Stock(Stock s){
+        this.ticker = s.ticker;
+        this.name = s.name;
+        this.sharePrice = s.sharePrice;
+        this.shares = s.shares;
+        this.totalCost = s.totalCost;
+        this.totalValueSold = s.totalValueSold;
+    }
+
+    Stock(String ticker, String name, double shares) throws WebsiteDataException, NoSuchTickerException {
         this.ticker = ticker;
         this.name = name;
         this.shares = shares;
@@ -22,16 +31,14 @@ class Stock implements IStock {
         refresh();
     }
 
-    boolean refresh() {
+    void refresh() throws NoSuchTickerException, WebsiteDataException {
         String priceString;
-        try {
-            priceString = StrathQuoteServer.getLastValue(ticker);
-            sharePrice = Double.parseDouble(priceString.trim());
-        } catch (WebsiteDataException | NoSuchTickerException | NumberFormatException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+       try {
+           priceString = StrathQuoteServer.getLastValue(ticker);
+           sharePrice = Double.parseDouble(priceString.trim());
+       }catch (NumberFormatException e){
+           e.printStackTrace();
+       }
     }
 
     @Override
@@ -60,7 +67,7 @@ class Stock implements IStock {
     }
 
     @Override
-    public void buy(double amount) {
+    public void buy(int amount) {
         this.shares += amount;
         totalCost += amount * sharePrice;
     }
@@ -76,4 +83,18 @@ class Stock implements IStock {
         return ((sharePrice * shares + totalValueSold) / totalCost) * 100;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Stock stock = (Stock) o;
+
+        return ticker != null ? ticker.equals(stock.ticker) : stock.ticker == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return ticker != null ? ticker.hashCode() : 0;
+    }
 }
