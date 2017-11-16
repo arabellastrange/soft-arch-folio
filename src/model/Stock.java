@@ -4,7 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.StrathQuoteServer;
 import model.web.WebsiteDataException;
 
-class Stock implements IStock{
+class Stock implements IStock {
 
     private String ticker;
     private String name;
@@ -13,7 +13,7 @@ class Stock implements IStock{
     private double totalCost;
     private double totalValueSold;
 
-    Stock(Stock s){
+    Stock(Stock s) {
         this.ticker = s.ticker;
         this.name = s.name;
         this.sharePrice = s.sharePrice;
@@ -33,12 +33,12 @@ class Stock implements IStock{
 
     void refresh() throws NoSuchTickerException, WebsiteDataException {
         String priceString;
-       try {
-           priceString = StrathQuoteServer.getLastValue(ticker);
-           sharePrice = Double.parseDouble(priceString.trim());
-       }catch (NumberFormatException e){
-           e.printStackTrace();
-       }
+        try {
+            priceString = StrathQuoteServer.getLastValue(ticker);
+            sharePrice = Double.parseDouble(priceString.trim());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -67,13 +67,15 @@ class Stock implements IStock{
     }
 
     @Override
-    public void buy(int amount) {
+    public void buy(int amount) throws NegativeShares {
+        if (amount <= 0) throw new NegativeShares();
         this.shares += amount;
         totalCost += amount * sharePrice;
     }
 
     @Override
-    public void sell(double amount) {
+    public void sell(double amount) throws NegativeShares {
+        if (amount > shares || amount <= 0) throw new NegativeShares();
         this.shares -= amount;
         totalValueSold += amount * sharePrice;
     }
@@ -90,11 +92,11 @@ class Stock implements IStock{
 
         Stock stock = (Stock) o;
 
-        return ticker != null ? ticker.equals(stock.ticker) : stock.ticker == null;
+        return ticker.equals(stock.ticker);
     }
 
     @Override
     public int hashCode() {
-        return ticker != null ? ticker.hashCode() : 0;
+        return ticker.hashCode();
     }
 }
