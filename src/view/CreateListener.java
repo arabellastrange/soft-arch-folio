@@ -16,7 +16,6 @@ public class CreateListener implements ActionListener {
     {
         this.jtpStocks = jtpStocks;
         icon = new ImageIcon("img/close.png", "close");
-        //System.out.println(icon.getIconHeight() + icon.getDescription());
     }
 
     @Override
@@ -26,7 +25,6 @@ public class CreateListener implements ActionListener {
 
     public void create()
     {
-        //
         JLabel lsym = new JLabel("Ticker Symbol: ");
         JTextField tsym = new JTextField();
         tsym.setColumns(10);JLabel lname =  new JLabel("Share Name: ");
