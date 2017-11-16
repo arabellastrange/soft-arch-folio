@@ -15,6 +15,8 @@ public class GUI {
         //Panel for tabbed pane
         JPanel panTab = new JPanel();
         panTab.add(jtpStocks);
+        panTab.setLayout(new BoxLayout(panTab, BoxLayout.PAGE_AXIS));
+        panTab.setBackground(Color.WHITE);
 
         //menu items
         JMenuItem miCreate = new JMenuItem("Create");
@@ -40,10 +42,10 @@ public class GUI {
         //Set up the JFrame
         frMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frMain.setSize(900,300);
-        frMain.setLayout(new BorderLayout());
+        //frMain.setLayout();
         frMain.setLocationRelativeTo(null);
         frMain.setJMenuBar(mb);
-        frMain.add(panTab, BorderLayout.CENTER);
+        frMain.add(panTab);
         frMain.setVisible(true);
     }
 
