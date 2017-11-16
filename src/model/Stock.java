@@ -68,14 +68,14 @@ class Stock implements IStock {
 
     @Override
     public void buy(int amount) throws NegativeShares {
-        if(amount <= 0) throw new NegativeShares();
+        if (amount <= 0) throw new NegativeShares();
         this.shares += amount;
         totalCost += amount * sharePrice;
     }
 
     @Override
     public void sell(double amount) throws NegativeShares {
-        if(amount > shares || amount <= 0) throw new NegativeShares();
+        if (amount > shares || amount <= 0) throw new NegativeShares();
         this.shares -= amount;
         totalValueSold += amount * sharePrice;
     }

@@ -2,7 +2,6 @@ package model;
 
 import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
-
 import javax.naming.InvalidNameException;
 import java.util.HashSet;
 import java.util.Set;
