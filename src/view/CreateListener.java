@@ -3,14 +3,21 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 
 public class CreateListener implements ActionListener {
 
     private JTabbedPane jtpStocks;
     private ImageIcon icon;
+    private DefaultTableModel model;
+    private String folioName;
 
     CreateListener(JTabbedPane jtpStocks)
     {
@@ -20,6 +27,7 @@ public class CreateListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        getFolioName();
         create();
     }
 
@@ -30,8 +38,15 @@ public class CreateListener implements ActionListener {
         tsym.setColumns(10);JLabel lname =  new JLabel("Share Name: ");
         JTextField tname = new JTextField();
         tname.setColumns(10);
+        NumberFormat format = NumberFormat.getInstance();
+        NumberFormatter formatter = new NumberFormatter(format);
+        formatter.setValueClass(Integer.class);
+        formatter.setMinimum(0);
+        formatter.setMaximum(Integer.MAX_VALUE);
+        formatter.setAllowsInvalid(false);
+
         JLabel lshares = new JLabel("Number of Shares: ");
-        JTextField nshares = new JTextField();
+        JFormattedTextField nshares = new JFormattedTextField(formatter);
         nshares.setColumns(10);
         JButton addButton = new JButton("Add");
 
@@ -46,13 +61,12 @@ public class CreateListener implements ActionListener {
         panInput.add(tsym, FlowLayout.LEFT);
         panInput.add(lsym, FlowLayout.LEFT);
 
-        DefaultTableModel model = new DefaultTableModel();
+        model = new DefaultTableModel();
         model.addColumn("Ticker Symbol");
         model.addColumn( "Stock Name");
         model.addColumn("Number of Shares");
         model.addColumn("Price Per Share");
         model.addColumn("Value of Holding");
-        //model.addRow(new Object[]{"","","","",""});
 
         JTable tableStocks = new JTable(model){
             @Override
@@ -69,10 +83,25 @@ public class CreateListener implements ActionListener {
         addButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                Object[] newRow = new Object[]{tsym.getText(), tname.getText(), nshares.getText(), "default", "default"};
-                model.addRow(newRow);
+                if(alreadyExists(tsym.getText())){
+                   model.setValueAt(getPrevShares(tsym.getText()) + Integer.valueOf(nshares.getValue().toString()), getRow(tsym.getText()), 2);
+                }
+                else {
+                    Object[] newRow = new Object[]{tsym.getText(), tname.getText(), nshares.getText(), "default", "default"};
+                    model.addRow(newRow);
+                }
+
             }
         });
+
+        TableRowSorter<TableModel> sortByValue =  new TableRowSorter<TableModel>(model);
+
+        ArrayList<RowSorter.SortKey> sortKeys =  new ArrayList<RowSorter.SortKey>();
+        sortKeys.add(new RowSorter.SortKey(4, SortOrder.DESCENDING));
+        sortByValue.setSortKeys(sortKeys);
+        tableStocks.setRowSorter(sortByValue);
+
+
 
         JPanel panTable = new JPanel();
         panTable.setLayout(new BoxLayout(panTable, BoxLayout.PAGE_AXIS));
@@ -93,7 +122,38 @@ public class CreateListener implements ActionListener {
         panAll.add(panButton);
         panAll.setLayout(new BoxLayout(panAll, BoxLayout.PAGE_AXIS));
 
-        jtpStocks.addTab("Folio Name", icon, panAll);
+        jtpStocks.addTab(folioName, icon, panAll);
 
+    }
+
+    public boolean alreadyExists(String ticker){
+        for(int i = 0; i < model.getRowCount(); i ++){
+            if(model.getValueAt(i,0).toString().equals(ticker)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getRow(String ticker){
+        for(int i = 0; i < model.getRowCount(); i ++){
+            if(model.getValueAt(i,0).toString().equals(ticker)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getPrevShares(String ticker){
+        for(int i = 0; i < model.getRowCount(); i ++){
+            if(model.getValueAt(i,0).toString().equals(ticker)){
+                return Integer.valueOf(model.getValueAt(i, 2).toString());
+            }
+        }
+        return -1;
+    }
+
+    public void getFolioName() {
+        folioName = JOptionPane.showInputDialog("Enter folio name: ");
     }
 }

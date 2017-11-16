@@ -17,7 +17,6 @@ public class EditShareListener implements ActionListener{
         JButton done = new JButton("Ok");
         edit.add(done);
         editing.add(edit);
-        editing.setLayout(new BoxLayout(editing, BoxLayout.PAGE_AXIS));
         editing.setMinimumSize(new Dimension(300,200));
         editing.setVisible(true);
         editing.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
