@@ -1,5 +1,7 @@
 package view;
 
+import view.listeners.DeleteShareListener;
+
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -43,8 +45,12 @@ public class RightClickRow implements MouseListener {
         if (e.isPopupTrigger() && e.getComponent() instanceof JTable)
         {
             JPopupMenu popup = new JPopupMenu("Something");
-            popup.add(new JMenuItem("edit share"));
-            popup.add(new JMenuItem("delete share"));
+            JMenuItem edit  = new JMenuItem("edit share");
+            JMenuItem delete = new JMenuItem("delete share");
+            edit.addActionListener(new EditShareListener());
+            delete.addActionListener(new DeleteShareListener());
+            popup.add(edit);
+            popup.add(delete);
             popup.show(e.getComponent(), e.getX(), e.getY());
         }
     }

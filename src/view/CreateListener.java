@@ -48,22 +48,13 @@ public class CreateListener implements ActionListener {
         panInput.add(tsym, FlowLayout.LEFT);
         panInput.add(lsym, FlowLayout.LEFT);
 
-        /*String[] columnNames = {"Ticker Symbol", "Stock Name", "Number of Shares", "Price Per Share", "Value of Holding"};
-        String[][] rowData = new String[1][5];
-        rowData[0][0] = "";
-        rowData[0][1] = "";
-        rowData[0][2] = "";
-        rowData[0][3] = "";
-        rowData[0][4] = "";*/
-
-
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Ticker Symbol");
         model.addColumn( "Stock Name");
         model.addColumn("Number of Shares");
         model.addColumn("Price Per Share");
         model.addColumn("Value of Holding");
-        model.addRow(new Object[]{"","","","",""});
+        //model.addRow(new Object[]{"","","","",""});
 
         JTable tableStocks = new JTable(model){
             @Override
