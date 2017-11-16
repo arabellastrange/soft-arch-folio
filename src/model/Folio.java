@@ -2,6 +2,7 @@ package model;
 
 import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
+
 import javax.naming.InvalidNameException;
 import java.util.HashSet;
 import java.util.Set;
@@ -64,9 +65,10 @@ class Folio implements IFolio {
 
     @Override
     public Set<IStock> getStocks() {
-        Set<IStock> set = new HashSet<>();
-        stocks.forEach(stock -> set.add(new Stock(stock)));
-        return set;
+        return stocks
+                .stream()
+                .map(stock -> new Stock(stock))
+                .collect(Collectors.toSet());
     }
 
     @Override

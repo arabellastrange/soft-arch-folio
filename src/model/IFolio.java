@@ -12,18 +12,28 @@ public interface IFolio {
      * @param ticker
      * @param name
      * @param shares
-     * @throws model.web.NoSuchTickerException if ticker doesnt exist
-     * @throws NumberFormatException if amount <= 0
-     * @throws javax.naming.InvalidNameException name == "" || name == null
-     * @effects stocks' == stock + {stock}
      * @return
+     * @throws InvalidNameException
+     * @throws NegativeShares
+     * @throws NoSuchTickerException
+     * @throws WebsiteDataException
      */
     public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NegativeShares, NoSuchTickerException, WebsiteDataException;
 
+    /**
+     * @param stock
+     * @return
+     */
     public boolean deleteStock(IStock stock);
 
+    /**
+     * @return
+     */
     public Set<IStock> getStocks();
 
+    /**
+     * @return
+     */
     public double getValue();
 
 }
