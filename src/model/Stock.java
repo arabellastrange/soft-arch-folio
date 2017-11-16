@@ -13,7 +13,7 @@ class Stock implements IStock {
     private double totalCost;
     private double totalValueSold;
 
-    Stock(String ticker, String name, double shares) {
+    Stock(String ticker, String name, double shares) throws WebsiteDataException, NoSuchTickerException {
         this.ticker = ticker;
         this.name = name;
         this.shares = shares;
@@ -22,16 +22,14 @@ class Stock implements IStock {
         refresh();
     }
 
-    boolean refresh() {
+    void refresh() throws NoSuchTickerException, WebsiteDataException {
         String priceString;
-        try {
-            priceString = StrathQuoteServer.getLastValue(ticker);
-            sharePrice = Double.parseDouble(priceString.trim());
-        } catch (WebsiteDataException | NoSuchTickerException | NumberFormatException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+       try {
+           priceString = StrathQuoteServer.getLastValue(ticker);
+           sharePrice = Double.parseDouble(priceString.trim());
+       }catch (NumberFormatException e){
+           e.printStackTrace();
+       }
     }
 
     @Override
@@ -76,4 +74,18 @@ class Stock implements IStock {
         return ((sharePrice * shares + totalValueSold) / totalCost) * 100;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Stock stock = (Stock) o;
+
+        return ticker != null ? ticker.equals(stock.ticker) : stock.ticker == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return ticker != null ? ticker.hashCode() : 0;
+    }
 }
