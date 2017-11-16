@@ -4,7 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.StrathQuoteServer;
 import model.web.WebsiteDataException;
 
-class Stock implements IStock {
+class Stock implements IStock{
 
     private String ticker;
     private String name;
@@ -12,6 +12,15 @@ class Stock implements IStock {
     private double shares;
     private double totalCost;
     private double totalValueSold;
+
+    Stock(Stock s){
+        this.ticker = s.ticker;
+        this.name = s.name;
+        this.sharePrice = s.sharePrice;
+        this.shares = s.shares;
+        this.totalCost = s.totalCost;
+        this.totalValueSold = s.totalValueSold;
+    }
 
     Stock(String ticker, String name, double shares) throws WebsiteDataException, NoSuchTickerException {
         this.ticker = ticker;
