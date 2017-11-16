@@ -4,11 +4,12 @@ import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
 import javax.naming.InvalidNameException;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-class Folio implements IFolio {
+class Folio implements IFolio, Serializable {
 
     private String name;
     private Set<Stock> stocks;

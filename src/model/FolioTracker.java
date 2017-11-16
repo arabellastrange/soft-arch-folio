@@ -2,11 +2,13 @@ package model;
 
 import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
+
+import java.io.*;
 import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
 
-class FolioTracker extends Observable implements IFolioTracker {
+class FolioTracker extends Observable implements IFolioTracker, Serializable {
 
     private Set<Folio> folios;
 
@@ -42,7 +44,24 @@ class FolioTracker extends Observable implements IFolioTracker {
 
     @Override
     public boolean saveToDisk() {
-        return false;
+        FileOutputStream fos;
+        ObjectOutputStream oos;
+
+        try {
+            fos = new FileOutputStream("test.folio");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(this);
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        System.out.println("saved data");
+        return true;
     }
 
 }

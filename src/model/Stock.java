@@ -4,7 +4,9 @@ import model.web.NoSuchTickerException;
 import model.web.StrathQuoteServer;
 import model.web.WebsiteDataException;
 
-class Stock implements IStock {
+import java.io.Serializable;
+
+class Stock implements IStock, Serializable {
 
     private String ticker;
     private String name;
