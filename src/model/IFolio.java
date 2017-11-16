@@ -1,5 +1,9 @@
 package model;
 
+import model.web.NoSuchTickerException;
+import model.web.WebsiteDataException;
+
+import javax.naming.InvalidNameException;
 import java.util.Set;
 
 public interface IFolio {
@@ -11,11 +15,12 @@ public interface IFolio {
      * @throws model.web.NoSuchTickerException if ticker doesnt exist
      * @throws NumberFormatException if amount <= 0
      * @throws javax.naming.InvalidNameException name == "" || name == null
-     * @effects
+     * @effects stocks' == stock + {stock}
+     * @return
      */
-    public void createStock(String ticker, String name, int amount);
+    public boolean createStock(String ticker, String name, int amount) throws InvalidNameException, NegativeShares, NoSuchTickerException, WebsiteDataException;
 
-    public void deleteStock(IStock stock);
+    public boolean deleteStock(IStock stock);
 
     public Set<IStock> getStocks();
 

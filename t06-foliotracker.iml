@@ -51,5 +51,6 @@
     </orderEntry>
     <orderEntry type="library" name="org.mockito:mockito-core:2.10.0" level="project" />
     <orderEntry type="library" name="org.mockito:mockito-all:1.10.19" level="project" />
+    <orderEntry type="library" name="org.mockito:mockito-core:2.0.0-beta" level="project" />
   </component>
 </module>

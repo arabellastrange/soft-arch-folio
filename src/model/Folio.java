@@ -1,39 +1,76 @@
 package model;
 
+import model.web.NoSuchTickerException;
+import model.web.WebsiteDataException;
+
+import javax.naming.InvalidNameException;
+import java.util.HashSet;
 import java.util.Set;
 
 class Folio implements IFolio {
 
     private String name;
     private Set<Stock> stocks;
-    private double value;
 
     Folio(String name) {
         this.name = name;
-        value = 0;
+        stocks = new HashSet<>();
     }
 
-    String getName() {
-        return name;
+    Folio(Folio f) {
+        name = f.name;
+        stocks = new HashSet<>();
+        f.stocks.forEach(stock -> stocks.add(new Stock(stock)));
     }
 
     void refresh() {
-        stocks.forEach(stock -> stock.refresh());
+        stocks.forEach(stock -> {
+            try {
+                stock.refresh();
+            } catch (NoSuchTickerException e) {
+                e.printStackTrace();
+            } catch (WebsiteDataException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
-    public void createStock(String ticker, String name, int amount) {
-        stocks.add(new Stock(ticker, name, amount));
+    public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NegativeShares, NoSuchTickerException, WebsiteDataException {
+        if (name == null || name.isEmpty()) throw new InvalidNameException("name is empty or null");
+        if (shares <= 0) throw new NegativeShares();
+        Stock s = new Stock(ticker, name, shares);
+        return stocks.add(s);
     }
 
     @Override
-    public void deleteStock(IStock stock) {
-        stocks.remove(stock);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Folio folio = (Folio) o;
+
+        if (!name.equals(folio.name)) return false;
+        return stocks.equals(folio.stocks);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + stocks.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean deleteStock(IStock stock) {
+        return stocks.remove(stock);
     }
 
     @Override
     public Set<IStock> getStocks() {
-        return null;
+        Set<IStock> set = new HashSet<>();
+        stocks.forEach(stock -> set.add(new Stock(stock)));
+        return set;
     }
 
     @Override
