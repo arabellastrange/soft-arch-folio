@@ -6,6 +6,7 @@ import model.web.WebsiteDataException;
 import javax.naming.InvalidNameException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 class Folio implements IFolio {
 
@@ -19,20 +20,16 @@ class Folio implements IFolio {
 
     Folio(Folio f) {
         name = f.name;
-        stocks = new HashSet<>();
-        f.stocks.forEach(stock -> stocks.add(new Stock(stock)));
+        stocks = f.stocks
+                .stream()
+                .map(stock -> new Stock(stock))
+                .collect(Collectors.toSet());
     }
 
-    void refresh() {
-        stocks.forEach(stock -> {
-            try {
-                stock.refresh();
-            } catch (NoSuchTickerException e) {
-                e.printStackTrace();
-            } catch (WebsiteDataException e) {
-                e.printStackTrace();
-            }
-        });
+    void refresh() throws WebsiteDataException, NoSuchTickerException {
+        for (Stock s : stocks) {
+            s.refresh();
+        }
     }
 
     @Override

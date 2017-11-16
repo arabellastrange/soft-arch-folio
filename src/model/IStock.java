@@ -19,7 +19,7 @@ public interface IStock {
      * @effects this.shares' = this.shares + shares
      *          totalcost' = totalcost + shares * pricePerShare
      */
-    public void buy(int shares);
+    public void buy(int shares) throws NegativeShares;
 
     /**
      * @require shares > 0 && shares <= this.shares
@@ -28,7 +28,7 @@ public interface IStock {
      * @effects this.shares' = this.shares - shares
      *          totalValueSold' = totalValuesSold + shares * pricePerShare
      */
-    public void sell(double shares);
+    public void sell(double shares) throws NegativeShares;
 
 
     /**
