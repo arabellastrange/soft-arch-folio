@@ -9,6 +9,7 @@ class FolioTracker extends Observable implements IFolioTracker {
 
     FolioTracker() {
         folios = new HashSet<>();
+
     }
 
     @Override
@@ -18,7 +19,14 @@ class FolioTracker extends Observable implements IFolioTracker {
 
     @Override
     public Set<IFolio> getFolios() {
-        return null;
+
+        Set<IFolio> copyFolios = new HashSet<>();
+
+        for (Folio f : folios) {
+            copyFolios.add(new Folio(f));
+        }
+
+        return copyFolios;
     }
 
     @Override
