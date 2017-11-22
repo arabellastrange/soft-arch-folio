@@ -40,6 +40,7 @@ class FolioTracker extends Observable implements IFolioTracker, Serializable {
         for (Folio f : folios) {
             f.refresh();
         }
+        notifyObservers();
     }
 
     @Override
