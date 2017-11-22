@@ -1,5 +1,7 @@
 package model;
 
+import javax.naming.InvalidNameException;
+
 public interface IStock {
 
     /**
@@ -51,4 +53,10 @@ public interface IStock {
      */
     public double netGainPercentage();
 
+    /**
+     *
+     * @param name
+     * @throws InvalidNameException
+     */
+    public void setName(String name) throws InvalidNameException;
 }
