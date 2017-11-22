@@ -4,6 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.StrathQuoteServer;
 import model.web.WebsiteDataException;
 
+import javax.naming.InvalidNameException;
 import java.io.Serializable;
 
 class Stock implements IStock, Serializable {
@@ -85,6 +86,12 @@ class Stock implements IStock, Serializable {
     @Override
     public double netGainPercentage() {
         return ((sharePrice * shares + totalValueSold) / totalCost) * 100;
+    }
+
+    @Override
+    public void setName(String name) throws InvalidNameException {
+        if (name == null || name.isEmpty()) throw new InvalidNameException("name is empty or null");
+        this.name = name;
     }
 
     @Override
