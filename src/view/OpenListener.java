@@ -5,6 +5,7 @@ import model.IFolioTracker;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class OpenListener implements ActionListener {
 
@@ -17,13 +18,22 @@ public class OpenListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        open();
+        try {
+            open();
+        } catch (IOException e1) {
+            JOptionPane.showMessageDialog(frMain, "Not a valid file", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException e1) {
+            JOptionPane.showMessageDialog(frMain, "Not a valid file type", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    private void open()
-    {
+    private void open() throws IOException, ClassNotFoundException {
         JFileChooser jfc = new JFileChooser();
-        jfc.showOpenDialog(frMain);
-        //IFolioTracker.load(jfc.getSelectedFile());
+        int result = jfc.showOpenDialog(frMain);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            IFolioTracker.load(jfc.getSelectedFile());
+        }
+
     }
 }

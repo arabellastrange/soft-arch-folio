@@ -1,12 +1,13 @@
 package view;
 
 
+import model.IFolioTracker;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class SaveListener implements ActionListener {
@@ -28,14 +29,16 @@ public class SaveListener implements ActionListener {
     }
 
     private void save() throws IOException {
-        FileNameExtensionFilter filtTxt = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        FileNameExtensionFilter filtTxt = new FileNameExtensionFilter("FOLIO FILES", "folio", "folios");
         JFileChooser jfc = new JFileChooser();
-        jfc.setSelectedFile(new File("default.txt"));
+        jfc.setSelectedFile(new File("default.folio"));
         jfc.setFileFilter(filtTxt);
         int result = jfc.showSaveDialog(frMain);
         if (result == JFileChooser.APPROVE_OPTION)
         {
+            System.out.println("Save");
             //TODO call some save function from the backend
+            //IFolioTracker.saveToDisk(jfc.getSelectedFile());
         }
     }
 
