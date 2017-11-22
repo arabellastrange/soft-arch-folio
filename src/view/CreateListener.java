@@ -1,5 +1,7 @@
 package view;
 
+import controller.CreateController;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -18,6 +20,7 @@ public class CreateListener implements ActionListener {
     private ImageIcon icon;
     private DefaultTableModel model;
     private String folioName;
+    private CreateController c;
 
     CreateListener(JTabbedPane jtpStocks)
     {
@@ -88,7 +91,8 @@ public class CreateListener implements ActionListener {
                    model.setValueAt(getPrevShares(tsym.getText()) + Integer.valueOf(nshares.getValue().toString()), getRow(tsym.getText()), 2);
                 }
                 else {
-                    Object[] newRow = new Object[]{tsym.getText(), tname.getText(), nshares.getText(), "default", "default"};
+                    c.addStock(tsym.getText(), tname.getText(), Integer.valueOf(nshares.getValue().toString()));
+                    Object[] newRow = new Object[]{};
                     model.addRow(newRow);
                 }
 

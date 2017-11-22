@@ -32,7 +32,8 @@ public class CreateController {
         }
     }
 
-    public int getStockShares(){
-        return 0;
+    public IStock getStock(){
+        return null ;
     }
+
 }
