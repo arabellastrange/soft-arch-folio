@@ -3,19 +3,16 @@ package model;
 import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.Set;
 
 public interface IFolioTracker {
 
-    public static IFolioTracker load() throws IOException, ClassNotFoundException {
+    public static IFolioTracker load(File file) throws IOException, ClassNotFoundException {
         FileInputStream fis;
         ObjectInputStream ois;
 
-        fis = new FileInputStream("test.folio");
+        fis = new FileInputStream(file);
         ois = new ObjectInputStream(fis);
 
         return (FolioTracker) ois.readObject();
@@ -47,6 +44,6 @@ public interface IFolioTracker {
     /**
      * @return
      */
-    public boolean saveToDisk();
+    public boolean saveToDisk(File file);
 
 }

@@ -43,12 +43,12 @@ class FolioTracker extends Observable implements IFolioTracker, Serializable {
     }
 
     @Override
-    public boolean saveToDisk() {
+    public boolean saveToDisk(File file) {
         FileOutputStream fos;
         ObjectOutputStream oos;
 
         try {
-            fos = new FileOutputStream("test.folio");
+            fos = new FileOutputStream(file);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(this);
             oos.close();
