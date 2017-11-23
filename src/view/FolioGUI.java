@@ -1,13 +1,15 @@
 package view;
 
+import model.IFolioTracker;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class GUI {
+public class FolioGUI {
 
 
 
-    private GUI()
+    public FolioGUI(IFolioTracker folioTracker)
     {
         JFrame frMain = new JFrame();
         //Tabbed Pane
@@ -20,7 +22,7 @@ public class GUI {
 
         //menu items
         JMenuItem miCreate = new JMenuItem("Create");
-        miCreate.addActionListener(new CreateListener(jtpStocks));
+        miCreate.addActionListener(new CreateListener(jtpStocks, folioTracker));
         JMenuItem miOpen = new JMenuItem("Open...");
         miOpen.addActionListener(new OpenListener(frMain));
         JMenuItem miSave = new JMenuItem("Save...");
@@ -49,10 +51,5 @@ public class GUI {
         frMain.setVisible(true);
     }
 
-    public static void main(String[] args) {
 
-        GUI gui = new GUI();
-        (new Thread(new GuiRunnable(gui))).start();
-
-    }
 }

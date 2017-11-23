@@ -8,11 +8,11 @@ import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
 
-class FolioTracker extends Observable implements IFolioTracker, Serializable {
+public class FolioTracker extends Observable implements IFolioTracker, Serializable {
 
     private Set<Folio> folios;
 
-    FolioTracker() {
+    public FolioTracker() {
         folios = new HashSet<>();
     }
 

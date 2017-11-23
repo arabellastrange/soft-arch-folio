@@ -1,6 +1,7 @@
 package view;
 
 import controller.CreateController;
+import model.IFolioTracker;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,7 +23,7 @@ public class CreateListener implements ActionListener {
     private String folioName;
     private CreateController c;
 
-    CreateListener(JTabbedPane jtpStocks)
+    CreateListener(JTabbedPane jtpStocks, IFolioTracker folioTracker)
     {
         this.jtpStocks = jtpStocks;
         icon = new ImageIcon("img/close.png", "close");
