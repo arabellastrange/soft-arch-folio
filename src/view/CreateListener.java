@@ -92,7 +92,7 @@ public class CreateListener implements ActionListener {
                 }
                 else {
                     c.addStock(tsym.getText(), tname.getText(), Integer.valueOf(nshares.getValue().toString()));
-                    Object[] newRow = new Object[]{};
+                    Object[] newRow = new Object[]{tsym.getText(), tname.getText(), nshares.getValue().toString(), "def", "def"};
                     model.addRow(newRow);
                 }
 
