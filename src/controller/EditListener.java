@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class EditListener implements ActionListener{
 
-    private EditListener()
+    public EditListener()
     {
 
     }

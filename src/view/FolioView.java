@@ -8,15 +8,17 @@ import controller.SaveListener;
 import javax.swing.*;
 import java.awt.*;
 
-public class GUI {
+public class FolioView {
 
+    JTabbedPane jtpStocks;
 
+    JMenuItem miCreate;
 
-    private GUI()
+    public FolioView()
     {
         JFrame frMain = new JFrame();
         //Tabbed Pane
-        JTabbedPane jtpStocks = new JTabbedPane();
+        jtpStocks = new JTabbedPane();
         //Panel for tabbed pane
         JPanel panTab = new JPanel();
         panTab.add(jtpStocks);
@@ -24,14 +26,10 @@ public class GUI {
         panTab.setBackground(Color.WHITE);
 
         //menu items
-        JMenuItem miCreate = new JMenuItem("Create");
-        miCreate.addActionListener(new CreateListener(jtpStocks));
+        miCreate = new JMenuItem("Create");
         JMenuItem miOpen = new JMenuItem("Open...");
-        miOpen.addActionListener(new OpenListener(frMain));
         JMenuItem miSave = new JMenuItem("Save...");
-        miSave.addActionListener(new SaveListener(frMain));
         JMenuItem miExit = new JMenuItem("Exit");
-        miExit.addActionListener(new ExitListener(frMain));
 
         //menu for the menu items
         JMenu mFolio = new JMenu("Folio");
@@ -54,10 +52,14 @@ public class GUI {
         frMain.setVisible(true);
     }
 
-    public static void main(String[] args) {
-
-        GUI gui = new GUI();
-        (new Thread(new GuiRunnable(gui))).start();
-
+    public JMenuItem getmiCreate()
+    {
+        return miCreate;
     }
+
+    public JTabbedPane getjtpStocks()
+    {
+        return jtpStocks;
+    }
+
 }

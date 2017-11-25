@@ -16,7 +16,7 @@ public class CreateListener implements ActionListener {
 
     private JTabbedPane jtpStocks;
     private ImageIcon icon;
-    private DefaultTableModel model;
+    private DefaultTableModel dftModel;
     private String folioName;
     private CreateController c;
 
@@ -63,12 +63,12 @@ public class CreateListener implements ActionListener {
         panInput.add(tsym, FlowLayout.LEFT);
         panInput.add(lsym, FlowLayout.LEFT);
 
-        model = new DefaultTableModel();
-        model.addColumn("Ticker Symbol");
-        model.addColumn( "Stock Name");
-        model.addColumn("Number of Shares");
-        model.addColumn("Price Per Share");
-        model.addColumn("Value of Holding");
+        dftModel = new DefaultTableModel();
+        dftModel.addColumn("Ticker Symbol");
+        dftModel.addColumn( "Stock Name");
+        dftModel.addColumn("Number of Shares");
+        dftModel.addColumn("Price Per Share");
+        dftModel.addColumn("Value of Holding");
 
         JTable tableStocks = new JTable(model){
             @Override
