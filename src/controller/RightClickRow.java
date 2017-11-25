@@ -1,4 +1,7 @@
-package view;
+package controller;
+
+import controller.DeleteShareListener;
+import controller.EditShareListener;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;

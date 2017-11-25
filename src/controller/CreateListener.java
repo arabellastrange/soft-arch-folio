@@ -1,6 +1,4 @@
-package view;
-
-import controller.CreateController;
+package controller;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
