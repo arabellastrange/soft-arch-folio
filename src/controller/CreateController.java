@@ -17,20 +17,20 @@ public class CreateController {
         f.createFolio(name);
     }
 
-    public String addStock(String ticker, String name, int nshares){
-        try {
-            s.createStock(ticker, name, nshares);
-            return "successfully added stock";
-        } catch (InvalidNameException e) {
-            return "Invalid name exception";
-        } catch (NegativeShares negativeShares) {
-            return "Negative shares exception";
-        } catch (NoSuchTickerException e) {
-            return "No such ticker exception";
-        } catch (WebsiteDataException e) {
-            return "the website died";
-        }
-    }
+//    public String addStock(String ticker, String name, int nshares){
+//        try {
+//            s.createStock(ticker, name, nshares);
+//            return "successfully added stock";
+//        } catch (InvalidNameException e) {
+//            return "Invalid name exception";
+//        } catch (NegativeShares negativeShares) {
+//            return "Negative shares exception";
+//        } catch (NoSuchTickerException e) {
+//            return "No such ticker exception";
+//        } catch (WebsiteDataException e) {
+//            return "the website died";
+//        }
+//    }
 
     public IStock getStock(){
         return null ;

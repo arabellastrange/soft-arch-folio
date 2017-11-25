@@ -18,12 +18,13 @@ public class Controller {
     private CreateListener createListener;
     private AddBtnListener addBtnListener;
 
-    public Controller(FolioView folioView)
+    public Controller(FolioView folioView, IFolioTracker iFolioTracker)
     {
+        this.iFolioTracker = iFolioTracker;
         this.folioView = folioView;
         createView = new CreateView(folioView.getjtpStocks());
 
-        createListener = new CreateListener(createView);
+        createListener = new CreateListener(createView, iFolioTracker);
         addBtnListener = new AddBtnListener(folioView.getjtpStocks());
     }
 
