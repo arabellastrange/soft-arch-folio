@@ -1,17 +1,24 @@
 package controller;
 
+import view.FolioView;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ExitListener implements ActionListener {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        exit();
+
+    FolioView fv;
+
+    ExitListener(FolioView folioView)
+    {
+        fv = folioView;
     }
 
-    private void exit()
-    {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("exit");
         System.exit(0);
     }
+
 }

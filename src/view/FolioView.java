@@ -8,8 +8,6 @@ public class FolioView {
     JTabbedPane jtpStocks;
 
     JMenuItem miCreate;
-    JMenuItem miOpen;
-    JMenuItem miSave;
     JMenuItem miExit;
 
     public FolioView()
@@ -25,8 +23,8 @@ public class FolioView {
 
         //menu items
         miCreate = new JMenuItem("Create");
-        miOpen = new JMenuItem("Open...");
-        miSave = new JMenuItem("Save...");
+        JMenuItem miOpen = new JMenuItem("Open...");
+        JMenuItem miSave = new JMenuItem("Save...");
         miExit = new JMenuItem("Exit");
 
         //menu for the menu items
@@ -55,20 +53,13 @@ public class FolioView {
         return miCreate;
     }
 
+    public JMenuItem getmiExit() {
+        return miExit;
+    }
+
     public JTabbedPane getjtpStocks()
     {
         return jtpStocks;
     }
 
-    public JMenuItem getMiExit() {
-        return miExit;
-    }
-
-    public JMenuItem getMiOpen() {
-        return miOpen;
-    }
-
-    public JMenuItem getMiSave() {
-        return miSave;
-    }
 }

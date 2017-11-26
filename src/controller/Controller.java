@@ -25,6 +25,7 @@ public class Controller {
         createView = new CreateView(folioView.getjtpStocks());
 
         createListener = new CreateListener(createView, iFolioTracker);
+        exitListener = new ExitListener(folioView);
     }
 
     public void create()
@@ -32,6 +33,9 @@ public class Controller {
         folioView.getmiCreate().addActionListener(createListener);
     }
 
-    public void exit() {folioView.getMiExit().addActionListener(exitListener);}
+    public void exit()
+    {
+        folioView.getmiExit().addActionListener(exitListener);
+    }
 
 }
