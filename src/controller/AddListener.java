@@ -35,44 +35,38 @@ public class AddListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        if (alreadyExists(tickField.getText())) {
-            dftModel.setValueAt(getPrevShares(tickField.getText()) + Integer.valueOf(shareField.getValue().toString()), getRow(tickField.getText()), 2);
-        } else {
             addStock(tickField.getText(), nameField.getText(), Integer.valueOf(shareField.getValue().toString()));
             Object[] newRow = new Object[]{tickField.getText(), nameField.getText(), shareField.getValue().toString(), "def", "def"};
             dftModel.addRow(newRow);
-        }
-        
     }
 
-
-    public boolean alreadyExists(String ticker) {
-        for (int i = 0; i < dftModel.getRowCount(); i++) {
-            if (dftModel.getValueAt(i, 0).toString().equals(ticker)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public int getRow(String ticker) {
-        for (int i = 0; i < dftModel.getRowCount(); i++) {
-            if (dftModel.getValueAt(i, 0).toString().equals(ticker)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public int getPrevShares(String ticker) {
-        for (int i = 0; i < dftModel.getRowCount(); i++) {
-            if (dftModel.getValueAt(i, 0).toString().equals(ticker)) {
-                return Integer.valueOf(dftModel.getValueAt(i, 2).toString().replaceAll(",", ""));
-            }
-        }
-        return -1;
-    }
+//
+//    public boolean alreadyExists(String ticker) {
+//        for (int i = 0; i < dftModel.getRowCount(); i++) {
+//            if (dftModel.getValueAt(i, 0).toString().equals(ticker)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    public int getRow(String ticker) {
+//        for (int i = 0; i < dftModel.getRowCount(); i++) {
+//            if (dftModel.getValueAt(i, 0).toString().equals(ticker)) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
+//
+//    public int getPrevShares(String ticker) {
+//        for (int i = 0; i < dftModel.getRowCount(); i++) {
+//            if (dftModel.getValueAt(i, 0).toString().equals(ticker)) {
+//                return Integer.valueOf(dftModel.getValueAt(i, 2).toString().replaceAll(",", ""));
+//            }
+//        }
+//        return -1;
+//    }
 
     public String addStock(String ticker, String name, int nshares){
         try {
