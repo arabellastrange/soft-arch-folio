@@ -12,6 +12,7 @@ public class FolioDriver{
         FolioView fV = new FolioView();
         Controller cv = new Controller(fV, folioTracker);
         cv.create();
+        cv.exit();
 //        cv.add();
     }
 

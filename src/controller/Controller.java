@@ -16,6 +16,7 @@ public class Controller {
     private IStock iStock;
 
     private CreateListener createListener;
+    private ExitListener exitListener;
 
     public Controller(FolioView folioView, IFolioTracker iFolioTracker)
     {
@@ -30,5 +31,7 @@ public class Controller {
     {
         folioView.getmiCreate().addActionListener(createListener);
     }
+
+    public void exit() {folioView.getMiExit().addActionListener(exitListener);}
 
 }
