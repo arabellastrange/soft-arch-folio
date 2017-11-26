@@ -24,5 +24,6 @@ public class CreateListener implements ActionListener {
         createView.setFolioName();
         createView.create();
         iFolioTracker.createFolio(createView.getFolioName());
+        createView.getAddButton().addActionListener(new AddListener(createView.getFolioName(), createView.getDftModel(), createView.getTsym(), createView.getTname(), createView.getNshares(), iFolioTracker));
     }
 }

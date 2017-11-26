@@ -16,7 +16,6 @@ public class Controller {
     private IStock iStock;
 
     private CreateListener createListener;
-    private AddBtnListener addBtnListener;
 
     public Controller(FolioView folioView, IFolioTracker iFolioTracker)
     {
@@ -25,16 +24,11 @@ public class Controller {
         createView = new CreateView(folioView.getjtpStocks());
 
         createListener = new CreateListener(createView, iFolioTracker);
-        addBtnListener = new AddBtnListener(folioView.getjtpStocks(), iFolioTracker);
     }
 
     public void create()
     {
         folioView.getmiCreate().addActionListener(createListener);
-        createView.getAddButton().addActionListener(addBtnListener);
     }
-
-    public void addIt() {createView.getAddButton().addActionListener(addBtnListener);}
-
 
 }

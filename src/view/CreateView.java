@@ -1,9 +1,5 @@
 package view;
 
-import controller.CreateController;
-import controller.DeleteListener;
-import controller.RightClickRow;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -11,8 +7,6 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -22,6 +16,9 @@ public class CreateView{
     private ImageIcon icon;
     private DefaultTableModel dftModel;
     private String folioName;
+    private JTextField tsym;
+    private JTextField tname;
+    private JFormattedTextField nshares;
     //private CreateController c;
 
 
@@ -37,10 +34,10 @@ public class CreateView{
     public void create()
     {
         JLabel lsym = new JLabel("Ticker Symbol: ");
-        JTextField tsym = new JTextField();
+        tsym = new JTextField();
         tsym.setColumns(10);
         JLabel lname =  new JLabel("Share Name: ");
-        JTextField tname = new JTextField();
+        tname = new JTextField();
         tname.setColumns(10);
         NumberFormat format = NumberFormat.getInstance();
         NumberFormatter formatter = new NumberFormatter(format);
@@ -50,7 +47,7 @@ public class CreateView{
         formatter.setAllowsInvalid(true);
 
         JLabel lshares = new JLabel("Number of Shares: ");
-        JFormattedTextField nshares = new JFormattedTextField(formatter);
+        nshares = new JFormattedTextField(formatter);
         nshares.setColumns(10);
        // addButton = new JButton("Add");
 
@@ -175,5 +172,18 @@ public class CreateView{
 
     public DefaultTableModel getDftModel() {
         return dftModel;
+    }
+
+    public JTextField getTsym()
+    {
+        return tsym;
+    }
+
+    public JTextField getTname() {
+        return tname;
+    }
+
+    public JFormattedTextField getNshares() {
+        return nshares;
     }
 }
