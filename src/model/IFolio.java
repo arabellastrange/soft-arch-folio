@@ -42,4 +42,6 @@ public interface IFolio {
      */
     public String getName();
 
+    public IStock getStockByTicker(String name);
+
 }
