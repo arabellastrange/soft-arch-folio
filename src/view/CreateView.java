@@ -28,7 +28,7 @@ public class CreateView{
     {
         this.jtpStocks = jtpStocks;
         icon = new ImageIcon("img/close.png", "close");
-        addButton = new JButton("Add");
+        //addButton = new JButton("Add");
     }
 
     public void create()
@@ -49,7 +49,7 @@ public class CreateView{
         JLabel lshares = new JLabel("Number of Shares: ");
         nshares = new JFormattedTextField(formatter);
         nshares.setColumns(10);
-       // addButton = new JButton("Add");
+        addButton = new JButton("Add");
 
 
         JPanel panInput = new JPanel();
@@ -167,7 +167,8 @@ public class CreateView{
 
     public JButton getAddButton() {
 
-            return addButton;
+
+        return addButton;
     }
 
     public DefaultTableModel getDftModel() {
