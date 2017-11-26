@@ -46,4 +46,12 @@ public interface IFolioTracker {
      */
     public boolean saveToDisk(File file);
 
+
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public IFolio getFolioByName(String name);
+
 }

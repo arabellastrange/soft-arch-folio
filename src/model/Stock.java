@@ -70,15 +70,15 @@ class Stock implements IStock, Serializable {
     }
 
     @Override
-    public void buy(int amount) throws NegativeShares {
-        if (amount <= 0) throw new NegativeShares();
+    public void buy(int amount) throws NegativeSharesException {
+        if (amount <= 0) throw new NegativeSharesException();
         this.shares += amount;
         totalCost += amount * sharePrice;
     }
 
     @Override
-    public void sell(double amount) throws NegativeShares {
-        if (amount > shares || amount <= 0) throw new NegativeShares();
+    public void sell(double amount) throws NegativeSharesException {
+        if (amount > shares || amount <= 0) throw new NegativeSharesException();
         this.shares -= amount;
         totalValueSold += amount * sharePrice;
     }

@@ -14,11 +14,11 @@ public interface IFolio {
      * @param shares
      * @return
      * @throws InvalidNameException
-     * @throws NegativeShares
+     * @throws NegativeSharesException
      * @throws NoSuchTickerException
      * @throws WebsiteDataException
      */
-    public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NegativeShares, NoSuchTickerException, WebsiteDataException;
+    public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NegativeSharesException, NoSuchTickerException, WebsiteDataException, NegativeSharesException;
 
     /**
      * @param stock
@@ -35,5 +35,11 @@ public interface IFolio {
      * @return
      */
     public double getValue();
+
+    /**
+     *
+     * @return
+     */
+    public String getName();
 
 }

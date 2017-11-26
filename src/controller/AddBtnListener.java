@@ -2,7 +2,8 @@ package controller;
 
 import model.IFolio;
 import model.IFolioTracker;
-import model.NegativeShares;
+import model.NegativeSharesException;
+import model.NegativeSharesException;
 import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
@@ -22,14 +23,18 @@ public class AddBtnListener implements ActionListener {
 
     DefaultTableModel tableModel;
 
-    public AddBtnListener(JTabbedPane tabbedPane) {
+    public AddBtnListener(JTabbedPane tabbedPane, IFolioTracker f) {
         this.tabbedPane = tabbedPane;
         this.f = f;
-        s = f.getFolios();
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        String title = tabbedPane.getTitleAt(tabbedPane.getSelectedIndex());
+
+        s = f.getFolioByName(title);
 
         JPanel allPan = null;
 
@@ -131,7 +136,7 @@ public class AddBtnListener implements ActionListener {
             return "successfully added stock";
         } catch (InvalidNameException e) {
             return "Invalid name exception";
-        } catch (NegativeShares negativeShares) {
+        } catch (NegativeSharesException negativeShares) {
             return "Negative shares exception";
         } catch (NoSuchTickerException e) {
             return "No such ticker exception";

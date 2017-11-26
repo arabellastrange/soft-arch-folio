@@ -1,13 +1,13 @@
 package model;
 
-import model.web.NoSuchTickerException;
-import model.web.WebsiteDataException;
+        import model.web.NoSuchTickerException;
+        import model.web.WebsiteDataException;
 
-import javax.naming.InvalidNameException;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+        import javax.naming.InvalidNameException;
+        import java.io.Serializable;
+        import java.util.HashSet;
+        import java.util.Set;
+        import java.util.stream.Collectors;
 
 class Folio implements IFolio, Serializable {
 
@@ -34,9 +34,9 @@ class Folio implements IFolio, Serializable {
     }
 
     @Override
-    public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NegativeShares, NoSuchTickerException, WebsiteDataException {
+    public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NoSuchTickerException, WebsiteDataException, NegativeSharesException {
         if (name == null || name.isEmpty()) throw new InvalidNameException("name is empty or null");
-        if (shares <= 0) throw new NegativeShares();
+        if (shares <= 0) throw new NegativeSharesException();
         Stock s = new Stock(ticker, name, shares);
         return stocks.add(s);
     }
@@ -68,7 +68,6 @@ class Folio implements IFolio, Serializable {
     public Set<IStock> getStocks() {
         return stocks
                 .stream()
-                .map(stock -> new Stock(stock))
                 .collect(Collectors.toSet());
     }
 
@@ -78,6 +77,11 @@ class Folio implements IFolio, Serializable {
         for (Stock stock : stocks)
             value += stock.getHoldingValue();
         return value;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
 }

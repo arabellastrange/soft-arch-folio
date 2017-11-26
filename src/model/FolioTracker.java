@@ -25,7 +25,7 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
     public Set<IFolio> getFolios() {
         Set<IFolio> copyFolios = new HashSet<>();
         for (Folio f : folios) {
-            copyFolios.add(new Folio(f));
+            copyFolios.add(f);
         }
         return copyFolios;
     }
@@ -63,6 +63,14 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         }
         System.out.println("saved data");
         return true;
+    }
+
+    @Override
+    public IFolio getFolioByName(String name) {
+        for (Folio f : folios) {
+            if (f.getName().equals(name)) return f;
+        }
+        throw new RuntimeException(); // fixme
     }
 
 }

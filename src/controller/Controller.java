@@ -25,7 +25,7 @@ public class Controller {
         createView = new CreateView(folioView.getjtpStocks());
 
         createListener = new CreateListener(createView, iFolioTracker);
-        addBtnListener = new AddBtnListener(folioView.getjtpStocks());
+        addBtnListener = new AddBtnListener(folioView.getjtpStocks(), iFolioTracker);
     }
 
     public void create()
