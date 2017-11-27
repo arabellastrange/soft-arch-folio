@@ -13,7 +13,7 @@ public class BuyListener implements ActionListener {
     private final String ticker;
     private final String fName;
 
-    BuyListener(IFolioTracker folioTrack, String ticker, String fName){
+    BuyListener(IFolioTracker folioTrack, String fName, String ticker){
 
         this.folioTrack = folioTrack;
         this.ticker = ticker;
