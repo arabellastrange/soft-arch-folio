@@ -16,12 +16,16 @@ class FolioTest {
     private FolioTracker folioTracker;
     private Folio f1;
     private Folio f2;
+    private Folio f3;
+    private Folio f4;
 
     @BeforeEach
     void setUp() throws WebsiteDataException, NegativeSharesException, InvalidNameException, NoSuchTickerException {
         folioTracker = new FolioTracker();
         f1 = new Folio("MyFolio");
         f2 = new Folio("YourFolio");
+        f3 = new Folio("MyFolio");
+        f4 = new Folio("MyFolio");
 
         folioTracker.createFolio(f1);
         folioTracker.createFolio(f2);
@@ -99,5 +103,47 @@ class FolioTest {
         assertFalse(f1.getStocks().contains(x));
         assertTrue(f1.getStocks().size() == oldF.getStocks().size() - 1);
     }
+
+    @Test
+    void testDeleteStock2() throws WebsiteDataException, NegativeSharesException, InvalidNameException, NoSuchTickerException {
+        Stock a = new Stock ("aapl", "aaa", 300);
+        Stock m = new Stock("MSFT", "microsoft", 20);
+        f1.addStock(a);
+        assertFalse(f1.deleteStock(m));
+    }
+
+    @Test
+    void testEqualsConsistent(){
+        assertTrue(f1.equals(f4) && f1.equals(f4));
+    }
+
+    @Test
+    void testEqualsReflexive(){
+        assertTrue(f1.equals(f1));
+    }
+
+    @Test
+    void testEqualsSymmetric(){
+        assertTrue(f1.equals(f4) && f4.equals(f1));
+    }
+
+    @Test
+    void testNotEqualNull(){
+        Stock s = null;
+        assertFalse(f1.equals(s));
+    }
+
+    @Test
+    void testGetValue() throws NoSuchTickerException, WebsiteDataException {
+        Stock a = new Stock ("aapl", "aaa", 300);
+        Stock x = new Stock ("x", "woo", 40);
+        Stock m = new Stock("MSFT", "microsoft", 20);
+        f1.addStock(a);
+        f1.addStock(m);
+        Folio oldF = new Folio(f1);
+        f1.addStock(x);
+        assertTrue(f1.getValue() > oldF.getValue());
+    }
+
 
 }
