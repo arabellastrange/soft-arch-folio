@@ -21,9 +21,11 @@ public class AddListener implements ActionListener {
     private JFormattedTextField shareField;
     private IFolioTracker f;
     private IFolio s;
+    private JPanel panel;
 
-    AddListener(String title, DefaultTableModel dftModel, JTextField tickField, JTextField nameField, JFormattedTextField shareField, IFolioTracker f)
+    AddListener(JPanel panel, String title, DefaultTableModel dftModel, JTextField tickField, JTextField nameField, JFormattedTextField shareField, IFolioTracker f)
     {
+        this.panel = panel;
         this.title = title;
         this.dftModel = dftModel;
         this.tickField = tickField;
@@ -69,21 +71,26 @@ public class AddListener implements ActionListener {
 //        return -1;
 //    }
 
-    public String addStock(String ticker, String name, int nshares){
+    public void addStock(String ticker, String name, int nshares){
         try {
             s.createStock(ticker, name, nshares);
-            return "successfully added stock";
+
         } catch (InvalidNameException e) {
 
-            JOptionPane.showMessageDialog("Invalid name", "Error");
+            JOptionPane.showMessageDialog(panel,"Invalid name.", "Error", JOptionPane.ERROR_MESSAGE);
 
-            return "Invalid name exception";
         } catch (NegativeSharesException negativeShares) {
-            return "Negative shares exception";
+
+            JOptionPane.showMessageDialog(panel,"Cannot add negative shares.", "Error", JOptionPane.ERROR_MESSAGE);
+
         } catch (NoSuchTickerException e) {
-            return "No such ticker exception";
+
+            JOptionPane.showMessageDialog(panel,"No such ticker with the name: " + ticker, "Error", JOptionPane.ERROR_MESSAGE);
+
         } catch (WebsiteDataException e) {
-            return "the website died";
+
+            JOptionPane.showMessageDialog(panel,"The website died.", "Error", JOptionPane.ERROR_MESSAGE);
+            
         }
     }
 }

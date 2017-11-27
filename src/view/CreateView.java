@@ -24,6 +24,7 @@ public class CreateView implements Observer{
     private JTextField tname;
     private JFormattedTextField nshares;
     private JTable tableStocks;
+    private JPanel panAll;
 
     public JButton addButton;
 
@@ -122,7 +123,7 @@ public class CreateView implements Observer{
         panButton.add(bClose, BorderLayout.WEST);
         panButton.add(bDelete, BorderLayout.EAST);
 
-        JPanel panAll = new JPanel();
+        panAll = new JPanel();
         panAll.add(panInput);
         panAll.add(panTable);
         panAll.add(panButton);
@@ -193,6 +194,11 @@ public class CreateView implements Observer{
 
     public JTable getTable() {
         return tableStocks;
+    }
+
+    public JPanel getPanAll()
+    {
+        return panAll;
     }
 
 
