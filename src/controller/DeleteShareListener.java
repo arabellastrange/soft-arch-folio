@@ -30,9 +30,8 @@ public class DeleteShareListener implements ActionListener{
 
     private void delDialogue()
     {
-        int dialogueButton = JOptionPane.YES_NO_OPTION;
-        JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this share?", "WARNING", dialogueButton);
-        if(dialogueButton == JOptionPane.YES_OPTION)
+        int selectedOption =  JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this share?", "WARNING",JOptionPane.YES_NO_OPTION);
+        if(selectedOption == JOptionPane.YES_OPTION)
         {
             //delete stock in the model
             s.deleteStock(s.getStockByTicker(ticker));
