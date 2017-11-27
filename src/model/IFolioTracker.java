@@ -4,6 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
 import java.io.*;
+import java.util.Observer;
 import java.util.Set;
 
 public interface IFolioTracker {
@@ -53,5 +54,11 @@ public interface IFolioTracker {
      * @return
      */
     public IFolio getFolioByName(String name);
+
+    /**
+     *
+     * @param o
+     */
+    public void registerObserver(Observer o);
 
 }
