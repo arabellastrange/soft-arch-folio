@@ -2,7 +2,7 @@ package controller;
 
 import model.IFolio;
 import model.IFolioTracker;
-import model.IStock;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -44,8 +44,5 @@ public class DeleteShareListener implements ActionListener{
         {
             //do not delete the row
         }
-
-//        delete.deleteStock(stock);
-
     }
 }

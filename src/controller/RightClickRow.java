@@ -60,7 +60,7 @@ public class RightClickRow implements MouseListener {
             JMenuItem delete = new JMenuItem("delete share");
             JMenuItem buy = new JMenuItem("buy");
             JMenuItem sell = new JMenuItem("sell");
-            edit.addActionListener(new EditShareListener(tableStocks, rowindex));
+            edit.addActionListener(new EditShareListener(tableStocks, rowindex, folioTrack, ticker, fName));
             delete.addActionListener(new DeleteShareListener(folioTrack, ticker, fName));
             buy.addActionListener(new BuyListener(folioTrack, ticker, fName));
             sell.addActionListener(new SellListener(folioTrack, ticker, fName));

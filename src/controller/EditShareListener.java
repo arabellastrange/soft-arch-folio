@@ -1,5 +1,9 @@
 package controller;
 
+import model.IFolio;
+import model.IFolioTracker;
+import model.IStock;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,13 +11,20 @@ import java.awt.event.ActionListener;
 
 public class EditShareListener implements ActionListener{
 
-    JTable tableStocks;
-    int rowindex;
+    private JTable tableStocks;
+    private int rowindex;
+    private IFolioTracker f;
+    private IStock s;
+    private String ticker;
 
-    public EditShareListener(JTable tableStocks, int rowindex)
+    public EditShareListener(JTable tableStocks, int rowindex, IFolioTracker f, String ticker, String fName)
     {
         this.tableStocks = tableStocks;
         this.rowindex = rowindex;
+        this.f = f;
+        //use IFolioTracker to get folio name reference and make s = ticker name of stock referenced
+        s = f.getFolioByName(fName).getStockByTicker(ticker);
+        this.ticker = ticker;
     }
 
     @Override
@@ -82,6 +93,7 @@ public class EditShareListener implements ActionListener{
         editing.setVisible(true);
         editing.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-
+        //add call to model data to edit stock
+        //s.setName(name);
     }
 }
