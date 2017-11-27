@@ -31,9 +31,8 @@ public class DeleteListener implements ActionListener {
 
     private boolean areYouSure()
     {
-        int dialogueButton = JOptionPane.YES_NO_OPTION;
-        JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this folio?","WARNING",dialogueButton);
-        if(dialogueButton == JOptionPane.YES_OPTION)
+        int selectedOption = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this folio?","WARNING",JOptionPane.YES_NO_OPTION);
+        if(selectedOption == JOptionPane.YES_OPTION)
         {
             return true;
         }
