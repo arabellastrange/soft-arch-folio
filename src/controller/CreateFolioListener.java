@@ -20,8 +20,6 @@ public class CreateFolioListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // get the n
-        // ame of the folio
         try {
             String folioName = folioView.getFolioName();
             if(!iFolioTracker.createFolio(folioName)) return;

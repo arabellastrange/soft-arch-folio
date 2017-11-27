@@ -1,6 +1,7 @@
 package view;
 
 import controller.AddStockListener;
+import controller.DeleteListener;
 import model.IFolio;
 import model.IFolioTracker;
 import model.IStock;
@@ -102,7 +103,7 @@ public class FolioView implements Observer {
 
         //JButton bClose = new JButton("Close");
         deleteButton = new JButton("Delete");
-        //bDelete.addActionListener(new DeleteListener());
+        deleteButton.addActionListener(new DeleteListener(this, folioName, folioTracker));
         JPanel panButton = new JPanel();
         //panButton.add(bClose, BorderLayout.WEST);
         panButton.add(deleteButton, BorderLayout.CENTER);
@@ -124,7 +125,7 @@ public class FolioView implements Observer {
     }
 
     public void updateTableModel() {
-        for(int i = dftModel.getRowCount() - 1; i >= 0; i--) {
+        for (int i = dftModel.getRowCount() - 1; i >= 0; i--) {
             dftModel.removeRow(i);
         }
 
@@ -154,5 +155,15 @@ public class FolioView implements Observer {
 
     public void alertErrorMsg(String msg) {
         JOptionPane.showMessageDialog(panAll, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public boolean getConfirmation(String s) {
+        int dialogueButton = JOptionPane.YES_NO_OPTION;
+        int r = JOptionPane.showConfirmDialog(null, s, "WARNING", dialogueButton);
+        if (r == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

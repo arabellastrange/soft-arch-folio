@@ -54,15 +54,12 @@ class Folio extends Observable implements IFolio, Serializable {
 
         Folio folio = (Folio) o;
 
-        if (!name.equals(folio.name)) return false;
-        return stocks.equals(folio.stocks);
+        return name.equals(folio.name);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + stocks.hashCode();
-        return result;
+        return name.hashCode();
     }
 
     @Override

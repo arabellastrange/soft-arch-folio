@@ -54,7 +54,11 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
 
     @Override
     public boolean deleteFolio(IFolio folio) {
-        return folios.remove(folio);
+        boolean result =  folios.remove(folio);
+        if(!result) return false;
+        setChanged();
+        notifyObservers();
+        return true;
     }
 
     @Override

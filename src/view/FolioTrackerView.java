@@ -1,12 +1,14 @@
 package view;
 
 import controller.CreateFolioListener;
+import model.IFolio;
 import model.IFolioTracker;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observer;
 
 public class FolioTrackerView implements Observer {
@@ -20,7 +22,7 @@ public class FolioTrackerView implements Observer {
 
     private IFolioTracker folioTracker;
 
-    private List<FolioView> folioViewsList;
+    private Map<String, FolioView> nameToFolioView;
 
     public FolioTrackerView(IFolioTracker iFolioTracker) {
         folioTracker = iFolioTracker;
@@ -40,6 +42,7 @@ public class FolioTrackerView implements Observer {
         miOpen = new JMenuItem("Open...");
         miSave = new JMenuItem("Save...");
         miExit = new JMenuItem("Exit");
+        miExit.addActionListener(e -> System.exit(0));
 
         //menu for the menu items
         JMenu mFolio = new JMenu("Folio");
@@ -61,7 +64,7 @@ public class FolioTrackerView implements Observer {
         frMain.add(panTab);
         frMain.setVisible(true);
 
-        folioViewsList = new ArrayList<>();
+        nameToFolioView = new HashMap<>();
     }
 
     public JMenuItem getmiCreate() {
@@ -77,14 +80,33 @@ public class FolioTrackerView implements Observer {
     public void createFolioView(String folioName) {
         FolioView newFolioView = new FolioView(folioName, folioTracker);
         jtpStocks.addTab(folioName, newFolioView.getPanAll());
-        folioViewsList.add(newFolioView);
+        nameToFolioView.put(folioName, newFolioView);
     }
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        for(FolioView f : folioViewsList) {
+        removeAnyTabs();
+        for (FolioView f : nameToFolioView.values()) {
             f.updateTableModel();
         }
+    }
+
+    private void removeAnyTabs() {
+        ArrayList<String> toBeDeleted = new ArrayList<>();
+        nameToFolioView
+                .keySet()
+                .forEach(key -> {
+                    boolean r = false;
+                    for (IFolio f : folioTracker.getFolios()) {
+                        if (f.getName().equals(key)) r = true;
+                    }
+                    if (!r) {
+                        toBeDeleted.add(key);
+                        jtpStocks.remove(jtpStocks.getSelectedComponent());
+                    }
+                });
+
+        toBeDeleted.forEach(key -> nameToFolioView.remove(key));
     }
 
     public Component getfrMain() {
