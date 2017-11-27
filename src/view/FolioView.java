@@ -11,10 +11,11 @@ public class FolioView {
     JMenuItem miExit;
     JMenuItem miOpen;
     JMenuItem miSave;
+    JFrame frMain;
 
     public FolioView()
     {
-        JFrame frMain = new JFrame();
+        frMain = new JFrame();
         //Tabbed Pane
         jtpStocks = new JTabbedPane();
         //Panel for tabbed pane
@@ -59,9 +60,22 @@ public class FolioView {
         return miExit;
     }
 
+    public JMenuItem getMiOpen() {
+        return miOpen;
+    }
+
+    public JMenuItem getMiSave() {
+        return miSave;
+    }
+
     public JTabbedPane getjtpStocks()
     {
         return jtpStocks;
+    }
+
+    public JFrame getfrMain()
+    {
+        return frMain;
     }
 
 

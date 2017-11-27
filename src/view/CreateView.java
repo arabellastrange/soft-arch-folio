@@ -109,7 +109,7 @@ public class CreateView{
         panTable.add(tableHeader);
         panTable.add(tableStocks);
 
-        JScrollPane jspTable = new JScrollPane(panTable);
+       // JScrollPane jspTable = new JScrollPane(panTable);
 
         JButton bClose = new JButton("Close");
         JButton bDelete = new JButton("Delete");

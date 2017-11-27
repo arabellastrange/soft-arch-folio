@@ -11,13 +11,13 @@ public class Controller {
     private FolioView folioView;
     private CreateView createView;
 
-    private IFolio iFolio;
     private IFolioTracker iFolioTracker;
     private IStock iStock;
 
     private CreateListener createListener;
     private ExitListener exitListener;
-    private RightClickRow rightClickListener;
+    private OpenListener openListener;
+    private SaveListener saveListener;
 
     public Controller(FolioView folioView, IFolioTracker iFolioTracker)
     {
@@ -27,6 +27,8 @@ public class Controller {
 
         createListener = new CreateListener(createView, iFolioTracker);
         exitListener = new ExitListener(folioView);
+        openListener = new OpenListener(folioView);
+        saveListener = new SaveListener(folioView);
     }
 
     public void create()
@@ -37,6 +39,14 @@ public class Controller {
     public void exit()
     {
         folioView.getmiExit().addActionListener(exitListener);
+    }
+
+    public void open() {
+        folioView.getMiOpen().addActionListener(openListener);
+    }
+
+    public void save() {
+        folioView.getMiSave().addActionListener(saveListener);
     }
 
 //    public void rightClick() {
