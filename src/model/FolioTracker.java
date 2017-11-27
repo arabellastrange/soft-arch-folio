@@ -14,7 +14,7 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
     public FolioTracker() {
         refreshTimer = new Timer("refresh timer");
         folios = new HashSet<>();
-        setUpAutoRefresh(5000);
+        setUpAutoRefresh(3000);
     }
 
     private void setUpAutoRefresh(long period) {
@@ -35,7 +35,12 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
 
     @Override
     public boolean createFolio(String name) {
-        return folios.add(new Folio(name));
+        boolean result = folios.add(new Folio(name));
+        if(result) {
+            setChanged();
+            notifyObservers();
+        }
+        return result;
     }
 
     @Override
@@ -57,6 +62,7 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         for (Folio f : folios) {
             f.refresh();
         }
+        setChanged();
         notifyObservers();
     }
 

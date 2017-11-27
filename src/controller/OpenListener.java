@@ -1,7 +1,7 @@
 package controller;
 
 import model.IFolioTracker;
-import view.FolioView;
+import view.FolioTrackerView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,11 +10,11 @@ import java.io.IOException;
 
 public class OpenListener implements ActionListener {
 
-    FolioView folioView;
+    FolioTrackerView folioTrackerView;
 
-    OpenListener(FolioView folioView)
+    OpenListener(FolioTrackerView folioTrackerView)
     {
-        this.folioView = folioView;
+        this.folioTrackerView = folioTrackerView;
     }
 
     @Override
@@ -22,15 +22,15 @@ public class OpenListener implements ActionListener {
         try {
             open();
         } catch (IOException e1) {
-            JOptionPane.showMessageDialog(folioView.getfrMain(), "Not a valid file", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(folioTrackerView.getfrMain(), "Not a valid file", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException e1) {
-            JOptionPane.showMessageDialog(folioView.getfrMain(), "Not a valid file type", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(folioTrackerView.getfrMain(), "Not a valid file type", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void open() throws IOException, ClassNotFoundException {
         JFileChooser jfc = new JFileChooser();
-        int result = jfc.showOpenDialog(folioView.getfrMain());
+        int result = jfc.showOpenDialog(folioTrackerView.getfrMain());
         if (result == JFileChooser.APPROVE_OPTION)
         {
             IFolioTracker.load(jfc.getSelectedFile());

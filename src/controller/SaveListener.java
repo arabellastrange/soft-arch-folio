@@ -1,8 +1,7 @@
 package controller;
 
 
-import model.IFolioTracker;
-import view.FolioView;
+import view.FolioTrackerView;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -13,11 +12,11 @@ import java.io.IOException;
 
 public class SaveListener implements ActionListener {
 
-    FolioView folioView;
+    FolioTrackerView folioTrackerView;
 
-    SaveListener(FolioView folioView)
+    SaveListener(FolioTrackerView folioTrackerView)
     {
-        this.folioView = folioView;
+        this.folioTrackerView = folioTrackerView;
     }
 
     @Override
@@ -34,8 +33,7 @@ public class SaveListener implements ActionListener {
         JFileChooser jfc = new JFileChooser();
         jfc.setSelectedFile(new File("default.folio"));
         jfc.setFileFilter(filtTxt);
-        int result = jfc.showSaveDialog(folioView.getfrMain());
-        if (result == JFileChooser.APPROVE_OPTION)
+        if (1 == JFileChooser.APPROVE_OPTION)
         {
             System.out.println("Save");
             //TODO call some save function from the backend

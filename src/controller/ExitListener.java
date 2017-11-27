@@ -1,16 +1,16 @@
 package controller;
 
-import view.FolioView;
+import view.FolioTrackerView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ExitListener implements ActionListener {
 
-    FolioView fv;
+    FolioTrackerView fv;
 
-    ExitListener(FolioView folioView)
+    ExitListener(FolioTrackerView folioTrackerView)
     {
-        fv = folioView;
+        fv = folioTrackerView;
     }
 
     @Override

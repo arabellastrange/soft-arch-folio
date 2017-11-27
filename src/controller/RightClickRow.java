@@ -1,10 +1,6 @@
 package controller;
 
-import controller.DeleteShareListener;
-import controller.EditShareListener;
 import model.IFolioTracker;
-import view.CreateView;
-import view.FolioView;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
