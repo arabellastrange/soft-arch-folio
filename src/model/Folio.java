@@ -9,7 +9,7 @@ package model;
         import java.util.Set;
         import java.util.stream.Collectors;
 
-class Folio implements IFolio, Serializable {
+class Folio implements IFolio, Serializable{
 
     private String name;
     private Set<Stock> stocks;
@@ -92,4 +92,7 @@ class Folio implements IFolio, Serializable {
         return null;
     }
 
+    public void addStock(Stock s) {
+        stocks.add(s);
+    }
 }

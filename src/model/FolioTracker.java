@@ -38,6 +38,8 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         return folios.add(new Folio(name));
     }
 
+    public boolean createFolio(Folio f){ return folios.add(f);}
+
     @Override
     public Set<IFolio> getFolios() {
         Set<IFolio> copyFolios = new HashSet<>();
