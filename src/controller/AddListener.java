@@ -36,7 +36,8 @@ public class AddListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
             addStock(tickField.getText(), nameField.getText(), Integer.valueOf(shareField.getValue().toString()));
-            Object[] newRow = new Object[]{tickField.getText(), nameField.getText(), shareField.getValue().toString(), "def", "def"};
+            Object[] newRow = new Object[]{tickField.getText(), nameField.getText(), shareField.getValue().toString(), s.getStockByTicker(tickField.getText().trim()).getPricePerShare(),
+                                                                                                                            s.getStockByTicker(tickField.getText().trim()).getHoldingValue()};
             dftModel.addRow(newRow);
     }
 

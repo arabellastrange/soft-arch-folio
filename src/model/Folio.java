@@ -84,4 +84,12 @@ class Folio implements IFolio, Serializable {
         return name;
     }
 
+    @Override
+    public IStock getStockByTicker(String name) {
+        for(IStock s: stocks)
+            if(s.getTicker().equals(name)) return s;
+        //Fix if doesnt exist
+        return null;
+    }
+
 }
