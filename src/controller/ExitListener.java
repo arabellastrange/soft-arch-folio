@@ -1,8 +1,6 @@
 package controller;
 
 import view.FolioView;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

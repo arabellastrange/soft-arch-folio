@@ -19,8 +19,7 @@ public class CreateView{
     private JTextField tsym;
     private JTextField tname;
     private JFormattedTextField nshares;
-    //private CreateController c;
-
+    JTable tableStocks;
 
     public JButton addButton;
 
@@ -69,7 +68,7 @@ public class CreateView{
         dftModel.addColumn("Price Per Share");
         dftModel.addColumn("Value of Holding");
 
-        JTable tableStocks = new JTable(dftModel){
+        tableStocks = new JTable(dftModel){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -186,5 +185,9 @@ public class CreateView{
 
     public JFormattedTextField getNshares() {
         return nshares;
+    }
+
+    public JTable getTable() {
+        return tableStocks;
     }
 }

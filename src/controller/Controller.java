@@ -17,6 +17,7 @@ public class Controller {
 
     private CreateListener createListener;
     private ExitListener exitListener;
+    private RightClickRow rightClickListener;
 
     public Controller(FolioView folioView, IFolioTracker iFolioTracker)
     {
@@ -26,6 +27,7 @@ public class Controller {
 
         createListener = new CreateListener(createView, iFolioTracker);
         exitListener = new ExitListener(folioView);
+        rightClickListener = new RightClickRow(createView);
     }
 
     public void create()
@@ -38,4 +40,7 @@ public class Controller {
         folioView.getmiExit().addActionListener(exitListener);
     }
 
+//    public void rightClick() {
+//        createView.getTable();
+//    }
 }

@@ -2,6 +2,8 @@ package controller;
 
 import controller.DeleteShareListener;
 import controller.EditShareListener;
+import view.CreateView;
+import view.FolioView;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -11,9 +13,9 @@ public class RightClickRow implements MouseListener {
 
     JTable tableStocks;
 
-    RightClickRow(JTable tableStocks)
+    RightClickRow(CreateView c)
     {
-        this.tableStocks = tableStocks;
+        tableStocks = c.getTable();
     }
 
     @Override

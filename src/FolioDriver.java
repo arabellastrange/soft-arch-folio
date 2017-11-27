@@ -13,7 +13,6 @@ public class FolioDriver{
         Controller cv = new Controller(fV, folioTracker);
         cv.create();
         cv.exit();
-//        cv.add();
     }
 
 }
