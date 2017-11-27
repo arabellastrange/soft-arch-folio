@@ -44,8 +44,5 @@ public class DeleteShareListener implements ActionListener{
         {
             //do not delete the row
         }
-
-//        delete.deleteStock(stock);
-
     }
 }
