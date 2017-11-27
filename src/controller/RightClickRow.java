@@ -2,6 +2,7 @@ package controller;
 
 import controller.DeleteShareListener;
 import controller.EditShareListener;
+import model.IFolioTracker;
 import view.CreateView;
 import view.FolioView;
 
@@ -11,11 +12,18 @@ import java.awt.event.MouseListener;
 
 public class RightClickRow implements MouseListener {
 
-    JTable tableStocks;
+    private JTable tableStocks;
+    private String ticker;
+    private IFolioTracker folioTrack;
+    private String fName;
 
-    RightClickRow(JTable tableStocks)
+
+    RightClickRow(JTable tableStocks, String ticker, IFolioTracker folioTrack, String fName)
     {
         this.tableStocks = tableStocks;
+        this.ticker = ticker;
+        this.folioTrack = folioTrack;
+        this.fName = fName;
     }
 
     @Override
@@ -53,7 +61,7 @@ public class RightClickRow implements MouseListener {
             JMenuItem buy = new JMenuItem("buy");
             JMenuItem sell = new JMenuItem("sell");
             edit.addActionListener(new EditShareListener(tableStocks, rowindex));
-            delete.addActionListener(new DeleteShareListener());
+            delete.addActionListener(new DeleteShareListener(folioTrack, ticker, fName));
             buy.addActionListener(new BuyListener());
             sell.addActionListener(new SellListener());
             popup.add(edit);

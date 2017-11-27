@@ -24,6 +24,6 @@ public class CreateListener implements ActionListener {
         iFolioTracker.createFolio(createView.getFolioName());
         createView.getAddButton().addActionListener(new AddListener(createView.getPanAll(), createView.getFolioName(), createView.getDftModel(), createView.getTsym(), createView.getTname(), createView.getNshares(), iFolioTracker));
         createView.getDeleteButton().addActionListener(new DeleteListener(createView, createView.getFolioName(), iFolioTracker));
-        createView.getTable().addMouseListener(new RightClickRow(createView.getTable()));
+        createView.getTable().addMouseListener(new RightClickRow(createView.getTable(), createView.getTsym().getText(), iFolioTracker, createView.getFolioName()));
     }
 }
