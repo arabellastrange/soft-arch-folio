@@ -74,6 +74,9 @@ public class AddListener implements ActionListener {
             s.createStock(ticker, name, nshares);
             return "successfully added stock";
         } catch (InvalidNameException e) {
+
+            JOptionPane.showMessageDialog("Invalid name", "Error");
+
             return "Invalid name exception";
         } catch (NegativeSharesException negativeShares) {
             return "Negative shares exception";
@@ -83,5 +86,4 @@ public class AddListener implements ActionListener {
             return "the website died";
         }
     }
-
 }

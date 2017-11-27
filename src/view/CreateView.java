@@ -23,7 +23,7 @@ public class CreateView implements Observer{
     private JTextField tsym;
     private JTextField tname;
     private JFormattedTextField nshares;
-    JTable tableStocks;
+    private JTable tableStocks;
 
     public JButton addButton;
 

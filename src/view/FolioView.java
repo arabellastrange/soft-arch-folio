@@ -85,6 +85,6 @@ public class FolioView implements Observer{
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        
+
     }
 }
