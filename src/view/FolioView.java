@@ -1,9 +1,13 @@
 package view;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observer;
 
-public class FolioView {
+public class FolioView implements Observer{
 
     JTabbedPane jtpStocks;
 
@@ -79,4 +83,8 @@ public class FolioView {
     }
 
 
+    @Override
+    public void update(java.util.Observable o, Object arg) {
+        
+    }
 }

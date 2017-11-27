@@ -1,5 +1,8 @@
 package view;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -9,8 +12,9 @@ import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Observer;
 
-public class CreateView{
+public class CreateView implements Observer{
 
     private JTabbedPane jtpStocks;
     private ImageIcon icon;
@@ -191,4 +195,9 @@ public class CreateView{
         return tableStocks;
     }
 
+
+    @Override
+    public void update(java.util.Observable o, Object arg) {
+        tableStocks.repaint();
+    }
 }

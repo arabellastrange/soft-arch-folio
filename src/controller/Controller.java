@@ -29,6 +29,8 @@ public class Controller {
         exitListener = new ExitListener(folioView);
         openListener = new OpenListener(folioView);
         saveListener = new SaveListener(folioView);
+
+        createView.getTable().repaint();
     }
 
     public void create()
