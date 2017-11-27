@@ -8,5 +8,6 @@ public class SellListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String sellShares = JOptionPane.showInputDialog("Enter the amount you would like to sell");
+        int sell = Integer.valueOf(sellShares);
     }
 }

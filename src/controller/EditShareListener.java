@@ -4,6 +4,7 @@ import model.IFolio;
 import model.IFolioTracker;
 import model.IStock;
 
+import javax.naming.InvalidNameException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,11 +31,15 @@ public class EditShareListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        editing();
+        try {
+            editing();
+        } catch (InvalidNameException e1) {
+            e1.printStackTrace();
+        }
     }
 
 
-    private void editing(){
+    private void editing() throws InvalidNameException {
 
         GridLayout editLayout = new GridLayout(0, 2);
 
@@ -42,19 +47,18 @@ public class EditShareListener implements ActionListener{
         String name = (String) tableStocks.getValueAt(rowindex, 1);
         String cvalue = (String) tableStocks.getValueAt(rowindex, 3);
 
-        JLabel Lediting = new JLabel("Editing portfolio: ");
-        JLabel Lfolio = new JLabel("Dummy folio text");
-        JLabel Ltsymbol = new JLabel(tsymbol);
-        JLabel Lname = new JLabel(name);
+        JLabel Lediting = new JLabel("Editing Share: ");
+        JLabel Ltsymbol = new JLabel("Ticker symbol: " +  tsymbol);
+        JLabel Lname = new JLabel("Name: ");
+        JTextField  newname = new JTextField();
         JLabel Lcvalue = new JLabel("Current value: " + cvalue);
         JLabel Ldaych = new JLabel("Daily change: ");
         JLabel Lnos = new JLabel("Number of shares:");
         JLabel Lintval = new JLabel("Initial value:");
         JLabel Ltotgain = new JLabel("Total gain: ");
-        JLabel Ltgainval = new JLabel("Dummy total gain");
 
-        JTextField jtfNos = new JTextField();
-        JTextField jtfIntVal = new JTextField();
+//        JTextField jtfNos = new JTextField();
+//        JTextField jtfIntVal = new JTextField();
 
         JFrame editing = new JFrame("Edit");
         JPanel edit = new JPanel();
@@ -68,22 +72,22 @@ public class EditShareListener implements ActionListener{
         //Each spaced line indicates a new row
 
         edit.add(Lediting);
-        edit.add(Lfolio);
+       // edit.add(Lfolio);
 
         edit.add(Ltsymbol);
         edit.add(Lname);
-
+        edit.add(newname);
         edit.add(Lcvalue);
         edit.add(Ldaych);
 
         edit.add(Lnos);
-        edit.add(jtfNos);
+        //edit.add(jtfNos);
 
         edit.add(Lintval);
-        edit.add(jtfIntVal);
+        //edit.add(jtfIntVal);
 
         edit.add(Ltotgain);
-        edit.add(Ltgainval);
+       // edit.add(Ltgainval);
 
         edit.add(done);
         edit.add(cancel);
@@ -94,6 +98,6 @@ public class EditShareListener implements ActionListener{
         editing.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //add call to model data to edit stock
-        //s.setName(name);
+        s.setName(newname.getText());
     }
 }
