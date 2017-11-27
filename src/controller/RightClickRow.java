@@ -13,9 +13,9 @@ public class RightClickRow implements MouseListener {
 
     JTable tableStocks;
 
-    RightClickRow(CreateView c)
+    RightClickRow(JTable tableStocks)
     {
-        tableStocks = c.getTable();
+        this.tableStocks = tableStocks;
     }
 
     @Override

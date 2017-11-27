@@ -190,4 +190,5 @@ public class CreateView{
     public JTable getTable() {
         return tableStocks;
     }
+
 }

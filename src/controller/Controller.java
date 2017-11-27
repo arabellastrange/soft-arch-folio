@@ -27,7 +27,6 @@ public class Controller {
 
         createListener = new CreateListener(createView, iFolioTracker);
         exitListener = new ExitListener(folioView);
-        rightClickListener = new RightClickRow(createView);
     }
 
     public void create()
