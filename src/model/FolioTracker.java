@@ -4,16 +4,33 @@ import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
 import java.io.*;
-import java.util.HashSet;
-import java.util.Observable;
-import java.util.Set;
+import java.util.*;
 
 public class FolioTracker extends Observable implements IFolioTracker, Serializable {
 
     private Set<Folio> folios;
+    private Timer refreshTimer;
 
     public FolioTracker() {
+        refreshTimer = new Timer("refresh timer");
         folios = new HashSet<>();
+        setUpAutoRefresh(5000);
+    }
+
+    private void setUpAutoRefresh(long period) {
+       refreshTimer.schedule(new TimerTask() {
+           @Override
+           public void run() {
+               try {
+                   refresh();
+                   System.out.println("all the tickers were refreshed");
+               } catch (NoSuchTickerException e) {
+                   e.printStackTrace();
+               } catch (WebsiteDataException e) {
+                   e.printStackTrace();
+               }
+           }
+       }, 0, period);
     }
 
     @Override
