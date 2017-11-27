@@ -35,44 +35,19 @@ public class AddListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-            addStock(tickField.getText(), nameField.getText(), Integer.valueOf(shareField.getValue().toString()));
-            Object[] newRow = new Object[]{tickField.getText(), nameField.getText(), shareField.getValue().toString(), s.getStockByTicker(tickField.getText().trim()).getPricePerShare(),
-                                                                                                                            s.getStockByTicker(tickField.getText().trim()).getHoldingValue()};
+        if(addStock(tickField.getText(), nameField.getText(), Integer.valueOf(shareField.getValue().toString())).equals("successfully added stock")){
+            Object[] newRow = new Object[]{tickField.getText(), nameField.getText(), shareField.getValue().toString(), s.getStockByTicker(tickField.getText().trim()).getPricePerShare(), s.getStockByTicker(tickField.getText().trim()).getHoldingValue()};
             dftModel.addRow(newRow);
+        }
     }
 
-//
-//    public boolean alreadyExists(String ticker) {
-//        for (int i = 0; i < dftModel.getRowCount(); i++) {
-//            if (dftModel.getValueAt(i, 0).toString().equals(ticker)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    public int getRow(String ticker) {
-//        for (int i = 0; i < dftModel.getRowCount(); i++) {
-//            if (dftModel.getValueAt(i, 0).toString().equals(ticker)) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
-//
-//    public int getPrevShares(String ticker) {
-//        for (int i = 0; i < dftModel.getRowCount(); i++) {
-//            if (dftModel.getValueAt(i, 0).toString().equals(ticker)) {
-//                return Integer.valueOf(dftModel.getValueAt(i, 2).toString().replaceAll(",", ""));
-//            }
-//        }
-//        return -1;
-//    }
 
     public String addStock(String ticker, String name, int nshares){
         try {
-            s.createStock(ticker, name, nshares);
-            return "successfully added stock";
+            if(s.createStock(ticker, name, nshares)){
+                return "successfully added stock";
+            }
+            return "Unknown error";
         } catch (InvalidNameException e) {
             return "Invalid name exception";
         } catch (NegativeSharesException negativeShares) {

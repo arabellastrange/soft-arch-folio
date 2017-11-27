@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreateListener implements ActionListener {
-
-    IFolio iFolio;
     IFolioTracker iFolioTracker;
     CreateView createView;
 
@@ -25,6 +23,7 @@ public class CreateListener implements ActionListener {
         createView.create();
         iFolioTracker.createFolio(createView.getFolioName());
         createView.getAddButton().addActionListener(new AddListener(createView.getFolioName(), createView.getDftModel(), createView.getTsym(), createView.getTname(), createView.getNshares(), iFolioTracker));
+        createView.getDeleteButton().addActionListener(new DeleteListener(createView, createView.getFolioName(), iFolioTracker));
         createView.getTable().addMouseListener(new RightClickRow(createView.getTable()));
     }
 }
