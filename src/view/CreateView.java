@@ -1,8 +1,5 @@
 package view;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -23,10 +20,14 @@ public class CreateView implements Observer{
     private JTextField tsym;
     private JTextField tname;
     private JFormattedTextField nshares;
+
     private JTable tableStocks;
     private JPanel panAll;
 
+    private JPanel currentTab;
+
     public JButton addButton;
+    public JButton deleteButton;
 
     public CreateView(JTabbedPane jtpStocks)
     {
@@ -80,25 +81,8 @@ public class CreateView implements Observer{
             }
         };
 
-        //needs to be filled with stocks
-       // tableStocks.addMouseListener(new RightClickRow(tableStocks));
         JTableHeader tableHeader = tableStocks.getTableHeader();
         tableHeader.setReorderingAllowed(false);
-
-//        addButton.addActionListener(new ActionListener(){
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if(alreadyExists(tsym.getText())){
-//                   model.setValueAt(getPrevShares(tsym.getText()) + Integer.valueOf(nshares.getValue().toString()), getRow(tsym.getText()), 2);
-//                }
-//                else {
-//                    c.addStock(tsym.getText(), tname.getText(), Integer.valueOf(nshares.getValue().toString()));
-//                    Object[] newRow = new Object[]{tsym.getText(), tname.getText(), nshares.getValue().toString(), "def", "def"};
-//                    model.addRow(newRow);
-//                }
-//
-//            }
-//        });
 
         TableRowSorter<TableModel> sortByValue =  new TableRowSorter<TableModel>(dftModel);
 
@@ -107,21 +91,19 @@ public class CreateView implements Observer{
         sortByValue.setSortKeys(sortKeys);
         tableStocks.setRowSorter(sortByValue);
 
-
-
         JPanel panTable = new JPanel();
         panTable.setLayout(new BoxLayout(panTable, BoxLayout.PAGE_AXIS));
         panTable.add(tableHeader);
         panTable.add(tableStocks);
 
-       // JScrollPane jspTable = new JScrollPane(panTable);
+        JScrollPane jspTable = new JScrollPane(panTable);
 
-        JButton bClose = new JButton("Close");
-        JButton bDelete = new JButton("Delete");
+        //JButton bClose = new JButton("Close");
+        deleteButton = new JButton("Delete");
         //bDelete.addActionListener(new DeleteListener());
         JPanel panButton = new JPanel();
-        panButton.add(bClose, BorderLayout.WEST);
-        panButton.add(bDelete, BorderLayout.EAST);
+        //panButton.add(bClose, BorderLayout.WEST);
+        panButton.add(deleteButton, BorderLayout.CENTER);
 
         panAll = new JPanel();
         panAll.add(panInput);
@@ -129,35 +111,14 @@ public class CreateView implements Observer{
         panAll.add(panButton);
         panAll.setLayout(new BoxLayout(panAll, BoxLayout.PAGE_AXIS));
 
-        jtpStocks.addTab(folioName, icon, panAll);
+        currentTab = new JPanel();
+        currentTab.add(panInput);
+        currentTab.add(panTable);
+        currentTab.add(panButton);
+        currentTab.setLayout(new BoxLayout(currentTab, BoxLayout.PAGE_AXIS));
 
-    }
+        jtpStocks.addTab(folioName, icon, currentTab);
 
-    public boolean alreadyExists(String ticker){
-        for(int i = 0; i < dftModel.getRowCount(); i ++){
-            if(dftModel.getValueAt(i,0).toString().equals(ticker)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public int getRow(String ticker){
-        for(int i = 0; i < dftModel.getRowCount(); i ++){
-            if(dftModel.getValueAt(i,0).toString().equals(ticker)){
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public int getPrevShares(String ticker){
-        for(int i = 0; i < dftModel.getRowCount(); i ++){
-            if(dftModel.getValueAt(i,0).toString().equals(ticker)){
-                return Integer.valueOf(dftModel.getValueAt(i, 2).toString().replaceAll(",", ""));
-            }
-        }
-        return -1;
     }
 
     public void setFolioName() {
@@ -173,6 +134,10 @@ public class CreateView implements Observer{
 
 
         return addButton;
+    }
+
+    public JButton getDeleteButton(){
+        return deleteButton;
     }
 
     public DefaultTableModel getDftModel() {
@@ -206,4 +171,9 @@ public class CreateView implements Observer{
     public void update(java.util.Observable o, Object arg) {
         tableStocks.repaint();
     }
+
+    public void closeTab(){
+        jtpStocks.remove(jtpStocks.getSelectedComponent());
+    }
+
 }

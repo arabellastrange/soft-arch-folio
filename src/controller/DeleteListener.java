@@ -1,16 +1,24 @@
 package controller;
 
+import model.IFolio;
+import model.IFolioTracker;
+import view.CreateView;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DeleteListener implements ActionListener {
 
-    JTabbedPane jtp;
+    private IFolioTracker ift;
+    private IFolio f;
+    private CreateView cv;
 
-    DeleteListener()
+    DeleteListener(CreateView cv, String folioName, IFolioTracker folioTracker)
     {
-
+        ift = folioTracker;
+        f = ift.getFolioByName(folioName);
+        this.cv = cv;
     }
 
     @Override
@@ -37,6 +45,7 @@ public class DeleteListener implements ActionListener {
 
     private void delete()
     {
-        //do something
+        ift.deleteFolio(f);
+        cv.closeTab();
     }
 }

@@ -90,4 +90,9 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         throw new RuntimeException(); // fixme
     }
 
+    @Override
+    public void registerObserver(Observer o) {
+        addObserver(o);
+    }
+
 }
