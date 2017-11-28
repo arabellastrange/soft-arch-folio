@@ -14,11 +14,7 @@ public class dummy {
         f1.createStock("x", "asd", 12);
         f1.createStock("MSFT", "d", 13);
         f2.createStock("sd", "asd", 1);
-        try {
-            f.saveToDisk(new File("anyfile.folio"));
-        } catch (EmptyFolioTrackerException e) {
-            e.printStackTrace();
-        }
+        f.saveToDisk(new File("anyfile.folio"));
 
         IFolioTracker ff = IFolioTracker.load(new File("anyfile.folio"));
         System.out.println(ff + " " + f);
