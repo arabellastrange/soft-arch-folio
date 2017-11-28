@@ -1,7 +1,7 @@
 package view;
 
 import controller.BuyListener;
-import controller.EditShareListener;
+//import controller.EditShareListener;
 import controller.SellListener;
 import model.IFolio;
 
