@@ -16,9 +16,6 @@ class FolioTrackerTest {
     @BeforeEach
     void setUp() throws WebsiteDataException, NegativeSharesException, InvalidNameException, NoSuchTickerException {
         folioTracker = new FolioTracker();
-        folioTracker.createFolio("MyFolio");
-        folioTracker.createFolio("YourFolio");
-        folioTracker.getFolioByName("MyFolio").createStock("MSFT", "microsoft", 20);
     }
 
     @Test

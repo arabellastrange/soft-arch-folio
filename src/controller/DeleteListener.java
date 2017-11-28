@@ -9,21 +9,20 @@ import java.awt.event.ActionListener;
 
 public class DeleteListener implements ActionListener {
 
-    private IFolioTracker f;
-    private FolioView cv;
-    private String folioName;
+    private final IFolioTracker folioTracker;
+    private final IFolio folio;
+    private final FolioView folioView;
 
-    public DeleteListener(FolioView cv, String folioName, IFolioTracker folioTracker) {
-        this.cv = cv;
-        f = folioTracker;
-        this.folioName = folioName;
+    public DeleteListener(FolioView folioView, IFolioTracker folioTracker, IFolio folio) {
+        this.folioView = folioView;
+        this.folioTracker = folioTracker;
+        this.folio = folio;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!cv.getConfirmation("Are you sure you want to delete this folio?")) return;
-        IFolio folio = f.getFolioByName(folioName);
-        f.deleteFolio(folio);
+        if (!folioView.getConfirmation("Are you sure you want to delete this folio?")) return;
+        folioTracker.deleteFolio(folio);
     }
 
 }

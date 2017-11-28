@@ -1,6 +1,7 @@
 package controller;
 
-import model.FolioTracker;
+import model.DuplicateFolioException;
+import model.IFolio;
 import model.IFolioTracker;
 import view.FolioTrackerView;
 import view.FolioView;
@@ -9,24 +10,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreateFolioListener implements ActionListener {
-    private IFolioTracker iFolioTracker;
-    private FolioTrackerView folioView;
+    private IFolioTracker folioTracker;
+    private FolioTrackerView trackerView;
 
-    public CreateFolioListener(FolioTrackerView folioView, IFolioTracker iFolioTracker)
-    {
-        this.iFolioTracker = iFolioTracker;
-        this.folioView = folioView;
+    public CreateFolioListener(FolioTrackerView trackerView, IFolioTracker folioTracker) {
+        this.folioTracker = folioTracker;
+        this.trackerView = trackerView;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            String folioName = folioView.getFolioName();
-            if(!iFolioTracker.createFolio(folioName)) return;
-            folioView.createFolioView(folioName);
-        }
-        catch (NullPointerException ex) {
-            return;
+            String folioName = trackerView.getFolioName();
+            IFolio f = folioTracker.createFolio(folioName);
+            FolioView folioView = new FolioView(folioTracker, f);
+            f.registerObserver(folioView);
+            trackerView.createFolioView(folioName, folioView);
+        } catch (NullPointerException ex) {
+            //fixme error msg to user
+        } catch (DuplicateFolioException e1) {
+            //fixme error msg to user
         }
     }
 }

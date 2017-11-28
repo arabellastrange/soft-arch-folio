@@ -20,8 +20,8 @@ import java.util.Observer;
 
 public class FolioView implements Observer {
 
-    private final String folioName;
-    //    private JTabbedPane jtpStocks;
+    private IFolio folio;
+
     private JTextField tsym;
     private JTextField tname;
     private JFormattedTextField nshares;
@@ -32,10 +32,9 @@ public class FolioView implements Observer {
     private DefaultTableModel dftModel;
     private IFolioTracker folioTracker;
 
-    public FolioView(String folioName, IFolioTracker folioTracker) {
-        this.folioName = folioName;
+    public FolioView(IFolioTracker folioTracker, IFolio folio) {
+        this.folio = folio;
         this.folioTracker = folioTracker;
-        folioTracker.getFolioByName(folioName).registerObserver(this);
         create();
     }
 
@@ -57,7 +56,7 @@ public class FolioView implements Observer {
         nshares = new JFormattedTextField(formatter);
         nshares.setColumns(10);
         addButton = new JButton("Add");
-        addButton.addActionListener(new AddStockListener(this, folioTracker, folioName));
+        addButton.addActionListener(new AddStockListener(this, folio));
 
         JPanel panInput = new JPanel();
 
@@ -84,7 +83,7 @@ public class FolioView implements Observer {
             }
         };
 
-        tableStocks.addMouseListener(new RightClickRow(tableStocks, "MSFT", folioTracker, folioName));
+        tableStocks.addMouseListener(new RightClickRow(tableStocks, folio));
 
         JTableHeader tableHeader = tableStocks.getTableHeader();
         tableHeader.setReorderingAllowed(false);
@@ -105,7 +104,7 @@ public class FolioView implements Observer {
 
         //JButton bClose = new JButton("Close");
         deleteButton = new JButton("Delete");
-        deleteButton.addActionListener(new DeleteListener(this, folioName, folioTracker));
+        deleteButton.addActionListener(new DeleteListener(this, folioTracker, folio));
         JPanel panButton = new JPanel();
         //panButton.add(bClose, BorderLayout.WEST);
         panButton.add(deleteButton, BorderLayout.CENTER);
@@ -131,8 +130,7 @@ public class FolioView implements Observer {
             dftModel.removeRow(i);
         }
 
-        IFolio iFolio = folioTracker.getFolioByName(folioName);
-        for (IStock s : iFolio.getStocks()) {
+        for (IStock s : folio.getStocks()) {
             Object[] row = new Object[5];
             row[0] = s.getTicker();
             row[1] = s.getName();
@@ -161,7 +159,7 @@ public class FolioView implements Observer {
 
     public boolean getConfirmation(String s) {
         int dialogueButton = JOptionPane.YES_NO_OPTION;
-        int r = JOptionPane.showConfirmDialog(null, s, "WARNING", dialogueButton);
+        int r = JOptionPane.showConfirmDialog(null, s, "Warning", dialogueButton);
         if (r == JOptionPane.YES_OPTION) {
             return true;
         } else {

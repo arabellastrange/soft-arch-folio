@@ -3,7 +3,7 @@ package view;
 import controller.BuyListener;
 import controller.EditShareListener;
 import controller.SellListener;
-import model.IFolioTracker;
+import model.IFolio;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -12,16 +12,12 @@ import java.awt.event.MouseListener;
 public class RightClickRow implements MouseListener {
 
     private JTable tableStocks;
-    private String ticker;
-    private IFolioTracker folioTrack;
-    private String fName;
+    private IFolio folio;
 
 
-    public RightClickRow(JTable tableStocks, String ticker, IFolioTracker folioTrack, String fName) {
+    public RightClickRow(JTable tableStocks, IFolio folio) {
         this.tableStocks = tableStocks;
-        this.ticker = ticker;
-        this.folioTrack = folioTrack;
-        this.fName = fName;
+        this.folio = folio;
     }
 
     @Override
@@ -52,9 +48,9 @@ public class RightClickRow implements MouseListener {
             JMenuItem edit = new JMenuItem("Edit share");
             JMenuItem buy = new JMenuItem("Buy");
             JMenuItem sell = new JMenuItem("Sell");
-            edit.addActionListener(new EditShareListener(tableStocks, rowindex, folioTrack, (String) tableStocks.getValueAt(rowindex, 0), fName));
-            buy.addActionListener(new BuyListener(folioTrack, fName, (String) tableStocks.getValueAt(rowindex, 0)));
-            sell.addActionListener(new SellListener(folioTrack, fName, (String) tableStocks.getValueAt(rowindex, 0)));
+//            edit.addActionListener(new EditShareListener(tableStocks, rowindex, folioTrack, (String) tableStocks.getValueAt(rowindex, 0), fName));
+            buy.addActionListener(new BuyListener(folio, (String) tableStocks.getValueAt(rowindex, 0)));
+            sell.addActionListener(new SellListener(folio, (String) tableStocks.getValueAt(rowindex, 0)));
             popup.add(edit);
             popup.add(buy);
             popup.add(sell);

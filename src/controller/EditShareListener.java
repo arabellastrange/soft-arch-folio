@@ -22,13 +22,12 @@ public class EditShareListener implements ActionListener{
         this.rowindex = rowindex;
         this.f = f;
         //use IFolioTracker to get folio name reference and make s = ticker name of stock referenced
-        s = f.getFolioByName(fName).getStockByTicker(ticker);
+//        s = f.getFolioByName(fName).getStockByTicker(ticker);
         this.ticker = ticker;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         editing();
     }
 

@@ -77,8 +77,7 @@ public class FolioTrackerView implements Observer {
         return folioName;
     }
 
-    public void createFolioView(String folioName) {
-        FolioView newFolioView = new FolioView(folioName, folioTracker);
+    public void createFolioView(String folioName, FolioView newFolioView) {
         jtpStocks.addTab(folioName, newFolioView.getPanAll());
         nameToFolioView.put(folioName, newFolioView);
     }
@@ -98,7 +97,10 @@ public class FolioTrackerView implements Observer {
                 .forEach(key -> {
                     boolean r = false;
                     for (IFolio f : folioTracker.getFolios()) {
-                        if (f.getName().equals(key)) r = true;
+                        if (f.getName().equals(key)) {
+                            r = true;
+                            break;
+                        }
                     }
                     if (!r) {
                         toBeDeleted.add(key);
