@@ -31,7 +31,8 @@ public class SellListener implements ActionListener {
             if(folio.getStockByTicker(ticker).getShares() == 0)
                 folio.deleteStock(folio.getStockByTicker(ticker));
         } catch (NegativeSharesException | NumberFormatException e1) {
-            e1.printStackTrace();
+            folioView.alertErrorMsg("You cannot sell an invalid amount of shares.");
+            //e1.printStackTrace();
         }
     }
 }
