@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="156.55" y="398.951171875">FolioDriver</node>
+    <node x="12.800000000000011" y="177.951171875">controller</node>
+    <node x="176.8" y="166.951171875">dummy</node>
+    <node x="55.05000000000001" y="278.951171875">view</node>
+    <node x="116.25833333333335" y="16.951171875">model</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="view" target="model">
+      <point x="45.0" y="-15.0" />
+      <point x="152.55" y="258.951171875" />
+      <point x="166.3" y="258.951171875" />
+      <point x="166.3" y="146.951171875" />
+      <point x="188.13333333333335" y="146.951171875" />
+      <point x="14.375" y="15.0" />
+    </edge>
+    <edge source="FolioDriver" target="view">
+      <point x="-64.125" y="-26.0" />
+      <point x="177.925" y="378.951171875" />
+      <point x="128.55" y="378.951171875" />
+      <point x="21.0" y="15.0" />
+    </edge>
+    <edge source="view" target="view">
+      <point x="0.0" y="15.0" />
+      <point x="107.55000000000001" y="348.951171875" />
+      <point x="15.050000000000011" y="348.951171875" />
+      <point x="15.050000000000011" y="283.951171875" />
+      <point x="-52.5" y="-10.0" />
+    </edge>
+    <edge source="FolioDriver" target="model">
+      <point x="21.375" y="-26.0" />
+      <point x="263.425" y="368.951171875" />
+      <point x="358.3" y="368.951171875" />
+      <point x="358.3" y="126.951171875" />
+      <point x="216.88333333333335" y="126.951171875" />
+      <point x="43.125" y="15.0" />
+    </edge>
+    <edge source="view" target="controller">
+      <point x="-30.0" y="-15.0" />
+      <point x="77.55000000000001" y="248.951171875" />
+      <point x="52.400000000000006" y="248.951171875" />
+      <point x="-26.4" y="15.0" />
+    </edge>
+    <edge source="controller" target="view">
+      <point x="26.400000000000006" y="15.0" />
+      <point x="105.20000000000002" y="258.951171875" />
+      <point x="107.55000000000001" y="258.951171875" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="dummy" target="model">
+      <point x="-42.75" y="-26.0" />
+      <point x="219.55" y="146.951171875" />
+      <point x="197.71666666666667" y="146.951171875" />
+      <point x="23.958333333333314" y="15.0" />
+    </edge>
+    <edge source="model" target="model">
+      <point x="-43.125" y="15.0" />
+      <point x="130.63333333333335" y="76.951171875" />
+      <point x="86.25833333333335" y="76.951171875" />
+      <point x="86.25833333333335" y="35.701171875" />
+      <point x="-57.5" y="3.75" />
+    </edge>
+    <edge source="controller" target="model">
+      <point x="33.0" y="-15.0" />
+      <point x="111.80000000000001" y="126.951171875" />
+      <point x="168.9666666666667" y="126.951171875" />
+      <point x="-4.791666666666657" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="204.5" y="202.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
