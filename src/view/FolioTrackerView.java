@@ -120,4 +120,9 @@ public class FolioTrackerView implements Observer {
     public Component getfrMain() {
         return null;
     }
+
+    public void outputErrorMessage(String msg)
+    {
+        JOptionPane.showMessageDialog(frMain, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }

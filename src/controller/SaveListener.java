@@ -41,7 +41,7 @@ public class SaveListener implements ActionListener {
             try {
                 folioTracker.saveToDisk(jfc.getSelectedFile());
             } catch (EmptyFolioTrackerException e) {
-                //fixme alert user
+                folioTrackerView.outputErrorMessage("Cannot save an empty folio tracker.");
             }
         }
     }

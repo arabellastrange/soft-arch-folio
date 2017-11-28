@@ -29,7 +29,7 @@ public class CreateFolioListener implements ActionListener {
         } catch (NullPointerException ex) {
             //fixme error msg to user
         } catch (DuplicateFolioException e1) {
-            //fixme error msg to user
+            trackerView.outputErrorMessage("Please don't create two folios with the same name.");
         }
     }
 }

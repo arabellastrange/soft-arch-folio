@@ -13,9 +13,10 @@ public class RightClickRow implements MouseListener {
 
     private JTable tableStocks;
     private IFolio folio;
+    private final FolioView folioView;
 
-
-    public RightClickRow(JTable tableStocks, IFolio folio) {
+    public RightClickRow(FolioView folioView, JTable tableStocks, IFolio folio) {
+        this.folioView = folioView;
         this.tableStocks = tableStocks;
         this.folio = folio;
     }
@@ -49,8 +50,8 @@ public class RightClickRow implements MouseListener {
             JMenuItem buy = new JMenuItem("Buy");
             JMenuItem sell = new JMenuItem("Sell");
 //            edit.addActionListener(new EditShareListener(tableStocks, rowindex, folioTrack, (String) tableStocks.getValueAt(rowindex, 0), fName));
-            buy.addActionListener(new BuyListener(folio, (String) tableStocks.getValueAt(rowindex, 0)));
-            sell.addActionListener(new SellListener(folio, (String) tableStocks.getValueAt(rowindex, 0)));
+            buy.addActionListener(new BuyListener(folioView, folio, (String) tableStocks.getValueAt(rowindex, 0)));
+            sell.addActionListener(new SellListener(folioView, folio, (String) tableStocks.getValueAt(rowindex, 0)));
             popup.add(edit);
             popup.add(buy);
             popup.add(sell);

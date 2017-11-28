@@ -45,6 +45,7 @@ public interface IFolio {
 
     public IStock getStockByTicker(String ticker);
 
+
     public void registerObserver(Observer o);
 
 }

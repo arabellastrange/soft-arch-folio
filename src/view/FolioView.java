@@ -83,7 +83,7 @@ public class FolioView implements Observer {
             }
         };
 
-        tableStocks.addMouseListener(new RightClickRow(tableStocks, folio));
+        tableStocks.addMouseListener(new RightClickRow(this, tableStocks, folio));
 
         JTableHeader tableHeader = tableStocks.getTableHeader();
         tableHeader.setReorderingAllowed(false);
@@ -155,6 +155,11 @@ public class FolioView implements Observer {
 
     public void alertErrorMsg(String msg) {
         JOptionPane.showMessageDialog(panAll, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public String inputAmount(String msg)
+    {
+        return JOptionPane.showInputDialog(msg);
     }
 
     public boolean getConfirmation(String s) {

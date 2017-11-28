@@ -4,6 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
 import javax.naming.InvalidNameException;
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Observable;
@@ -101,6 +102,8 @@ class Folio extends Observable implements IFolio, Serializable {
         //fixme
         return null;
     }
+
+
 
     @Override
     public void registerObserver(Observer o) {
