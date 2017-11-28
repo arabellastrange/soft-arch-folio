@@ -6,7 +6,7 @@ import model.web.WebsiteDataException;
 import java.io.*;
 import java.util.*;
 
-public class FolioTracker extends Observable implements IFolioTracker, Serializable {
+public class FolioTracker extends Observable implements IFolioTracker, Serializable{
 
     private Set<Folio> folios;
     private transient Timer refreshTimer;
@@ -108,5 +108,7 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
     public void registerObserver(Observer o) {
         addObserver(o);
     }
+
+
 
 }
