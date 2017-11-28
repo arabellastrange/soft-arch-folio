@@ -13,7 +13,7 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
 
     public FolioTracker() {
         folios = new HashSet<>();
-        setUpAutoRefresh(3000);
+//        setUpAutoRefresh(3000);
     }
 
     private void setUpAutoRefresh(long period) {

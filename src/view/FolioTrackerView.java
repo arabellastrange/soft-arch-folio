@@ -8,10 +8,7 @@ import model.IFolioTracker;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Observer;
+import java.util.*;
 
 public class FolioTrackerView implements Observer {
 
@@ -21,32 +18,33 @@ public class FolioTrackerView implements Observer {
     private JMenuItem miOpen;
     private JMenuItem miSave;
     private JFrame frMain;
+    private JPanel panTab;
 
     private IFolioTracker folioTracker;
 
     private Map<String, FolioView> nameToFolioView;
 
-    public FolioTrackerView(IFolioTracker iFolioTracker) {
-        folioTracker = iFolioTracker;
-        folioTracker.registerObserver(this);
+    public FolioTrackerView(IFolioTracker folioTracker) {
+        this.folioTracker = folioTracker;
+        this.folioTracker.registerObserver(this);
         frMain = new JFrame();
         //Tabbed Pane
         jtpStocks = new JTabbedPane();
         //Panel for tabbed pane
-        JPanel panTab = new JPanel();
+        panTab = new JPanel();
         panTab.add(jtpStocks);
         panTab.setLayout(new BoxLayout(panTab, BoxLayout.PAGE_AXIS));
         panTab.setBackground(Color.WHITE);
 
         //menu items
         miCreate = new JMenuItem("Create");
-        miCreate.addActionListener(new CreateFolioListener(this, folioTracker));
+        miCreate.addActionListener(new CreateFolioListener(this, this.folioTracker));
 
         miOpen = new JMenuItem("Load..");
-        miOpen.addActionListener(new LoadListener(folioTracker, this));
+        miOpen.addActionListener(new LoadListener(this.folioTracker, this));
 
         miSave = new JMenuItem("Save..");
-        miSave.addActionListener(new SaveListener(this, folioTracker));
+        miSave.addActionListener(new SaveListener(this, this.folioTracker));
         miExit = new JMenuItem("Exit");
         miExit.addActionListener(e -> System.exit(0));
 
@@ -98,26 +96,36 @@ public class FolioTrackerView implements Observer {
 
     private void removeAnyTabs() {
         ArrayList<String> toBeDeleted = new ArrayList<>();
-        nameToFolioView
-                .keySet()
-                .forEach(key -> {
-                    boolean r = false;
-                    for (IFolio f : folioTracker.getFolios()) {
-                        if (f.getName().equals(key)) {
-                            r = true;
-                            break;
-                        }
-                    }
-                    if (!r) {
-                        toBeDeleted.add(key);
-                        jtpStocks.remove(jtpStocks.getSelectedComponent());
-                    }
-                });
+        for (String key : nameToFolioView.keySet()) {
+            boolean r = false;
+            Set<IFolio> folios = folioTracker.getFolios();
+            for (IFolio f : folioTracker.getFolios()) {
+                if (f.getName().equals(key)) {
+                    r = true;
+                    break;
+                }
+            }
+            if (!r) {
+                toBeDeleted.add(key);
+                jtpStocks.remove(jtpStocks.getSelectedComponent());
+            }
+        }
 
         toBeDeleted.forEach(key -> nameToFolioView.remove(key));
     }
 
+    public void resetViews() {
+        nameToFolioView = new HashMap<>();
+        panTab.remove(jtpStocks);
+        jtpStocks = new JTabbedPane();
+        panTab.add(jtpStocks);
+    }
+
     public Component getfrMain() {
         return null;
+    }
+
+    public void setTracker(IFolioTracker folioTracker) {
+        this.folioTracker = folioTracker;
     }
 }
