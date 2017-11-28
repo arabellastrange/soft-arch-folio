@@ -7,7 +7,10 @@ import model.IFolio;
 import model.IFolioTracker;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class FolioTrackerView implements Observer {
@@ -19,6 +22,8 @@ public class FolioTrackerView implements Observer {
     private JMenuItem miSave;
     private JFrame frMain;
     private JPanel panTab;
+    private LoadListener loadListener;
+    private SaveListener saveListener;
 
     private IFolioTracker folioTracker;
 
@@ -41,10 +46,10 @@ public class FolioTrackerView implements Observer {
         miCreate.addActionListener(new CreateFolioListener(this, this.folioTracker));
 
         miOpen = new JMenuItem("Load..");
-        miOpen.addActionListener(new LoadListener(this.folioTracker, this));
+        miOpen.addActionListener(loadListener = new LoadListener(this.folioTracker, this));
 
         miSave = new JMenuItem("Save..");
-        miSave.addActionListener(new SaveListener(this, this.folioTracker));
+        miSave.addActionListener(saveListener = new SaveListener(this, this.folioTracker));
         miExit = new JMenuItem("Exit");
         miExit.addActionListener(e -> System.exit(0));
 
@@ -76,7 +81,7 @@ public class FolioTrackerView implements Observer {
     }
 
     public String getFolioName() {
-        String folioName = JOptionPane.showInputDialog("Enter folio name: ");
+        String folioName = JOptionPane.showInputDialog("Enter folio name: ").trim();
         if (folioName == null || folioName == "") throw new NullPointerException();
         return folioName;
     }
@@ -127,10 +132,23 @@ public class FolioTrackerView implements Observer {
 
     public void setTracker(IFolioTracker folioTracker) {
         this.folioTracker = folioTracker;
+        miOpen.removeActionListener(loadListener);
+        miOpen.addActionListener(loadListener = new LoadListener(this.folioTracker, this));
+        miSave.removeActionListener(saveListener);
+        miSave.addActionListener(saveListener = new SaveListener(this, this.folioTracker));
     }
 
-    public void outputErrorMessage(String msg)
-    {
+    public void outputErrorMessage(String msg) {
         JOptionPane.showMessageDialog(frMain, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public File getFile() throws FileNotFoundException {
+        JFileChooser jfc = new JFileChooser();
+        jfc.removeChoosableFileFilter(jfc.getFileFilter());
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Folio files", "folio");
+        jfc.setFileFilter(filter);
+        jfc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        jfc.showOpenDialog(frMain);
+        return jfc.getSelectedFile();
     }
 }

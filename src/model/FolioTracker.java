@@ -35,6 +35,7 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
 
     @Override
     public IFolio createFolio(String name) throws DuplicateFolioException, EmptyNameException {
+        name = name.trim();
         if(name.equals("")) throw new EmptyNameException();
         Folio f = new Folio(name);
         if (!folios.add(f)) throw new DuplicateFolioException();
@@ -43,7 +44,9 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         return f;
     }
 
-    public boolean createFolio(Folio f){ return folios.add(f);}
+    public boolean createFolio(Folio f) {
+        return folios.add(f);
+    }
 
     @Override
     public Set<IFolio> getFolios() {
@@ -73,27 +76,15 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
     }
 
     @Override
-    public boolean saveToDisk(File file) throws EmptyFolioTrackerException {
-        if (folios.isEmpty()) throw new EmptyFolioTrackerException();
-
+    public void saveToDisk(File file) throws IOException {
         FileOutputStream fos;
         ObjectOutputStream oos;
-
-        try {
-            fos = new FileOutputStream(file);
-            oos = new ObjectOutputStream(fos);
-            oos.writeObject(this);
-            oos.close();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        fos = new FileOutputStream(file);
+        oos = new ObjectOutputStream(fos);
+        oos.writeObject(this);
+        oos.close();
+        fos.close();
         System.out.println("saved data");
-        return true;
     }
 
 //    @Override

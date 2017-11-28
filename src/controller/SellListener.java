@@ -24,14 +24,17 @@ public class SellListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //fixme same as in buy
         String msg = "Enter the amount you would like to sell";
-
-        try {
-            int amount = Integer.parseInt(folioView.inputAmount(msg));
+        String amountString = folioView.inputAmount(msg);
+        if(amountString !=  null){
+            try {
+                int amount = Integer.parseInt(amountString.trim());
             folio.getStockByTicker(ticker).sell(amount);
             if(folio.getStockByTicker(ticker).getShares() == 0)
                 folio.deleteStock(folio.getStockByTicker(ticker));
         } catch (NegativeSharesException | NumberFormatException e1) {
-            e1.printStackTrace();
+            folioView.alertErrorMsg("You cannot sell an invalid amount of shares.");
+            //e1.printStackTrace();
+        }
         }
     }
 }

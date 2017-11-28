@@ -38,6 +38,7 @@ class Folio extends Observable implements IFolio, Serializable {
 
     @Override
     public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NoSuchTickerException, WebsiteDataException, NegativeSharesException {
+       name = name.trim();
         if (name == null || name.isEmpty()) throw new InvalidNameException("name is empty or null");
         if (shares <= 0) throw new NegativeSharesException();
         for(Stock stock: stocks)

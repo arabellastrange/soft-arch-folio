@@ -24,14 +24,18 @@ public class BuyListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String msg = "Enter the amount you would like to buy";
-
-        try {
-            int amount = Integer.parseInt(folioView.inputAmount(msg));
-            folio.getStockByTicker(ticker).buy(amount);
-            System.out.println(folio.getStockByTicker(ticker).lossProfit());
-        } catch (NegativeSharesException | NumberFormatException e1) {
-            folioView.alertErrorMsg("You cannot buy a negative amount of shares.");
-           // e1.printStackTrace();
+        String amountString = folioView.inputAmount(msg);
+        if(amountString !=  null){
+            try {
+                int amount = Integer.parseInt(amountString.trim());
+                folio.getStockByTicker(ticker).buy(amount);
+                System.out.println(folio.getStockByTicker(ticker).lossProfit());
+            } catch (NegativeSharesException | NumberFormatException e1) {
+                folioView.alertErrorMsg("You cannot buy an invalid amount of shares.");
+                // e1.printStackTrace();
+            }
         }
+
+
     }
 }
