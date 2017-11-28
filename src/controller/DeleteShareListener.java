@@ -23,7 +23,7 @@ public class DeleteShareListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //fixme same as in buy
-        String msg = "Are you sure you want to delete this " + ticker + " share?";
+        String msg = "Are you sure you want to delete all " + ticker + " shares?";
 
         try {
           if (folioView.getConfirmation(msg))
