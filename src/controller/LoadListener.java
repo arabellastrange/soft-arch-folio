@@ -2,6 +2,7 @@ package controller;
 
 import model.IFolio;
 import model.IFolioTracker;
+import model.IStock;
 import view.FolioTrackerView;
 import view.FolioView;
 
@@ -28,12 +29,7 @@ public class LoadListener implements ActionListener {
             view.resetViews();
             view.setTracker(folioTracker);
             folioTracker.registerObserver(view);
-            for (IFolio f : folioTracker.getFolios()) {
-                FolioView newFolioView = new FolioView(folioTracker, f);
-                f.registerObserver(newFolioView);
-                view.addFolioView(f.getName(), newFolioView);
-                newFolioView.update((Observable) f, null);
-            }
+            sync();
             view.update((Observable) folioTracker, null);
         } catch (IOException e1) {
             view.outputErrorMessage("Not a valid file.");
@@ -41,6 +37,20 @@ public class LoadListener implements ActionListener {
             view.outputErrorMessage("Not a valid file type.");
         } catch (NullPointerException nullpointer) {
 
+        }
+    }
+
+    private void sync() {
+        for (IFolio f : folioTracker.getFolios()) {
+            FolioView newFolioView = new FolioView(folioTracker, f);
+            f.registerObserver(newFolioView);
+
+            for (IStock s : f.getStocks()) {
+                s.registerObserver(newFolioView);
+            }
+
+            view.addFolioView(f.getName(), newFolioView);
+            newFolioView.update((Observable) f, null);
         }
     }
 }

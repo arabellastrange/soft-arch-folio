@@ -1,7 +1,5 @@
 package controller;
 
-
-import model.EmptyFolioTrackerException;
 import model.IFolioTracker;
 import view.FolioTrackerView;
 
