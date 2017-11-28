@@ -1,7 +1,8 @@
 package view;
 
 import controller.BuyListener;
-import controller.EditShareListener;
+import controller.DeleteShareListener;
+//import controller.EditShareListener;
 import controller.SellListener;
 import model.IFolio;
 
@@ -49,12 +50,15 @@ public class RightClickRow implements MouseListener {
             JMenuItem edit = new JMenuItem("Edit share");
             JMenuItem buy = new JMenuItem("Buy");
             JMenuItem sell = new JMenuItem("Sell");
+            JMenuItem delete = new JMenuItem("Delete Share");
 //            edit.addActionListener(new EditShareListener(tableStocks, rowindex, folioTrack, (String) tableStocks.getValueAt(rowindex, 0), fName));
             buy.addActionListener(new BuyListener(folioView, folio, (String) tableStocks.getValueAt(rowindex, 0)));
             sell.addActionListener(new SellListener(folioView, folio, (String) tableStocks.getValueAt(rowindex, 0)));
+            delete.addActionListener(new DeleteShareListener(folioView, folio, (String) tableStocks.getValueAt(rowindex,0)));
             popup.add(edit);
             popup.add(buy);
             popup.add(sell);
+            popup.add(delete);
             popup.show(e.getComponent(), e.getX(), e.getY());
         }
     }
