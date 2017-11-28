@@ -21,6 +21,8 @@ public class FolioTrackerView implements Observer {
     private JMenuItem miSave;
     private JFrame frMain;
     private JPanel panTab;
+    private LoadListener loadListener;
+    private SaveListener saveListener;
 
     private IFolioTracker folioTracker;
 
@@ -43,10 +45,10 @@ public class FolioTrackerView implements Observer {
         miCreate.addActionListener(new CreateFolioListener(this, this.folioTracker));
 
         miOpen = new JMenuItem("Load..");
-        miOpen.addActionListener(new LoadListener(this.folioTracker, this));
+        miOpen.addActionListener(loadListener = new LoadListener(this.folioTracker, this));
 
         miSave = new JMenuItem("Save..");
-        miSave.addActionListener(new SaveListener(this, this.folioTracker));
+        miSave.addActionListener(saveListener = new SaveListener(this, this.folioTracker));
         miExit = new JMenuItem("Exit");
         miExit.addActionListener(e -> System.exit(0));
 
@@ -129,6 +131,10 @@ public class FolioTrackerView implements Observer {
 
     public void setTracker(IFolioTracker folioTracker) {
         this.folioTracker = folioTracker;
+        miOpen.removeActionListener(loadListener);
+        miOpen.addActionListener(loadListener = new LoadListener(this.folioTracker, this));
+        miSave.removeActionListener(saveListener);
+        miSave.addActionListener(saveListener = new SaveListener(this, this.folioTracker));
     }
 
     public void outputErrorMessage(String msg) {
@@ -138,8 +144,7 @@ public class FolioTrackerView implements Observer {
     public File getFile() throws FileNotFoundException {
         JFileChooser jfc = new JFileChooser();
         jfc.setCurrentDirectory(new File(System.getProperty("user.dir")));
-        int result = jfc.showOpenDialog(frMain);
-        if (result != 0) throw new FileNotFoundException();
+        jfc.showOpenDialog(frMain);
         return jfc.getSelectedFile();
     }
 }

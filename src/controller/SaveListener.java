@@ -2,47 +2,43 @@ package controller;
 
 
 import model.EmptyFolioTrackerException;
-import model.FolioTracker;
 import model.IFolioTracker;
 import view.FolioTrackerView;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SaveListener implements ActionListener {
 
-    private FolioTrackerView folioTrackerView;
+    private FolioTrackerView view;
     private IFolioTracker folioTracker;
 
-    public SaveListener(FolioTrackerView folioTrackerView, IFolioTracker folioTracker) {
-        this.folioTrackerView = folioTrackerView;
+    public SaveListener(FolioTrackerView view, IFolioTracker folioTracker) {
+        this.view = view;
         this.folioTracker = folioTracker;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try {
-            save();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+        File file = null;
+        if (folioTracker.getFolios().isEmpty()) {
+            view.outputErrorMessage("No folios to save.");
+            return;
         }
-    }
+        try {
+            file = view.getFile();
+        } catch (FileNotFoundException e1) {
+            view.outputErrorMessage("Wrong file");
+        }
+        try {
+            folioTracker.saveToDisk(file);
+        } catch (IOException e1) {
+            view.outputErrorMessage("Couldnr read from file");
+        } catch (NullPointerException nullptr) {
 
-    private void save() throws IOException {
-        FileNameExtensionFilter filtTxt = new FileNameExtensionFilter("FOLIO FILES", "folio", "folios");
-        JFileChooser jfc = new JFileChooser();
-        jfc.setSelectedFile(new File("default.folio"));
-        jfc.setFileFilter(filtTxt);
-        if (1 == JFileChooser.APPROVE_OPTION) {
-            try {
-                folioTracker.saveToDisk(jfc.getSelectedFile());
-            } catch (EmptyFolioTrackerException e) {
-                folioTrackerView.outputErrorMessage("Cannot save an empty folio tracker.");
-            }
         }
     }
 

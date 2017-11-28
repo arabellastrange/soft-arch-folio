@@ -2,12 +2,9 @@ package controller;
 
 import model.IFolio;
 import model.IFolioTracker;
-import model.web.NoSuchTickerException;
-import model.web.WebsiteDataException;
 import view.FolioTrackerView;
 import view.FolioView;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,33 +12,35 @@ import java.io.IOException;
 import java.util.Observable;
 
 public class LoadListener implements ActionListener {
-    private final FolioTrackerView folioTrackerView;
+    private final FolioTrackerView view;
     private IFolioTracker folioTracker;
 
-    public LoadListener(IFolioTracker folioTracker, FolioTrackerView folioTrackerView) {
+    public LoadListener(IFolioTracker folioTracker, FolioTrackerView view) {
         this.folioTracker = folioTracker;
-        this.folioTrackerView = folioTrackerView;
+        this.view = view;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            File file = folioTrackerView.getFile();
+            File file = view.getFile();
             folioTracker = IFolioTracker.load(file);
-            folioTrackerView.resetViews();
-            folioTrackerView.setTracker(folioTracker);
-            folioTracker.registerObserver(folioTrackerView);
+            view.resetViews();
+            view.setTracker(folioTracker);
+            folioTracker.registerObserver(view);
             for (IFolio f : folioTracker.getFolios()) {
                 FolioView newFolioView = new FolioView(folioTracker, f);
                 f.registerObserver(newFolioView);
-                folioTrackerView.addFolioView(f.getName(), newFolioView);
+                view.addFolioView(f.getName(), newFolioView);
                 newFolioView.update((Observable) f, null);
             }
-            folioTrackerView.update((Observable) folioTracker, null);
+            view.update((Observable) folioTracker, null);
         } catch (IOException e1) {
-            folioTrackerView.outputErrorMessage("Not a valid file.");
+            view.outputErrorMessage("Not a valid file.");
         } catch (ClassNotFoundException e2) {
-            folioTrackerView.outputErrorMessage("Not a valid file type.");
+            view.outputErrorMessage("Not a valid file type.");
+        } catch (NullPointerException nullpointer) {
+
         }
     }
 }
