@@ -10,39 +10,39 @@ import java.util.Set;
 public interface IFolio {
 
     /**
-     * @param ticker
-     * @param name
-     * @param shares
-     * @return
-     * @throws InvalidNameException
-     * @throws NegativeSharesException
-     * @throws NoSuchTickerException
-     * @throws WebsiteDataException
+     * @requires
+     * @modifies this
+     * @effects stocks' = stocks + new Stock();
+     * @throws InvalidNameException, NegativeSharesException,  NoSuchTickerException, WebsiteDataException, NegativeSharesException
      */
     public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NegativeSharesException, NoSuchTickerException, WebsiteDataException, NegativeSharesException;
 
     /**
-     * @param stock
-     * @return
+     *
+     * @modifies this
+     * @effects stocks' = stocks - stock
      */
     public void deleteStock(IStock stock);
 
     /**
-     * @return
+     * @return set of stocks
      */
     public Set<IStock> getStocks();
 
     /**
-     * @return
+     * @return folio value
      */
     public double getValue();
 
     /**
      *
-     * @return
+     * @return folio name
      */
     public String getName();
 
+    /**
+     * @return stock where stock ticker equals ticker
+     */
     public IStock getStockByTicker(String ticker);
 
 

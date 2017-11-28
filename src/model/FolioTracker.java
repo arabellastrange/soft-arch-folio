@@ -41,7 +41,6 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         if (!folios.add(f)) throw new DuplicateFolioException();
         setChanged();
         notifyObservers();
-        assert folios.contains((f)) : "folio creation failed";
         return f;
     }
 

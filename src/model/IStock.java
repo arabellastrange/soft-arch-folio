@@ -6,60 +6,57 @@ import java.util.Observer;
 public interface IStock {
 
     /**
-     * @return
+     * @return ticker
      */
     public String getTicker();
 
     /**
-     * @return
+     * @return name
      */
     public String getName();
 
     /**
-     * @return
+     * @return shares
      */
     public double getShares();
 
     /**
-     * @return
+     * @return price of share
      */
     public double getPricePerShare();
 
     /**
-     * @return
+     * @return total stock value
      */
     public double getHoldingValue();
 
     /**
-     * @param shares
-     * @require shares > 0
+     * @require
      * @modifies this
      * @effects this.shares' = this.shares + shares
-     * totalcost' = totalcost + shares * pricePerShare
+     *          totalcost' = totalcost + shares * pricePerShare
      */
     public void buy(int shares) throws NegativeSharesException;
 
     /**
-     * @param shares
-     * @require shares > 0 && shares <= this.shares
+     * @require
      * @modifies this
      * @effects this.shares' = this.shares - shares
-     * totalValueSold' = totalValuesSold + shares * pricePerShare
+     * totalcost' = totalcost - shares * pricePerShare
      */
     public void sell(double shares) throws NegativeSharesException;
 
 
     /**
-     * @return gain/loss percentage
+     *  @return loss/profit
      */
     public double lossProfit();
 
     /**
-     *
-     * @param name
-     * @throws InvalidNameException
+     *@modifies this
      */
     public void setName(String name) throws InvalidNameException, EmptyNameException;
+
 
     public void registerObserver(Observer o);
 }

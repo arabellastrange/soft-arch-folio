@@ -20,44 +20,34 @@ public interface IFolioTracker {
     }
 
     /**
-     * @param name
-     * @return
+     * @modifies this
+     * @effects folios' = folios + new Folio()
      */
     public IFolio createFolio(String name) throws DuplicateFolioException, EmptyNameException;
 
     /**
-     * @return
+     * @returns set of foios
      */
     public Set<IFolio> getFolios();
 
     /**
-     * @param folio
-     * @return
+     * @modifies this
+     * @effects folios' = folios - folio
      */
     public boolean deleteFolio(IFolio folio);
 
     /**
-     * @throws NoSuchTickerException
-     * @throws WebsiteDataException
+     * @modifies this
+     * @effects refreshes all stocks in all folios such that stock price is updated
      */
     public void refresh() throws NoSuchTickerException, WebsiteDataException;
 
     /**
-     * @return
+     * @effects saves folio tracker to disk
      */
     public void saveToDisk(File file) throws IOException;
 
 
-    /**
-     *
-     * @param name
-     * @return
-     */
-
-    /**
-     *
-     * @param o
-     */
     public void registerObserver(Observer o);
 
 }
