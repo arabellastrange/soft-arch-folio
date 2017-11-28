@@ -35,7 +35,7 @@ public class AddStockListener implements ActionListener {
             folioView.alertErrorMsg("no ticker ");
         } catch (WebsiteDataException e1) {
             folioView.alertErrorMsg("dead weabsite");
-        } catch (NullPointerException e1){
+        } catch (NullPointerException e1    ){
             folioView.alertErrorMsg("invalid share amount");
         }
     }
