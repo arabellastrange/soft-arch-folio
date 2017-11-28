@@ -25,27 +25,23 @@ public class LoadListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JFileChooser jfc = new JFileChooser();
-        jfc.setCurrentDirectory(new File(System.getProperty("user.dir")));
-        int result = jfc.showOpenDialog(folioTrackerView.getfrMain());
-        if (result == 0) {
-            try {
-                folioTracker = IFolioTracker.load(jfc.getSelectedFile());
-                folioTrackerView.resetViews();
-                folioTrackerView.setTracker(folioTracker);
-                folioTracker.registerObserver(folioTrackerView);
-                for (IFolio f : folioTracker.getFolios()) {
-                    FolioView newFolioView = new FolioView(folioTracker, f);
-                    f.registerObserver(newFolioView);
-                    folioTrackerView.addFolioView(f.getName(), newFolioView);
-                    newFolioView.update((Observable) f, null);
-                }
-                folioTrackerView.update((Observable) folioTracker, null);
-            } catch (IOException e1) {
-                folioTrackerView.outputErrorMessage("Not a valid file.");
-            } catch (ClassNotFoundException e2) {
-                folioTrackerView.outputErrorMessage("Not a valid file type.");
+        try {
+            File file = folioTrackerView.getFile();
+            folioTracker = IFolioTracker.load(file);
+            folioTrackerView.resetViews();
+            folioTrackerView.setTracker(folioTracker);
+            folioTracker.registerObserver(folioTrackerView);
+            for (IFolio f : folioTracker.getFolios()) {
+                FolioView newFolioView = new FolioView(folioTracker, f);
+                f.registerObserver(newFolioView);
+                folioTrackerView.addFolioView(f.getName(), newFolioView);
+                newFolioView.update((Observable) f, null);
             }
+            folioTrackerView.update((Observable) folioTracker, null);
+        } catch (IOException e1) {
+            folioTrackerView.outputErrorMessage("Not a valid file.");
+        } catch (ClassNotFoundException e2) {
+            folioTrackerView.outputErrorMessage("Not a valid file type.");
         }
     }
 }

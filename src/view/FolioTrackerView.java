@@ -8,6 +8,8 @@ import model.IFolioTracker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class FolioTrackerView implements Observer {
@@ -129,8 +131,15 @@ public class FolioTrackerView implements Observer {
         this.folioTracker = folioTracker;
     }
 
-    public void outputErrorMessage(String msg)
-    {
+    public void outputErrorMessage(String msg) {
         JOptionPane.showMessageDialog(frMain, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public File getFile() throws FileNotFoundException {
+        JFileChooser jfc = new JFileChooser();
+        jfc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        int result = jfc.showOpenDialog(frMain);
+        if (result != 0) throw new FileNotFoundException();
+        return jfc.getSelectedFile();
     }
 }
