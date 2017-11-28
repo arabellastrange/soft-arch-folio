@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.naming.InvalidNameException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
@@ -80,6 +81,18 @@ public class FolioTrackerTest {
         ft1.createFolio(f);
         assertTrue(f.createStock("msft", "micro", 200));
     }
+
+//    @Test
+//    public void testSave() throws WebsiteDataException, NegativeSharesException, InvalidNameException, NoSuchTickerException, EmptyFolioTrackerException {
+//        File fl = new File("src/default.folio");
+//        Folio f = new Folio("cookie");
+//        Folio f1 = new Folio("great");
+//        f.createStock("sd", "name", 300);
+//        f1.createStock("x", "duck", 10);
+//        ft1.createFolio(f);
+//        ft1.createFolio(f1);
+//        assertTrue(ft1.saveToDisk(fl));
+//    }
 
 
 }

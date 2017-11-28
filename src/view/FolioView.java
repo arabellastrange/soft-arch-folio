@@ -95,7 +95,7 @@ public class FolioView implements Observer {
         TableRowSorter<TableModel> sortByValue = new TableRowSorter<TableModel>(dftModel);
 
         ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(4, SortOrder.DESCENDING));
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         sortByValue.setSortKeys(sortKeys);
         tableStocks.setRowSorter(sortByValue);
 

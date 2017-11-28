@@ -87,7 +87,7 @@ class Folio extends Observable implements IFolio, Serializable {
 
     @Override
     public double getValue() {
-        int value = 0;
+        double value = 0;
         for (Stock stock : stocks)
             value += stock.getHoldingValue();
         return value;
