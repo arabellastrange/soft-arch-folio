@@ -28,6 +28,8 @@ public class SellListener implements ActionListener {
         try {
             int amount = Integer.parseInt(folioView.inputAmount(msg));
             folio.getStockByTicker(ticker).sell(amount);
+            if(folio.getStockByTicker(ticker).getShares() == 0)
+                folio.deleteStock(folio.getStockByTicker(ticker));
         } catch (NegativeSharesException | NumberFormatException e1) {
             e1.printStackTrace();
         }

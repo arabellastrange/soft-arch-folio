@@ -71,8 +71,10 @@ class Folio extends Observable implements IFolio, Serializable {
     }
 
     @Override
-    public boolean deleteStock(IStock stock) {
-        return stocks.remove(stock);
+    public void deleteStock(IStock stock) {
+        stocks.remove(stock);
+        setChanged();
+        notifyObservers();
     }
 
     @Override

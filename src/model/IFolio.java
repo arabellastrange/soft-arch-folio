@@ -25,7 +25,7 @@ public interface IFolio {
      * @param stock
      * @return
      */
-    public boolean deleteStock(IStock stock);
+    public void deleteStock(IStock stock);
 
     /**
      * @return
