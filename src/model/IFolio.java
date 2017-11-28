@@ -4,6 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
 import javax.naming.InvalidNameException;
+import java.util.Observer;
 import java.util.Set;
 
 public interface IFolio {
@@ -42,6 +43,8 @@ public interface IFolio {
      */
     public String getName();
 
-    public IStock getStockByTicker(String name);
+    public IStock getStockByTicker(String ticker);
+
+    public void registerObserver(Observer o);
 
 }

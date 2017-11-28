@@ -1,6 +1,5 @@
 package controller;
 
-import model.IFolio;
 import model.IFolioTracker;
 import model.IStock;
 
@@ -24,13 +23,12 @@ public class EditShareListener implements ActionListener{
         this.rowindex = rowindex;
         this.f = f;
         //use IFolioTracker to get folio name reference and make s = ticker name of stock referenced
-        s = f.getFolioByName(fName).getStockByTicker(ticker);
+//        s = f.getFolioByName(fName).getStockByTicker(ticker);
         this.ticker = ticker;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         try {
             editing();
         } catch (InvalidNameException e1) {
@@ -45,7 +43,7 @@ public class EditShareListener implements ActionListener{
 
         String tsymbol = (String) tableStocks.getValueAt(rowindex, 0);
         String name = (String) tableStocks.getValueAt(rowindex, 1);
-        String cvalue = (String) tableStocks.getValueAt(rowindex, 3);
+        String cvalue = tableStocks.getValueAt(rowindex, 3).toString();
 
         JLabel Lediting = new JLabel("Editing Share: ");
         JLabel Ltsymbol = new JLabel("Ticker symbol: " +  tsymbol);

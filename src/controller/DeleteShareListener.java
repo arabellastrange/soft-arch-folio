@@ -17,7 +17,6 @@ public class DeleteShareListener implements ActionListener{
     DeleteShareListener(IFolioTracker f, String ticker, String fName)
     {
         this.f = f;
-        s = f.getFolioByName(fName);
         this.ticker = ticker;
     }
 

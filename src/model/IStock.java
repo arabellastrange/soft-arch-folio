@@ -1,6 +1,7 @@
 package model;
 
 import javax.naming.InvalidNameException;
+import java.util.Observer;
 
 public interface IStock {
 
@@ -59,4 +60,6 @@ public interface IStock {
      * @throws InvalidNameException
      */
     public void setName(String name) throws InvalidNameException;
+
+    public void registerObserver(Observer o);
 }

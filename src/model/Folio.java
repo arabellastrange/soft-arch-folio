@@ -1,15 +1,17 @@
 package model;
 
-        import model.web.NoSuchTickerException;
-        import model.web.WebsiteDataException;
+import model.web.NoSuchTickerException;
+import model.web.WebsiteDataException;
 
-        import javax.naming.InvalidNameException;
-        import java.io.Serializable;
-        import java.util.HashSet;
-        import java.util.Set;
-        import java.util.stream.Collectors;
+import javax.naming.InvalidNameException;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-class Folio implements IFolio, Serializable{
+class Folio extends Observable implements IFolio, Serializable {
 
     private String name;
     private Set<Stock> stocks;
@@ -38,7 +40,11 @@ class Folio implements IFolio, Serializable{
         if (name == null || name.isEmpty()) throw new InvalidNameException("name is empty or null");
         if (shares <= 0) throw new NegativeSharesException();
         Stock s = new Stock(ticker, name, shares);
-        return stocks.add(s);
+        boolean result = stocks.add(s);
+        if (!result) return false;
+        setChanged();
+        notifyObservers();
+        return true;
     }
 
     @Override
@@ -53,9 +59,7 @@ class Folio implements IFolio, Serializable{
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + stocks.hashCode();
-        return result;
+        return name.hashCode();
     }
 
     @Override
@@ -84,14 +88,16 @@ class Folio implements IFolio, Serializable{
     }
 
     @Override
-    public IStock getStockByTicker(String name) {
-        for(IStock s: stocks)
-            if(s.getTicker().equals(name)) return s;
-        //Fix if doesnt exist
+    public IStock getStockByTicker(String ticker) {
+        for (IStock s : stocks)
+            if (s.getTicker().equals(ticker)) return s;
+        //fixme
         return null;
     }
 
-    public void addStock(Stock s) {
-        stocks.add(s);
+    @Override
+    public void registerObserver(Observer o) {
+        addObserver(o);
     }
+
 }

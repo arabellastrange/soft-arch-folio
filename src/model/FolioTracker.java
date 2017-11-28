@@ -9,33 +9,37 @@ import java.util.*;
 public class FolioTracker extends Observable implements IFolioTracker, Serializable {
 
     private Set<Folio> folios;
-    private Timer refreshTimer;
+    private transient Timer refreshTimer;
 
     public FolioTracker() {
-        refreshTimer = new Timer("refresh timer");
         folios = new HashSet<>();
-        setUpAutoRefresh(5000);
+        setUpAutoRefresh(3000);
     }
 
     private void setUpAutoRefresh(long period) {
-       refreshTimer.schedule(new TimerTask() {
-           @Override
-           public void run() {
-               try {
-                   refresh();
-                   System.out.println("all the tickers were refreshed");
-               } catch (NoSuchTickerException e) {
-                   e.printStackTrace();
-               } catch (WebsiteDataException e) {
-                   e.printStackTrace();
-               }
-           }
-       }, 0, period);
+        refreshTimer = new Timer("refresh timer");
+        refreshTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    refresh();
+                    System.out.println("all the tickers were refreshed");
+                } catch (NoSuchTickerException e) {
+                    e.printStackTrace();
+                } catch (WebsiteDataException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 0, period);
     }
 
     @Override
-    public boolean createFolio(String name) {
-        return folios.add(new Folio(name));
+    public IFolio createFolio(String name) throws DuplicateFolioException {
+        Folio f = new Folio(name);
+        if (!folios.add(f)) throw new DuplicateFolioException();
+        setChanged();
+        notifyObservers();
+        return f;
     }
 
     public boolean createFolio(Folio f){ return folios.add(f);}
@@ -51,7 +55,11 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
 
     @Override
     public boolean deleteFolio(IFolio folio) {
-        return folios.remove(folio);
+        boolean result = folios.remove(folio);
+        if (!result) return false;
+        setChanged();
+        notifyObservers();
+        return true;
     }
 
     @Override
@@ -59,11 +67,14 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         for (Folio f : folios) {
             f.refresh();
         }
+        setChanged();
         notifyObservers();
     }
 
     @Override
-    public boolean saveToDisk(File file) {
+    public boolean saveToDisk(File file) throws EmptyFolioTrackerException {
+        if (folios.isEmpty()) throw new EmptyFolioTrackerException();
+
         FileOutputStream fos;
         ObjectOutputStream oos;
 
@@ -84,13 +95,13 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         return true;
     }
 
-    @Override
-    public IFolio getFolioByName(String name) {
-        for (Folio f : folios) {
-            if (f.getName().equals(name)) return f;
-        }
-        throw new RuntimeException(); // fixme
-    }
+//    @Override
+//    public IFolio getFolioByName(String name) {
+//        for (Folio f : folios) {
+//            if (f.getName().equals(name)) return f;
+//        }
+//        throw new RuntimeException(); // fixme
+//    }
 
     @Override
     public void registerObserver(Observer o) {

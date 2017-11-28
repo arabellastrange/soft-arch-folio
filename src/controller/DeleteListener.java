@@ -2,49 +2,27 @@ package controller;
 
 import model.IFolio;
 import model.IFolioTracker;
-import view.CreateView;
+import view.FolioView;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DeleteListener implements ActionListener {
 
-    private IFolioTracker ift;
-    private IFolio f;
-    private CreateView cv;
+    private final IFolioTracker folioTracker;
+    private final IFolio folio;
+    private final FolioView folioView;
 
-    DeleteListener(CreateView cv, String folioName, IFolioTracker folioTracker)
-    {
-        ift = folioTracker;
-        f = ift.getFolioByName(folioName);
-        this.cv = cv;
+    public DeleteListener(FolioView folioView, IFolioTracker folioTracker, IFolio folio) {
+        this.folioView = folioView;
+        this.folioTracker = folioTracker;
+        this.folio = folio;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(areYouSure())
-        {
-            delete();
-        }
+        if (!folioView.getConfirmation("Are you sure you want to delete this folio?")) return;
+        folioTracker.deleteFolio(folio);
     }
 
-    private boolean areYouSure()
-    {
-        int selectedOption = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this folio?","WARNING",JOptionPane.YES_NO_OPTION);
-        if(selectedOption == JOptionPane.YES_OPTION)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private void delete()
-    {
-        ift.deleteFolio(f);
-        cv.closeTab();
-    }
 }
