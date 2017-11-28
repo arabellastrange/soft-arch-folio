@@ -36,7 +36,7 @@ public class EditNameListener implements ActionListener {
             } catch (EmptyNameException e1) {
                 folioView.alertErrorMsg("Please enter a valid name for the stock.");
                 // e1.printStackTrace();
-            } catch (InvalidNameException e1) { 
+            } catch (InvalidNameException e1) {
                 folioView.alertErrorMsg("Please enter a valid name for the stock.");
             }
         }
