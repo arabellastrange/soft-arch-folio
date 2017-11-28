@@ -45,7 +45,7 @@ public interface IFolioTracker {
     /**
      * @return
      */
-    public boolean saveToDisk(File file);
+    public boolean saveToDisk(File file) throws EmptyFolioTrackerException;
 
 
     /**

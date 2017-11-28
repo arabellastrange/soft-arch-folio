@@ -25,7 +25,7 @@ public class CreateFolioListener implements ActionListener {
             IFolio f = folioTracker.createFolio(folioName);
             FolioView folioView = new FolioView(folioTracker, f);
             f.registerObserver(folioView);
-            trackerView.createFolioView(folioName, folioView);
+            trackerView.addFolioView(folioName, folioView);
         } catch (NullPointerException ex) {
             //fixme error msg to user
         } catch (DuplicateFolioException e1) {

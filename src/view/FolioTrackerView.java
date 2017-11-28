@@ -1,6 +1,8 @@
 package view;
 
 import controller.CreateFolioListener;
+import controller.LoadListener;
+import controller.SaveListener;
 import model.IFolio;
 import model.IFolioTracker;
 
@@ -39,8 +41,12 @@ public class FolioTrackerView implements Observer {
         //menu items
         miCreate = new JMenuItem("Create");
         miCreate.addActionListener(new CreateFolioListener(this, folioTracker));
-        miOpen = new JMenuItem("Open...");
-        miSave = new JMenuItem("Save...");
+
+        miOpen = new JMenuItem("Load..");
+        miOpen.addActionListener(new LoadListener(folioTracker, this));
+
+        miSave = new JMenuItem("Save..");
+        miSave.addActionListener(new SaveListener(this, folioTracker));
         miExit = new JMenuItem("Exit");
         miExit.addActionListener(e -> System.exit(0));
 
@@ -77,7 +83,7 @@ public class FolioTrackerView implements Observer {
         return folioName;
     }
 
-    public void createFolioView(String folioName, FolioView newFolioView) {
+    public void addFolioView(String folioName, FolioView newFolioView) {
         jtpStocks.addTab(folioName, newFolioView.getPanAll());
         nameToFolioView.put(folioName, newFolioView);
     }

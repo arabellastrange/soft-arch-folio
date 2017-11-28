@@ -70,7 +70,9 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
     }
 
     @Override
-    public boolean saveToDisk(File file) {
+    public boolean saveToDisk(File file) throws EmptyFolioTrackerException {
+        if (folios.isEmpty()) throw new EmptyFolioTrackerException();
+
         FileOutputStream fos;
         ObjectOutputStream oos;
 
