@@ -59,7 +59,7 @@ public interface IStock {
      * @param name
      * @throws InvalidNameException
      */
-    public void setName(String name) throws InvalidNameException;
+    public void setName(String name) throws InvalidNameException, EmptyNameException;
 
     public void registerObserver(Observer o);
 }

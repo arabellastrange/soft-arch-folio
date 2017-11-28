@@ -53,7 +53,7 @@ class StockTest {
     }
 
     @Test
-    public void testSetName() throws InvalidNameException {
+    public void testSetName() throws InvalidNameException, EmptyNameException{
         assertTrue(dummyStock1.getName().equals("help"));
         dummyStock1.setName("Ahhh");
         assertTrue(dummyStock1.getName().equals("Ahhh"));

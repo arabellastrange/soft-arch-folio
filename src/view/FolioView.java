@@ -76,6 +76,7 @@ public class FolioView implements Observer {
         dftModel.addColumn("Number of Shares");
         dftModel.addColumn("Price Per Share");
         dftModel.addColumn("Value of Holding");
+        dftModel.addColumn("Profit/Loss");
 
         tableStocks = new JTable(dftModel) {
             @Override
@@ -133,12 +134,13 @@ public class FolioView implements Observer {
         }
 
         for (IStock s : folio.getStocks()) {
-            Object[] row = new Object[5];
+            Object[] row = new Object[6];
             row[0] = s.getTicker();
             row[1] = s.getName();
             row[2] = s.getShares();
             row[3] = s.getPricePerShare();
             row[4] = s.getHoldingValue();
+            row[5] = s.lossProfit();
             dftModel.addRow(row);
         }
     }
