@@ -128,4 +128,9 @@ public class FolioTrackerView implements Observer {
     public void setTracker(IFolioTracker folioTracker) {
         this.folioTracker = folioTracker;
     }
+
+    public void outputErrorMessage(String msg)
+    {
+        JOptionPane.showMessageDialog(frMain, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }

@@ -42,11 +42,9 @@ public class LoadListener implements ActionListener {
                 }
                 folioTrackerView.update((Observable) folioTracker, null);
             } catch (IOException e1) {
-                //fixme err msgs
-                JOptionPane.showMessageDialog(folioTrackerView.getfrMain(), "Not a valid file", "Error", JOptionPane.ERROR_MESSAGE);
+                folioTrackerView.outputErrorMessage("Not a valid file.");
             } catch (ClassNotFoundException e2) {
-                //fixme err msgs
-                JOptionPane.showMessageDialog(folioTrackerView.getfrMain(), "Not a valid file type", "Error", JOptionPane.ERROR_MESSAGE);
+                folioTrackerView.outputErrorMessage("Not a valid file type.");
             }
         }
     }

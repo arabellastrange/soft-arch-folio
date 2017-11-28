@@ -11,23 +11,27 @@ import java.awt.event.ActionListener;
 
 public class BuyListener implements ActionListener {
 
+    private final FolioView folioView;
     private final IFolio folio;
     private final String ticker;
 
-    public BuyListener(IFolio folio, String ticker) {
+    public BuyListener(FolioView folioView, IFolio folio, String ticker) {
+        this.folioView = folioView;
         this.ticker = ticker;
         this.folio = folio;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //fixme move the swing part in FolioView and generalize it so that its reusable
-        String buyShares = JOptionPane.showInputDialog("Enter the amount you would like to buy");
+        String msg = "Enter the amount you would like to buy";
+
         try {
-            int amount = Integer.parseInt(buyShares);
+            int amount = Integer.parseInt(folioView.inputAmount(msg));
             folio.getStockByTicker(ticker).buy(amount);
+            System.out.println(folio.getStockByTicker(ticker).lossProfit());
         } catch (NegativeSharesException | NumberFormatException e1) {
-            e1.printStackTrace();
+            folioView.alertErrorMsg("You cannot buy a negative amount of shares.");
+           // e1.printStackTrace();
         }
     }
 }

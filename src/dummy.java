@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class dummy {
-    public static void main(String[] args) throws WebsiteDataException, NegativeSharesException, InvalidNameException, NoSuchTickerException, IOException, ClassNotFoundException, DuplicateFolioException {
+    public static void main(String[] args) throws WebsiteDataException, NegativeSharesException, InvalidNameException, NoSuchTickerException, IOException, ClassNotFoundException, DuplicateFolioException, EmptyNameException {
         IFolioTracker f = new FolioTracker();
         IFolio f1 = f.createFolio("asd");
         IFolio f2 = f.createFolio("sad");

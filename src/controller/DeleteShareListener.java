@@ -1,46 +1,37 @@
 package controller;
 
 import model.IFolio;
-import model.IFolioTracker;
-
+import model.NegativeSharesException;
+import view.FolioView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DeleteShareListener implements ActionListener{
+public class DeleteShareListener implements ActionListener {
 
-    private IFolioTracker f;
-    private IFolio s;
-    private String ticker;
+    private final IFolio folio;
+    private final String ticker;
+    private final FolioView folioView;
 
-    DeleteShareListener(IFolioTracker f, String ticker, String fName)
-    {
-        this.f = f;
+    public DeleteShareListener(FolioView folioView, IFolio folio, String ticker) {
+        this.folioView = folioView;
+        this.folio = folio;
         this.ticker = ticker;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //fixme same as in buy
+        String msg = "Are you sure you want to delete this " + ticker + " share?";
 
-
-        delDialogue();
-    }
-
-    private void delDialogue()
-    {
-        int selectedOption =  JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this share?", "WARNING",JOptionPane.YES_NO_OPTION);
-        if(selectedOption == JOptionPane.YES_OPTION)
-        {
-            //delete stock in the model
-            s.deleteStock(s.getStockByTicker(ticker));
-
-            //delete the row
-            //refresh the view by calling the refresh method Ioan is currently working on
-        }
-        else
-        {
-            //do not delete the row
+        try {
+          if (folioView.getConfirmation(msg))
+          {
+              folio.deleteStock(folio.getStockByTicker(ticker));
+          }
+        } catch (NullPointerException ee) {
+            ee.printStackTrace();
         }
     }
 }

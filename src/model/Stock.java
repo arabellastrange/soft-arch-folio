@@ -16,7 +16,6 @@ class Stock extends Observable implements IStock, Serializable {
     private double sharePrice;
     private double shares;
     private double totalCost;
-    private double totalValueSold;
 
     Stock(Stock s) {
         this.ticker = s.ticker;
@@ -24,16 +23,14 @@ class Stock extends Observable implements IStock, Serializable {
         this.sharePrice = s.sharePrice;
         this.shares = s.shares;
         this.totalCost = s.totalCost;
-        this.totalValueSold = s.totalValueSold;
     }
 
     Stock(String ticker, String name, double shares) throws WebsiteDataException, NoSuchTickerException {
         this.ticker = ticker;
         this.name = name;
         this.shares = shares;
-        totalCost = sharePrice * shares;
-        totalValueSold = 0;
         refresh();
+        totalCost = sharePrice * shares;
     }
 
     void refresh() throws NoSuchTickerException, WebsiteDataException {
@@ -84,14 +81,14 @@ class Stock extends Observable implements IStock, Serializable {
     public void sell(double amount) throws NegativeSharesException {
         if (amount > shares || amount <= 0) throw new NegativeSharesException();
         this.shares -= amount;
-        totalValueSold += amount * sharePrice;
+        totalCost -= amount * sharePrice;
         setChanged();
         notifyObservers();
     }
 
     @Override
-    public double netGainPercentage() {
-        return ((sharePrice * shares + totalValueSold) / totalCost) * 100;
+    public double lossProfit() {
+        return totalCost - shares*sharePrice;
     }
 
     @Override

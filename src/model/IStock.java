@@ -52,7 +52,7 @@ public interface IStock {
     /**
      * @return gain/loss percentage
      */
-    public double netGainPercentage();
+    public double lossProfit();
 
     /**
      *

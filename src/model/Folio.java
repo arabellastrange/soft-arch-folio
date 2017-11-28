@@ -4,6 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
 import javax.naming.InvalidNameException;
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Observable;
@@ -39,6 +40,13 @@ class Folio extends Observable implements IFolio, Serializable {
     public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NoSuchTickerException, WebsiteDataException, NegativeSharesException {
         if (name == null || name.isEmpty()) throw new InvalidNameException("name is empty or null");
         if (shares <= 0) throw new NegativeSharesException();
+        for(Stock stock: stocks)
+            if(stock.getTicker().equals(ticker)){
+                stock.buy(shares);
+                setChanged();
+                notifyObservers();
+                return true;
+            }
         Stock s = new Stock(ticker, name, shares);
         boolean result = stocks.add(s);
         if (!result) return false;
@@ -63,8 +71,10 @@ class Folio extends Observable implements IFolio, Serializable {
     }
 
     @Override
-    public boolean deleteStock(IStock stock) {
-        return stocks.remove(stock);
+    public void deleteStock(IStock stock) {
+        stocks.remove(stock);
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -94,6 +104,8 @@ class Folio extends Observable implements IFolio, Serializable {
         //fixme
         return null;
     }
+
+
 
     @Override
     public void registerObserver(Observer o) {

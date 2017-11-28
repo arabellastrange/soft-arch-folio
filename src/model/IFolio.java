@@ -25,7 +25,7 @@ public interface IFolio {
      * @param stock
      * @return
      */
-    public boolean deleteStock(IStock stock);
+    public void deleteStock(IStock stock);
 
     /**
      * @return
@@ -44,6 +44,7 @@ public interface IFolio {
     public String getName();
 
     public IStock getStockByTicker(String ticker);
+
 
     public void registerObserver(Observer o);
 
