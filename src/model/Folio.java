@@ -88,9 +88,9 @@ class Folio extends Observable implements IFolio, Serializable {
     }
 
     @Override
-    public IStock getStockByTicker(String name) {
+    public IStock getStockByTicker(String ticker) {
         for(IStock s: stocks)
-            if(s.getTicker().equals(name)) return s;
+            if(s.getTicker().equals(ticker)) return s;
         //Fix if doesnt exist
         return null;
     }

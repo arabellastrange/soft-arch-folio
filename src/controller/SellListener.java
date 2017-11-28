@@ -13,7 +13,7 @@ public class SellListener implements ActionListener{
     private final String ticker;
     private final String fName;
 
-    SellListener(IFolioTracker folioTrack, String fName, String ticker){
+    public SellListener(IFolioTracker folioTrack, String fName, String ticker){
 
         this.folioTrack = folioTrack;
         this.ticker = ticker;

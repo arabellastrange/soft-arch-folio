@@ -14,7 +14,7 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
     public FolioTracker() {
         refreshTimer = new Timer("refresh timer");
         folios = new HashSet<>();
-        setUpAutoRefresh(3000);
+//        setUpAutoRefresh(3000);
     }
 
     private void setUpAutoRefresh(long period) {

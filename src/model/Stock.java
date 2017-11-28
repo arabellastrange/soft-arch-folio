@@ -6,8 +6,10 @@ import model.web.WebsiteDataException;
 
 import javax.naming.InvalidNameException;
 import java.io.Serializable;
+import java.util.Observable;
+import java.util.Observer;
 
-class Stock implements IStock, Serializable {
+class Stock extends Observable implements IStock, Serializable {
 
     private String ticker;
     private String name;
@@ -74,6 +76,8 @@ class Stock implements IStock, Serializable {
         if (amount <= 0) throw new NegativeSharesException();
         this.shares += amount;
         totalCost += amount * sharePrice;
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -81,6 +85,8 @@ class Stock implements IStock, Serializable {
         if (amount > shares || amount <= 0) throw new NegativeSharesException();
         this.shares -= amount;
         totalValueSold += amount * sharePrice;
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -92,6 +98,13 @@ class Stock implements IStock, Serializable {
     public void setName(String name) throws InvalidNameException {
         if (name == null || name.isEmpty()) throw new InvalidNameException("name is empty or null");
         this.name = name;
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+        addObserver(o);
     }
 
     @Override

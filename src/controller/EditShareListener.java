@@ -1,6 +1,5 @@
 package controller;
 
-import model.IFolio;
 import model.IFolioTracker;
 import model.IStock;
 
@@ -40,7 +39,7 @@ public class EditShareListener implements ActionListener{
 
         String tsymbol = (String) tableStocks.getValueAt(rowindex, 0);
         String name = (String) tableStocks.getValueAt(rowindex, 1);
-        String cvalue = (String) tableStocks.getValueAt(rowindex, 3);
+        String cvalue = tableStocks.getValueAt(rowindex, 3).toString();
 
         JLabel Lediting = new JLabel("Editing portfolio: ");
         JLabel Lfolio = new JLabel("Dummy folio text");

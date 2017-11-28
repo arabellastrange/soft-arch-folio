@@ -20,6 +20,7 @@ import java.util.Observer;
 
 public class FolioView implements Observer {
 
+    private final String folioName;
     //    private JTabbedPane jtpStocks;
     private JTextField tsym;
     private JTextField tname;
@@ -28,7 +29,6 @@ public class FolioView implements Observer {
     private JPanel panAll;
     private JButton addButton;
     private JButton deleteButton;
-    private final String folioName;
     private DefaultTableModel dftModel;
     private IFolioTracker folioTracker;
 
@@ -83,6 +83,8 @@ public class FolioView implements Observer {
                 return false;
             }
         };
+
+        tableStocks.addMouseListener(new RightClickRow(tableStocks, "MSFT", folioTracker, folioName));
 
         JTableHeader tableHeader = tableStocks.getTableHeader();
         tableHeader.setReorderingAllowed(false);

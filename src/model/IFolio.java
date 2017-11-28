@@ -43,7 +43,7 @@ public interface IFolio {
      */
     public String getName();
 
-    public IStock getStockByTicker(String name);
+    public IStock getStockByTicker(String ticker);
 
     public void registerObserver(Observer o);
 
