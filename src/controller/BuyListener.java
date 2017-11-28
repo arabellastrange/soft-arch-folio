@@ -30,7 +30,7 @@ public class BuyListener implements ActionListener {
             folio.getStockByTicker(ticker).buy(amount);
             System.out.println(folio.getStockByTicker(ticker).lossProfit());
         } catch (NegativeSharesException | NumberFormatException e1) {
-            folioView.alertErrorMsg("You cannot buy a negative amount of shares.");
+            folioView.alertErrorMsg("You cannot buy an invalid amount of shares.");
            // e1.printStackTrace();
         }
     }
