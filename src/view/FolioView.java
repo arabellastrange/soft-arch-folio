@@ -31,6 +31,8 @@ public class FolioView implements Observer {
     private JButton deleteButton;
     private DefaultTableModel dftModel;
     private IFolioTracker folioTracker;
+    private JLabel totalValue;
+    private double valueofFolio;
 
     public FolioView(IFolioTracker folioTracker, IFolio folio) {
         this.folio = folio;
@@ -104,12 +106,16 @@ public class FolioView implements Observer {
 
         JScrollPane jspTable = new JScrollPane(panTable);
 
+        //JLabel for the total value
+        totalValue = new JLabel("Total value: " + valueofFolio);
+
         //JButton bClose = new JButton("Close");
         deleteButton = new JButton("Delete");
         deleteButton.addActionListener(new DeleteListener(this, folioTracker, folio));
         JPanel panButton = new JPanel();
         //panButton.add(bClose, BorderLayout.WEST);
         panButton.add(deleteButton, BorderLayout.CENTER);
+        panButton.add(totalValue, BorderLayout.SOUTH);
 
         panAll = new JPanel();
         panAll.add(panInput);
@@ -126,6 +132,7 @@ public class FolioView implements Observer {
     public void update(Observable o, Object arg) {
         nshares.setValue(0);
         updateTableModel();
+        updateTotalValue();
     }
 
     public void updateTableModel() {
@@ -143,6 +150,12 @@ public class FolioView implements Observer {
             row[5] = s.lossProfit();
             dftModel.addRow(row);
         }
+    }
+
+    public void updateTotalValue()
+    {
+        valueofFolio = folio.getValue();
+        totalValue.setText("Total value: " + valueofFolio);
     }
 
     public String getTicker() {
