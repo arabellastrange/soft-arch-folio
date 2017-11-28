@@ -38,6 +38,7 @@ class Stock extends Observable implements IStock, Serializable {
         try {
             priceString = StrathQuoteServer.getLastValue(ticker);
             sharePrice = Double.parseDouble(priceString.trim());
+            assert sharePrice > 0 : "the share price is negative";
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

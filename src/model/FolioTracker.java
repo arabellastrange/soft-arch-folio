@@ -41,6 +41,7 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         if (!folios.add(f)) throw new DuplicateFolioException();
         setChanged();
         notifyObservers();
+        assert folios.contains((f)) : "folio creation failed";
         return f;
     }
 
@@ -86,14 +87,6 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
         fos.close();
         System.out.println("saved data");
     }
-
-//    @Override
-//    public IFolio getFolioByName(String name) {
-//        for (Folio f : folios) {
-//            if (f.getName().equals(name)) return f;
-//        }
-//        throw new RuntimeException(); // fixme
-//    }
 
     @Override
     public void registerObserver(Observer o) {

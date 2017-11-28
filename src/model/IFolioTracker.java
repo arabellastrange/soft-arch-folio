@@ -53,7 +53,6 @@ public interface IFolioTracker {
      * @param name
      * @return
      */
-//    public IFolio getFolioByName(String name);
 
     /**
      *

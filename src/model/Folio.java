@@ -31,9 +31,11 @@ class Folio extends Observable implements IFolio, Serializable {
     }
 
     void refresh() throws WebsiteDataException, NoSuchTickerException {
+        Folio folioCopy = new Folio(this);
         for (Stock s : stocks) {
             s.refresh();
         }
+        assert stocks.equals(folioCopy.stocks) : "stocks are not the same after refresh";
     }
 
     @Override
@@ -76,6 +78,7 @@ class Folio extends Observable implements IFolio, Serializable {
         stocks.remove(stock);
         setChanged();
         notifyObservers();
+        assert !stocks.contains(stock) : "stock removal failed";
     }
 
     @Override

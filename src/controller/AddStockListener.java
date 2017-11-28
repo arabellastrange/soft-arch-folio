@@ -24,7 +24,7 @@ public class AddStockListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            String ticker = folioView.getTicker().trim();
+            String ticker = folioView.getTicker().trim().toUpperCase();
             folio.createStock(ticker, folioView.getStockName(), folioView.getNumberOfShares());
             folio.getStockByTicker(ticker).registerObserver(folioView);
         } catch (InvalidNameException e1) {
