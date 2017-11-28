@@ -7,6 +7,7 @@ import model.IFolio;
 import model.IFolioTracker;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -143,6 +144,9 @@ public class FolioTrackerView implements Observer {
 
     public File getFile() throws FileNotFoundException {
         JFileChooser jfc = new JFileChooser();
+        jfc.removeChoosableFileFilter(jfc.getFileFilter());
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Folio files", "folio");
+        jfc.setFileFilter(filter);
         jfc.setCurrentDirectory(new File(System.getProperty("user.dir")));
         jfc.showOpenDialog(frMain);
         return jfc.getSelectedFile();

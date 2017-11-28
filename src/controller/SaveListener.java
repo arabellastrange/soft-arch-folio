@@ -30,6 +30,9 @@ public class SaveListener implements ActionListener {
         }
         try {
             file = view.getFile();
+            String path = file.getPath();
+            if (!path.endsWith(".folio")) path += ".folio";
+            file = new File(path);
         } catch (FileNotFoundException e1) {
             view.outputErrorMessage("Wrong file");
         }
