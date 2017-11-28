@@ -93,6 +93,7 @@ class Stock extends Observable implements IStock, Serializable {
 
     @Override
     public void setName(String name) throws InvalidNameException, EmptyNameException {
+        name = name.trim();
         if (name == null || name.isEmpty()) throw new InvalidNameException("name is empty or null");
         this.name = name;
         setChanged();

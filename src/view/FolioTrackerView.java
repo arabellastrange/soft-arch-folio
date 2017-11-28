@@ -76,7 +76,7 @@ public class FolioTrackerView implements Observer {
     }
 
     public String getFolioName() {
-        String folioName = JOptionPane.showInputDialog("Enter folio name: ");
+        String folioName = JOptionPane.showInputDialog("Enter folio name: ").trim();
         if (folioName == null || folioName == "") throw new NullPointerException();
         return folioName;
     }

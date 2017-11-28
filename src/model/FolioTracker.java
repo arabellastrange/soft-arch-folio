@@ -35,6 +35,7 @@ public class FolioTracker extends Observable implements IFolioTracker, Serializa
 
     @Override
     public IFolio createFolio(String name) throws DuplicateFolioException, EmptyNameException {
+        name = name.trim();
         if(name.equals("")) throw new EmptyNameException();
         Folio f = new Folio(name);
         if (!folios.add(f)) throw new DuplicateFolioException();

@@ -24,7 +24,7 @@ public class AddStockListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            String ticker = folioView.getTicker();
+            String ticker = folioView.getTicker().trim();
             folio.createStock(ticker, folioView.getStockName(), folioView.getNumberOfShares());
             folio.getStockByTicker(ticker).registerObserver(folioView);
         } catch (InvalidNameException e1) {
@@ -35,6 +35,8 @@ public class AddStockListener implements ActionListener {
             folioView.alertErrorMsg("no ticker ");
         } catch (WebsiteDataException e1) {
             folioView.alertErrorMsg("dead weabsite");
+        } catch (NullPointerException e1){
+            folioView.alertErrorMsg("invalid share amount");
         }
     }
 
