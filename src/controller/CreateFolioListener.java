@@ -1,6 +1,7 @@
 package controller;
 
 import model.DuplicateFolioException;
+import model.EmptyNameException;
 import model.IFolio;
 import model.IFolioTracker;
 import view.FolioTrackerView;
@@ -21,7 +22,8 @@ public class CreateFolioListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            String folioName = trackerView.getFolioName();
+            String folioName;
+            folioName = trackerView.getFolioName();
             IFolio f = folioTracker.createFolio(folioName);
             FolioView folioView = new FolioView(folioTracker, f);
             f.registerObserver(folioView);
@@ -30,6 +32,8 @@ public class CreateFolioListener implements ActionListener {
             //fixme error msg to user
         } catch (DuplicateFolioException e1) {
             trackerView.outputErrorMessage("Please don't create two folios with the same name.");
+        } catch (EmptyNameException e1) {
+            trackerView.outputErrorMessage("A folio must have a name");
         }
     }
 }

@@ -58,6 +58,7 @@ public class FolioView implements Observer {
         addButton = new JButton("Add");
         addButton.addActionListener(new AddStockListener(this, folio));
 
+
         JPanel panInput = new JPanel();
 
         panInput.add(addButton, FlowLayout.LEFT);
@@ -122,6 +123,7 @@ public class FolioView implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        nshares.setValue(0);
         updateTableModel();
     }
 

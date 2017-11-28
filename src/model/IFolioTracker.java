@@ -23,7 +23,7 @@ public interface IFolioTracker {
      * @param name
      * @return
      */
-    public IFolio createFolio(String name) throws DuplicateFolioException;
+    public IFolio createFolio(String name) throws DuplicateFolioException, EmptyNameException;
 
     /**
      * @return
