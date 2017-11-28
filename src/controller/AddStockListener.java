@@ -28,15 +28,15 @@ public class AddStockListener implements ActionListener {
             folio.createStock(ticker, folioView.getStockName(), folioView.getNumberOfShares());
             folio.getStockByTicker(ticker).registerObserver(folioView);
         } catch (InvalidNameException e1) {
-            folioView.alertErrorMsg("invalid name");
+            folioView.alertErrorMsg("Share not added: Share name cannot be blank");
         } catch (NegativeSharesException e1) {
-            folioView.alertErrorMsg("negative shares");
+            folioView.alertErrorMsg("Share not added: Number of shares cannot be equal to, or smaller than, 0");
         } catch (NoSuchTickerException e1) {
-            folioView.alertErrorMsg("no ticker ");
+            folioView.alertErrorMsg("Share not added: This ticker symbol does not exist");
         } catch (WebsiteDataException e1) {
-            folioView.alertErrorMsg("dead weabsite");
+            folioView.alertErrorMsg("Share not added: There was a problem connecting to the website");
         } catch (NullPointerException e1    ){
-            folioView.alertErrorMsg("invalid share amount");
+            folioView.alertErrorMsg("Share not added: Number of shares cannot be blank");
         }
     }
 

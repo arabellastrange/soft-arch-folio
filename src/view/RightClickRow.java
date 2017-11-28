@@ -47,7 +47,7 @@ public class RightClickRow implements MouseListener {
             return;
         }
         if (e.getComponent() instanceof JTable) {
-            JPopupMenu popup = new JPopupMenu("Something"); //fixme
+            JPopupMenu popup = new JPopupMenu("Share options");
             JMenuItem edit = new JMenuItem("Edit name");
             JMenuItem buy = new JMenuItem("Buy");
             JMenuItem sell = new JMenuItem("Sell");

@@ -32,9 +32,9 @@ public class LoadListener implements ActionListener {
             sync();
             view.update((Observable) folioTracker, null);
         } catch (IOException e1) {
-            view.outputErrorMessage("Not a valid file.");
+            view.outputErrorMessage("Cannot open file: Not a valid file.");
         } catch (ClassNotFoundException e2) {
-            view.outputErrorMessage("Not a valid file type.");
+            view.outputErrorMessage("Cannot open file: Not a valid file type.");
         } catch (NullPointerException nullpointer) {
 
         }

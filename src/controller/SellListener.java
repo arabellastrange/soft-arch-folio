@@ -23,18 +23,21 @@ public class SellListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //fixme same as in buy
-        String msg = "Enter the amount you would like to sell";
+        String msg = "Enter the number of shares would like to sell";
         String amountString = folioView.inputAmount(msg);
         if(amountString !=  null){
             try {
                 int amount = Integer.parseInt(amountString.trim());
-            folio.getStockByTicker(ticker).sell(amount);
-            if(folio.getStockByTicker(ticker).getShares() == 0)
-                folio.deleteStock(folio.getStockByTicker(ticker));
-        } catch (NegativeSharesException | NumberFormatException e1) {
-            folioView.alertErrorMsg("You cannot sell an invalid amount of shares.");
-            //e1.printStackTrace();
-        }
+                folio.getStockByTicker(ticker).sell(amount);
+                if (folio.getStockByTicker(ticker).getShares() == 0)
+                    folio.deleteStock(folio.getStockByTicker(ticker));
+            } catch (NegativeSharesException e1) {
+            folioView.alertErrorMsg("Shares not sold: You cannot sell more shares than you own.");
+            // e1.printStackTrace();
+             }
+            catch(NumberFormatException e1){
+            folioView.alertErrorMsg("Shares not sold: Invalid number formatting");
+         }
         }
     }
 }

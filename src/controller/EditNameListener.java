@@ -34,10 +34,10 @@ public class EditNameListener implements ActionListener {
             try {
                 folio.getStockByTicker(ticker).setName(name);
             } catch (EmptyNameException e1) {
-                folioView.alertErrorMsg("Please enter a valid name for the stock.");
+                folioView.alertErrorMsg("Share not renamed: Please enter a non-empty name for the stock.");
                 // e1.printStackTrace();
             } catch (InvalidNameException e1) {
-                folioView.alertErrorMsg("Please enter a valid name for the stock.");
+                folioView.alertErrorMsg("Share not renamed: Please enter a name with valid formatting for the stock.");
             }
         }
     }

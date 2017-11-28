@@ -31,9 +31,9 @@ public class CreateFolioListener implements ActionListener {
         } catch (NullPointerException ex) {
             //fixme error msg to user
         } catch (DuplicateFolioException e1) {
-            trackerView.outputErrorMessage("Please don't create two folios with the same name.");
+            trackerView.outputErrorMessage("Folio not added: Please don't create two folios with the same name.");
         } catch (EmptyNameException e1) {
-            trackerView.outputErrorMessage("A folio must have a name");
+            trackerView.outputErrorMessage("Folio not added: A folio must have a name");
         }
     }
 }

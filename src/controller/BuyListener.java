@@ -23,19 +23,20 @@ public class BuyListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String msg = "Enter the amount you would like to buy";
+        String msg = "Enter the number of shares you would like to buy";
         String amountString = folioView.inputAmount(msg);
         if(amountString !=  null){
             try {
                 int amount = Integer.parseInt(amountString.trim());
                 folio.getStockByTicker(ticker).buy(amount);
                 System.out.println(folio.getStockByTicker(ticker).lossProfit());
-            } catch (NegativeSharesException | NumberFormatException e1) {
-                folioView.alertErrorMsg("You cannot buy an invalid amount of shares.");
+            } catch (NegativeSharesException e1) {
+                folioView.alertErrorMsg("Shares not bought: You cannot buy a negative amount of shares.");
                 // e1.printStackTrace();
             }
+            catch(NumberFormatException e1){
+                folioView.alertErrorMsg("Shares not bought: Invalid number formatting");
+            }
         }
-
-
     }
 }

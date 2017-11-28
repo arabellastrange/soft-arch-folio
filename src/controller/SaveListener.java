@@ -23,7 +23,7 @@ public class SaveListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         File file = null;
         if (folioTracker.getFolios().isEmpty()) {
-            view.outputErrorMessage("No folios to save.");
+            view.outputErrorMessage("File not saved: No folios to save.");
             return;
         }
         try {
@@ -32,12 +32,12 @@ public class SaveListener implements ActionListener {
             if (!path.endsWith(".folio")) path += ".folio";
             file = new File(path);
         } catch (FileNotFoundException e1) {
-            view.outputErrorMessage("Wrong file");
+            view.outputErrorMessage("File not saved: Wrong file");
         }
         try {
             folioTracker.saveToDisk(file);
         } catch (IOException e1) {
-            view.outputErrorMessage("Couldnr read from file");
+            view.outputErrorMessage("File not saved: Couldn't read from file");
         } catch (NullPointerException nullptr) {
 
         }
