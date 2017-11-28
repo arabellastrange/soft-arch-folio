@@ -4,6 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
 import javax.naming.InvalidNameException;
+import java.util.Observer;
 import java.util.Set;
 
 public interface IFolio {
@@ -14,17 +15,17 @@ public interface IFolio {
      * @param shares
      * @return
      * @throws InvalidNameException
-     * @throws NegativeShares
+     * @throws NegativeSharesException
      * @throws NoSuchTickerException
      * @throws WebsiteDataException
      */
-    public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NegativeShares, NoSuchTickerException, WebsiteDataException;
+    public boolean createStock(String ticker, String name, int shares) throws InvalidNameException, NegativeSharesException, NoSuchTickerException, WebsiteDataException, NegativeSharesException;
 
     /**
      * @param stock
      * @return
      */
-    public boolean deleteStock(IStock stock);
+    public void deleteStock(IStock stock);
 
     /**
      * @return
@@ -35,5 +36,16 @@ public interface IFolio {
      * @return
      */
     public double getValue();
+
+    /**
+     *
+     * @return
+     */
+    public String getName();
+
+    public IStock getStockByTicker(String ticker);
+
+
+    public void registerObserver(Observer o);
 
 }

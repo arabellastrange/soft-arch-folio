@@ -4,6 +4,7 @@ import model.web.NoSuchTickerException;
 import model.web.WebsiteDataException;
 
 import java.io.*;
+import java.util.Observer;
 import java.util.Set;
 
 public interface IFolioTracker {
@@ -22,7 +23,7 @@ public interface IFolioTracker {
      * @param name
      * @return
      */
-    public boolean createFolio(String name);
+    public IFolio createFolio(String name) throws DuplicateFolioException, EmptyNameException;
 
     /**
      * @return
@@ -44,6 +45,20 @@ public interface IFolioTracker {
     /**
      * @return
      */
-    public boolean saveToDisk(File file);
+    public boolean saveToDisk(File file) throws EmptyFolioTrackerException;
+
+
+    /**
+     *
+     * @param name
+     * @return
+     */
+//    public IFolio getFolioByName(String name);
+
+    /**
+     *
+     * @param o
+     */
+    public void registerObserver(Observer o);
 
 }

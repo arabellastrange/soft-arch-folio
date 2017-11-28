@@ -1,6 +1,7 @@
 package model;
 
 import javax.naming.InvalidNameException;
+import java.util.Observer;
 
 public interface IStock {
 
@@ -36,7 +37,7 @@ public interface IStock {
      * @effects this.shares' = this.shares + shares
      * totalcost' = totalcost + shares * pricePerShare
      */
-    public void buy(int shares) throws NegativeShares;
+    public void buy(int shares) throws NegativeSharesException;
 
     /**
      * @param shares
@@ -45,13 +46,13 @@ public interface IStock {
      * @effects this.shares' = this.shares - shares
      * totalValueSold' = totalValuesSold + shares * pricePerShare
      */
-    public void sell(double shares) throws NegativeShares;
+    public void sell(double shares) throws NegativeSharesException;
 
 
     /**
      * @return gain/loss percentage
      */
-    public double netGainPercentage();
+    public double lossProfit();
 
     /**
      *
@@ -59,4 +60,6 @@ public interface IStock {
      * @throws InvalidNameException
      */
     public void setName(String name) throws InvalidNameException;
+
+    public void registerObserver(Observer o);
 }

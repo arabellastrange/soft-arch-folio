@@ -6,15 +6,16 @@ import model.web.WebsiteDataException;
 
 import javax.naming.InvalidNameException;
 import java.io.Serializable;
+import java.util.Observable;
+import java.util.Observer;
 
-class Stock implements IStock, Serializable {
+class Stock extends Observable implements IStock, Serializable {
 
     private String ticker;
     private String name;
     private double sharePrice;
     private double shares;
     private double totalCost;
-    private double totalValueSold;
 
     Stock(Stock s) {
         this.ticker = s.ticker;
@@ -22,16 +23,14 @@ class Stock implements IStock, Serializable {
         this.sharePrice = s.sharePrice;
         this.shares = s.shares;
         this.totalCost = s.totalCost;
-        this.totalValueSold = s.totalValueSold;
     }
 
     Stock(String ticker, String name, double shares) throws WebsiteDataException, NoSuchTickerException {
         this.ticker = ticker;
         this.name = name;
         this.shares = shares;
-        totalCost = sharePrice * shares;
-        totalValueSold = 0;
         refresh();
+        totalCost = sharePrice * shares;
     }
 
     void refresh() throws NoSuchTickerException, WebsiteDataException {
@@ -70,28 +69,39 @@ class Stock implements IStock, Serializable {
     }
 
     @Override
-    public void buy(int amount) throws NegativeShares {
-        if (amount <= 0) throw new NegativeShares();
+    public void buy(int amount) throws NegativeSharesException {
+        if (amount <= 0) throw new NegativeSharesException();
         this.shares += amount;
         totalCost += amount * sharePrice;
+        setChanged();
+        notifyObservers();
     }
 
     @Override
-    public void sell(double amount) throws NegativeShares {
-        if (amount > shares || amount <= 0) throw new NegativeShares();
+    public void sell(double amount) throws NegativeSharesException {
+        if (amount > shares || amount <= 0) throw new NegativeSharesException();
         this.shares -= amount;
-        totalValueSold += amount * sharePrice;
+        totalCost -= amount * sharePrice;
+        setChanged();
+        notifyObservers();
     }
 
     @Override
-    public double netGainPercentage() {
-        return ((sharePrice * shares + totalValueSold) / totalCost) * 100;
+    public double lossProfit() {
+        return totalCost - shares*sharePrice;
     }
 
     @Override
     public void setName(String name) throws InvalidNameException {
         if (name == null || name.isEmpty()) throw new InvalidNameException("name is empty or null");
         this.name = name;
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+        addObserver(o);
     }
 
     @Override
